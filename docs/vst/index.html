@@ -13,8 +13,8 @@
         href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500;700;900&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" type="image/png" href="/images/logo.png">
 </head>
 
 <body>
@@ -22,17 +22,17 @@
     <!-- NAVIGATION -->
     <nav class="nav">
         <div class="nav-content">
-            <a href="index.html" class="nav-logo">WOLF <span>PACC</span> AUDIO</a>
+            <a href="/" class="nav-logo">WOLF <span>PACC</span> AUDIO</a>
             <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
             </button>
             <ul class="nav-links" id="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="beats.html">Beats</a></li>
-                <li><a href="melodies.html">Melodies</a></li>
-                <li><a href="vst.html">VST</a></li>
-                <li><a href="drumkits.html">Drum Kits</a></li>
-                <li><a href="expansions.html">Expansions</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/beats/">Beats</a></li>
+                <li><a href="/melodies/">Melodies</a></li>
+                <li><a href="/vst/">VST</a></li>
+                <li><a href="/drumkits/">Drum Kits</a></li>
+                <li><a href="/expansions/">Expansions</a></li>
             </ul>
         </div>
     </nav>
@@ -54,26 +54,26 @@
                 style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 4rem; align-items: start;">
                 <!-- Screenshot Gallery -->
                 <div>
-                    <img id="main-screenshot" src="images/screenshot_play.png" alt="Howling Wolves VST Plugin"
+                    <img id="main-screenshot" src="/images/screenshot_play.png" alt="Howling Wolves VST Plugin"
                         style="width:100%; border-radius:var(--radius-lg); border:1px solid var(--border-gold); margin-bottom:1rem;">
                     <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:0.5rem;">
-                        <img src="images/screenshot_play.png" alt="Play Mode"
+                        <img src="/images/screenshot_play.png" alt="Play Mode"
                             onclick="document.getElementById('main-screenshot').src=this.src"
                             style="width:100%; border-radius:8px; cursor:pointer; border:1px solid var(--border-subtle); opacity:0.7; transition: opacity 0.3s;"
                             onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
-                        <img src="images/screenshot_modulate.png" alt="Modulate Mode"
+                        <img src="/images/screenshot_modulate.png" alt="Modulate Mode"
                             onclick="document.getElementById('main-screenshot').src=this.src"
                             style="width:100%; border-radius:8px; cursor:pointer; border:1px solid var(--border-subtle); opacity:0.7; transition: opacity 0.3s;"
                             onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
-                        <img src="images/screenshot_perform.png" alt="Perform Mode"
+                        <img src="/images/screenshot_perform.png" alt="Perform Mode"
                             onclick="document.getElementById('main-screenshot').src=this.src"
                             style="width:100%; border-radius:8px; cursor:pointer; border:1px solid var(--border-subtle); opacity:0.7; transition: opacity 0.3s;"
                             onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
-                        <img src="images/screenshot_effects.png" alt="Effects"
+                        <img src="/images/screenshot_effects.png" alt="Effects"
                             onclick="document.getElementById('main-screenshot').src=this.src"
                             style="width:100%; border-radius:8px; cursor:pointer; border:1px solid var(--border-subtle); opacity:0.7; transition: opacity 0.3s;"
                             onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
-                        <img src="images/screenshot_presets.png" alt="Presets"
+                        <img src="/images/screenshot_presets.png" alt="Presets"
                             onclick="document.getElementById('main-screenshot').src=this.src"
                             style="width:100%; border-radius:8px; cursor:pointer; border:1px solid var(--border-subtle); opacity:0.7; transition: opacity 0.3s;"
                             onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
@@ -158,7 +158,7 @@
                             style="font-family:var(--font-head); font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--accent-gold); min-width:130px;">Wolf
                             Cry</span>
                         <audio controls preload="none" style="flex:1; height:36px;">
-                            <source src="audio/wolf_cry.wav" type="audio/wav">
+                            <source src="/audio/wolf_cry.wav" type="audio/wav">
                         </audio>
                     </div>
 
@@ -168,7 +168,7 @@
                             style="font-family:var(--font-head); font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--accent-gold); min-width:130px;">Wolf
                             Mist</span>
                         <audio controls preload="none" style="flex:1; height:36px;">
-                            <source src="audio/wolf_mist.wav" type="audio/wav">
+                            <source src="/audio/wolf_mist.wav" type="audio/wav">
                         </audio>
                     </div>
 
@@ -178,7 +178,7 @@
                             style="font-family:var(--font-head); font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--accent-gold); min-width:130px;">Midnight
                             Keys</span>
                         <audio controls preload="none" style="flex:1; height:36px;">
-                            <source src="audio/midnight_keys.wav" type="audio/wav">
+                            <source src="/audio/midnight_keys.wav" type="audio/wav">
                         </audio>
                     </div>
 
@@ -188,7 +188,7 @@
                             style="font-family:var(--font-head); font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--accent-gold); min-width:130px;">Night
                             Stalker</span>
                         <audio controls preload="none" style="flex:1; height:36px;">
-                            <source src="audio/night_stalker.wav" type="audio/wav">
+                            <source src="/audio/night_stalker.wav" type="audio/wav">
                         </audio>
                     </div>
 
@@ -198,7 +198,7 @@
                             style="font-family:var(--font-head); font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--accent-gold); min-width:130px;">Graveyard
                             808</span>
                         <audio controls preload="none" style="flex:1; height:36px;">
-                            <source src="audio/graveyard_808.wav" type="audio/wav">
+                            <source src="/audio/graveyard_808.wav" type="audio/wav">
                         </audio>
                     </div>
 
@@ -208,7 +208,7 @@
                             style="font-family:var(--font-head); font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--accent-gold); min-width:130px;">Acoustic
                             Piano</span>
                         <audio controls preload="none" style="flex:1; height:36px;">
-                            <source src="audio/acoustic_piano.wav" type="audio/wav">
+                            <source src="/audio/acoustic_piano.wav" type="audio/wav">
                         </audio>
                     </div>
 
@@ -227,9 +227,9 @@
                     <p>&copy; 2026 Wolf Pacc Audio. All rights reserved.</p>
                 </div>
                 <div class="footer-links">
-                    <a href="index.html">Home</a>
-                    <a href="beats.html">Beats</a>
-                    <a href="vst.html">VST</a>
+                    <a href="/">Home</a>
+                    <a href="/beats/">Beats</a>
+                    <a href="/vst/">VST</a>
                     <a href="mailto:support@wolfpaccaudio.com">Support</a>
                 </div>
             </div>
