@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refund Policy | Wolf Pacc Audio</title>
+    <meta name="description" content="Refund Policy for Wolf Pacc Audio.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500;700;900&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="/" class="nav-logo">WOLF <span>PACC</span> AUDIO</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/beats/">Beats</a></li>
+                <li><a href="/melodies/">Melodies</a></li>
+                <li><a href="/vst/">VST</a></li>
+                <li><a href="/drumkits/">Drum Kits</a></li>
+                <li><a href="/expansions/">Expansions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Refund Policy</h1>
+            <p>Information regarding refunds for digital products.</p>
+        </div>
+    </section>
+
+    <!-- CONTENT -->
+    <section class="about" style="padding-top: 4rem; padding-bottom: 6rem;">
+        <div class="container">
+            <div class="about-content" style="text-align: left; max-width: 800px; margin: 0 auto;">
+                <h3 style="color: var(--text-white); margin-bottom: 1rem;">1. Digital Products</h3>
+                <p style="margin-bottom: 2rem;">Due to the non-returnable nature of digital products (software, VST
+                    plugins, drum kits, sample packs, beats, expansion packs, etc.) once they are downloaded, we stand
+                    behind our products but general refunds are not offered.</p>
+
+                <h3 style="color: var(--text-white); margin-bottom: 1rem;">2. Defective Products</h3>
+                <p style="margin-bottom: 2rem;">If you experience technical issues or if a product is materially
+                    defective and our support team is unable to resolve the issue within a reasonable timeframe, we may,
+                    at our sole discretion, issue a refund or a replacement product. You must contact support within 14
+                    days of purchase with detailed information about the defect.</p>
+
+                <h3 style="color: var(--text-white); margin-bottom: 1rem;">3. Accidental Double Purchases</h3>
+                <p style="margin-bottom: 2rem;">If you accidentally purchase the same product twice, please contact our
+                    support team with proof of purchase, and we will refund the duplicate transaction.</p>
+
+                <h3 style="color: var(--text-white); margin-bottom: 1rem;">4. Compatibility Checking</h3>
+                <p style="margin-bottom: 2rem;">It is the customer's responsibility to ensure their system meets the
+                    minimum requirements stated on the product page before purchasing. Refunds will not be granted for
+                    compatibility issues if the requirements were clearly stated prior to purchase.</p>
+
+                <h3 style="color: var(--text-white); margin-bottom: 1rem;">5. Contacting Support</h3>
+                <p style="margin-bottom: 2rem;">To request a refund under the conditions above or if you need technical
+                    assistance, please contact us at support@wolfpaccaudio.com.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="brand-info">
+                    <div class="footer-brand">WOLF <span>PACC</span> AUDIO</div>
+                    <p>&copy; 2026 Wolf Pacc Audio. All rights reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="/beats/">Beats</a>
+                    <a href="/vst/">VST</a>
+                    <a href="/terms-of-service/">Terms</a>
+                    <a href="/refund-policy/">Refunds</a>
+                    <a href="mailto:support@wolfpaccaudio.com">Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+            const icon = navToggle.querySelector('i');
+            icon.className = navLinks.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                navToggle.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+    </script>
+
+</body>
+
+</html>
