@@ -2059,11 +2059,10 @@ h2 {
 
 /* Dropdown panel */
 .nav-dropdown-menu {
-    display: none;
     position: absolute;
     top: calc(100% + 1rem);
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(-6px);
     background: #18181f;
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
@@ -2072,16 +2071,33 @@ h2 {
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(0, 217, 255, 0.06);
     z-index: 300;
     list-style: none;
-    /* subtle entrance animation */
+    /* Use visibility+opacity so CSS transition actually fires (display:none kills it) */
+    visibility: hidden;
     opacity: 0;
     pointer-events: none;
-    transform: translateX(-50%) translateY(-6px);
-    transition: opacity 0.18s ease, transform 0.18s ease;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+}
+
+/* Invisible bridge that fills the gap between button and panel,
+   keeping the :hover state alive while the mouse travels across */
+.nav-dropdown::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 1.25rem; /* slightly larger than the 1rem gap */
+    background: transparent;
+    display: none;
+}
+
+.nav-dropdown:hover::after {
+    display: block;
 }
 
 /* Show on desktop hover */
 .nav-dropdown:hover .nav-dropdown-menu {
-    display: block;
+    visibility: visible;
     opacity: 1;
     pointer-events: all;
     transform: translateX(-50%) translateY(0);
@@ -2170,9 +2186,15 @@ h2 {
 
     /* Disable CSS hover; use JS .open class instead */
     .nav-dropdown:hover .nav-dropdown-menu {
-        display: none;
+        visibility: hidden;
         opacity: 0;
         pointer-events: none;
+        transform: translateX(-50%) translateY(-6px);
+    }
+
+    /* Also hide the bridge pseudo-element on mobile */
+    .nav-dropdown:hover::after {
+        display: none;
     }
 
     .nav-dropdown-toggle {
@@ -2182,11 +2204,11 @@ h2 {
     }
 
     .nav-dropdown.open .nav-dropdown-menu {
-        display: block !important;
+        visibility: visible !important;
         opacity: 1 !important;
         pointer-events: all !important;
         position: static;
-        transform: none;
+        transform: none !important;
         box-shadow: none;
         background: rgba(255, 255, 255, 0.03);
         border: none;
