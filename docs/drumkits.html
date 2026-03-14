@@ -9,8 +9,7 @@
         content="Premium drum kits and sample packs — kicks, snares, hi-hats, 808s, and percussion. Wolf Pacc Audio.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500;700;900&family=Inter:wght@400;500;600&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500;700;900&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
@@ -28,11 +27,12 @@
             </button>
             <ul class="nav-links" id="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="beats.html">Beats</a></li>
-                <li><a href="melodies.html">Melodies</a></li>
                 <li><a href="vst.html">VST</a></li>
                 <li><a href="drumkits.html">Drum Kits</a></li>
+                <li><a href="melodies.html">Melodies</a></li>
+                <li><a href="beats.html">Beats</a></li>
                 <li><a href="expansions.html">Expansions</a></li>
+                <li><a href="vst.html" class="nav-cta-link">Get the VST</a></li>
             </ul>
         </div>
     </nav>
@@ -42,6 +42,59 @@
         <div class="container">
             <h1>Drum Kits</h1>
             <p>Hard-hitting drums, 808s, and percussion for your productions</p>
+        </div>
+    </section>
+
+    <!-- DEMO PLAYER SECTION -->
+    <section class="demo-player-section">
+        <div class="container">
+            <div class="dps-header">
+                <h2 class="dps-title">Drum Kit Demos</h2>
+                <p class="dps-sub">Hear the sounds before you buy</p>
+            </div>
+            <div class="dps-tracks">
+
+                <div class="wolf-player" data-src="audio/graveyard_808.wav">
+                    <div class="wp-info">
+                        <span class="wp-badge">Drum Kit</span>
+                        <span class="wp-title">Graveyard 808</span>
+                        <span class="wp-time-display">
+                            <span class="wp-current">0:00</span>
+                            <span> / </span>
+                            <span class="wp-total">-:--</span>
+                        </span>
+                    </div>
+                    <div class="wp-row">
+                        <button class="wp-play-btn" aria-label="Play Graveyard 808">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <div class="wp-waveform" role="slider" aria-label="Seek">
+                            <div class="wp-bars"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wolf-player" data-src="audio/night_stalker.wav">
+                    <div class="wp-info">
+                        <span class="wp-badge">Drum Kit</span>
+                        <span class="wp-title">Night Stalker</span>
+                        <span class="wp-time-display">
+                            <span class="wp-current">0:00</span>
+                            <span> / </span>
+                            <span class="wp-total">-:--</span>
+                        </span>
+                    </div>
+                    <div class="wp-row">
+                        <button class="wp-play-btn" aria-label="Play Night Stalker">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <div class="wp-waveform" role="slider" aria-label="Seek">
+                            <div class="wp-bars"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
@@ -57,8 +110,7 @@
                     <div class="card-body">
                         <span class="card-badge">Drum Kit</span>
                         <h3 class="card-title">Drill Drums</h3>
-                        <p class="card-description">Premium drill drum kit with hard hitting 808 glides and crisp
-                            snares.</p>
+                        <p class="card-description">Premium drill drum kit with hard hitting 808 glides and crisp snares.</p>
                         <div class="card-footer">
                             <span class="card-price"><span class="currency">$</span>9.99</span>
                             <a href="https://djdonlito412.gumroad.com/l/jztjk" class="btn btn-card">Buy Now</a>
@@ -68,13 +120,12 @@
 
                 <div class="product-card">
                     <div class="card-image">
-                        <img src="images/cover_rb.png" alt="R&B Drums Cover Art">
+                        <img src="images/cover_rb.png" alt="R&amp;B Drums Cover Art">
                     </div>
                     <div class="card-body">
                         <span class="card-badge">Drum Kit</span>
-                        <h3 class="card-title">R&B Drums</h3>
-                        <p class="card-description">Smooth, soulful, and crisp R&B drum samples perfect for modern
-                            vibes.</p>
+                        <h3 class="card-title">R&amp;B Drums</h3>
+                        <p class="card-description">Smooth, soulful, and crisp R&amp;B drum samples perfect for modern vibes.</p>
                         <div class="card-footer">
                             <span class="card-price"><span class="currency">$</span>9.99</span>
                             <a href="https://djdonlito412.gumroad.com/l/exkhsq" class="btn btn-card">Buy Now</a>
@@ -85,12 +136,12 @@
                 <div class="product-card">
                     <div class="card-image">
                         <img src="images/cover_trap.png" alt="Trap Drums Cover Art">
+                        <span class="new-badge">New</span>
                     </div>
                     <div class="card-body">
                         <span class="card-badge">Drum Kit</span>
                         <h3 class="card-title">Trap Drums</h3>
-                        <p class="card-description">Industry standard trap drums, featuring punchy kicks and sharp
-                            hi-hats.</p>
+                        <p class="card-description">Industry standard trap drums, featuring punchy kicks and sharp hi-hats.</p>
                         <div class="card-footer">
                             <span class="card-price"><span class="currency">$</span>9.99</span>
                             <a href="https://djdonlito412.gumroad.com/l/ydrso" class="btn btn-card">Buy Now</a>
@@ -105,23 +156,35 @@
     <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="brand-info">
+            <div class="footer-top">
+                <div class="footer-brand-block">
                     <div class="footer-brand">WOLF <span>PACC</span> AUDIO</div>
-                    <p>&copy; 2026 Wolf Pacc Audio. All rights reserved.</p>
+                    <p class="footer-tagline">Sounds and instruments for creators.</p>
                 </div>
-                <div class="footer-links">
-                    <a href="index.html">Home</a>
-                    <a href="beats.html">Beats</a>
-                    <a href="vst.html">VST</a>
-                    <a href="terms-of-service.html">Terms of Service</a>
-                    <a href="refund-policy.html">Refund Policy</a>
-                    <a href="mailto:support@wolfpaccaudio.com">Support</a>
+                <div class="footer-nav-cols">
+                    <div class="footer-col">
+                        <h4 class="footer-col-title">Products</h4>
+                        <a href="vst.html">Howling Wolves VST</a>
+                        <a href="drumkits.html">Drum Kits</a>
+                        <a href="melodies.html">Melody Packs</a>
+                        <a href="beats.html">Beat Packs</a>
+                        <a href="expansions.html">Expansions</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4 class="footer-col-title">Info</h4>
+                        <a href="terms-of-service.html">Terms of Service</a>
+                        <a href="refund-policy.html">Refund Policy</a>
+                        <a href="mailto:support@wolfpaccaudio.com">Support</a>
+                    </div>
                 </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Wolf Pacc Audio. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
+    <script src="audio-player.js"></script>
     <script>
         const navToggle = document.getElementById('nav-toggle');
         const navLinks = document.getElementById('nav-links');

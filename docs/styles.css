@@ -1727,3 +1727,280 @@ h2 {
         gap: 1.5rem;
     }
 }
+
+/* ═══════════════════════════════════════════════ */
+/* WOLF PLAYER — Waveform Audio Component          */
+/* ═══════════════════════════════════════════════ */
+
+/* ─── Demo Player Section Wrapper ──────────────── */
+.demo-player-section {
+    padding: 4rem 0 2rem;
+    background: var(--bg-deep);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.dps-header {
+    margin-bottom: 2rem;
+}
+
+.dps-title {
+    font-family: var(--font-head);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, var(--text-white) 30%, var(--accent-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.25rem;
+}
+
+.dps-sub {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: var(--font-head);
+}
+
+.dps-tracks {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* ─── Individual Player ─────────────────────────── */
+.wolf-player {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    transition: border-color var(--transition);
+    user-select: none;
+}
+
+.wolf-player:hover,
+.wolf-player.wp-playing {
+    border-color: var(--border-gold);
+}
+
+.wolf-player.wp-playing {
+    box-shadow: 0 0 20px var(--accent-gold-glow);
+}
+
+/* Top info row */
+.wp-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.wp-badge {
+    display: inline-block;
+    background: rgba(0, 217, 255, 0.1);
+    border: 1px solid rgba(0, 217, 255, 0.25);
+    color: var(--accent-gold);
+    padding: 0.15rem 0.65rem;
+    border-radius: 4px;
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 0.58rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.wp-title {
+    font-family: var(--font-head);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-white);
+    flex: 1;
+}
+
+.wp-time-display {
+    font-family: var(--font-head);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    margin-left: auto;
+}
+
+.wp-playing .wp-time-display {
+    color: var(--accent-gold);
+}
+
+/* Controls row */
+.wp-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Play button */
+.wp-play-btn {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border-gold);
+    background: rgba(0, 217, 255, 0.08);
+    color: var(--accent-gold);
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+    flex-shrink: 0;
+}
+
+.wp-play-btn:hover {
+    background: rgba(0, 217, 255, 0.18);
+    box-shadow: 0 0 16px rgba(0, 217, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.wp-playing .wp-play-btn {
+    background: var(--accent-gold);
+    color: #0a0a0f;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.4);
+}
+
+/* Waveform container */
+.wp-waveform {
+    flex: 1;
+    height: 48px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+/* Bars container */
+.wp-bars {
+    position: absolute;
+    inset: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+/* Individual bar */
+.wp-bar {
+    flex: 1;
+    border-radius: 2px;
+    background: rgba(0, 217, 255, 0.2);
+    min-height: 3px;
+    transition: background 0.08s;
+}
+
+.wp-bar--played {
+    background: var(--accent-gold);
+}
+
+.wolf-player.wp-playing .wp-bar--played {
+    background: var(--accent-gold);
+    box-shadow: 0 0 4px rgba(0, 217, 255, 0.4);
+}
+
+/* Hover reveals scrubbing intent */
+.wp-waveform:hover .wp-bar {
+    background: rgba(0, 217, 255, 0.35);
+}
+
+.wp-waveform:hover .wp-bar--played {
+    background: var(--accent-gold-light);
+}
+
+/* Pulsing animation on active play bar */
+@keyframes barPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.wolf-player.wp-playing .wp-bar--played {
+    animation: barPulse 2s ease-in-out infinite;
+}
+
+/* ─── VST Showcase Screenshots ──────────────────── */
+.vst-screenshots {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.vst-screenshot-card {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    transition: all var(--transition);
+    cursor: pointer;
+}
+
+.vst-screenshot-card:hover {
+    border-color: var(--border-gold);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.vst-screenshot-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.vst-screenshot-card span {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    font-family: var(--font-head);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+    background: var(--bg-card);
+}
+
+/* ─── Responsive ────────────────────────────────── */
+@media (max-width: 768px) {
+    .demo-player-section {
+        padding: 3rem 0 1.5rem;
+    }
+
+    .wp-time-display {
+        display: none;
+    }
+
+    .wp-title {
+        font-size: 0.8rem;
+    }
+
+    .vst-screenshots {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .wp-play-btn {
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        font-size: 0.75rem;
+    }
+
+    .wp-waveform {
+        height: 40px;
+    }
+}
