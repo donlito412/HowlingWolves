@@ -1,0 +1,35 @@
+# Build directories
+build/
+build_v*/
+build_test/
+Builds/
+cmake-build-*/
+.cache/
+
+# IDE settings
+.vscode/
+.idea/
+*.xcodeproj/
+*.xcworkspace/
+*.sbr
+*.suo
+*.user
+
+# macOS
+.DS_Store
+
+# Temporary files
+*.swp
+*~
+*.log
+
+# Archives (allow downloads folder for distribution)
+*.zip
+!docs/downloads/*.zip
+
+# JUCE specific
+JuceLibraryCode/
+Music/
+
+# Installer
+Installer/

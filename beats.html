@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beats | Wolf Pacc Audio</title>
+    <meta name="description" content="Premium beats and instrumentals for artists — trap, drill, R&B and more. Wolf Pacc Audio.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">WOLF <span>PACC</span> AUDIO</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="beats.html">Beats</a></li>
+                <li><a href="melodies.html">Melodies</a></li>
+                <li><a href="vst.html">VST</a></li>
+                <li><a href="drumkits.html">Drum Kits</a></li>
+                <li><a href="expansions.html">Expansions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Beats</h1>
+            <p>Premium instrumentals for artists and creators</p>
+        </div>
+    </section>
+
+    <!-- PRODUCT GRID -->
+    <section class="category-page-grid">
+        <div class="container">
+            <div class="product-grid">
+
+                <div class="product-card">
+                    <div class="card-image">
+                        <span class="card-image-placeholder">Coming Soon</span>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-badge">Beat</span>
+                        <h3 class="card-title">Shadow Run</h3>
+                        <p class="card-description">Hard-hitting trap beat with cinematic strings and rolling hi-hats.</p>
+                        <div class="card-footer">
+                            <span class="card-price"><span class="currency">$</span>29.99</span>
+                            <a href="#" class="btn btn-card">Coming Soon</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="card-image">
+                        <span class="card-image-placeholder">Coming Soon</span>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-badge">Beat</span>
+                        <h3 class="card-title">Pack Leader</h3>
+                        <p class="card-description">Aggressive drill-type beat with dark pads and punchy drums.</p>
+                        <div class="card-footer">
+                            <span class="card-price"><span class="currency">$</span>34.99</span>
+                            <a href="#" class="btn btn-card">Coming Soon</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="card-image">
+                        <span class="card-image-placeholder">Coming Soon</span>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-badge">Beat</span>
+                        <h3 class="card-title">Full Moon</h3>
+                        <p class="card-description">Smooth R&B instrumental with lush keys and mellow vibes.</p>
+                        <div class="card-footer">
+                            <span class="card-price"><span class="currency">$</span>24.99</span>
+                            <a href="#" class="btn btn-card">Coming Soon</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="brand-info">
+                    <div class="footer-brand">WOLF <span>PACC</span> AUDIO</div>
+                    <p>&copy; 2026 Wolf Pacc Audio. All rights reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="beats.html">Beats</a>
+                    <a href="vst.html">VST</a>
+                    <a href="mailto:support@wolfpaccaudio.com">Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+            const icon = navToggle.querySelector('i');
+            icon.className = navLinks.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                navToggle.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.product-card').forEach(el => { el.classList.add('fade-in'); observer.observe(el); });
+    </script>
+
+</body>
+
+</html>

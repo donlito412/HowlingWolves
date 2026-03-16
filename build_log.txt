@@ -1,0 +1,419 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project HowlingWolves.xcodeproj build -configuration Release -parallelizeTargets -hideShellScriptEnvironment -target ALL_BUILD
+
+ComputePackagePrebuildTargetDependencyGraph
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (8 targets)
+    Target 'ALL_BUILD' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'HowlingWolves' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'HowlingWolves_Standalone' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'HowlingWolves_AU' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'HowlingWolves_VST3' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'juce_vst3_helper' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'HowlingWolvesAssets' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'ZERO_CHECK' in project 'HowlingWolves'
+    Target 'HowlingWolves_VST3' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'HowlingWolves' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'juce_vst3_helper' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'HowlingWolvesAssets' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'ZERO_CHECK' in project 'HowlingWolves'
+    Target 'juce_vst3_helper' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'ZERO_CHECK' in project 'HowlingWolves'
+    Target 'HowlingWolves_AU' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'HowlingWolves' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'HowlingWolvesAssets' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'ZERO_CHECK' in project 'HowlingWolves'
+    Target 'HowlingWolves_Standalone' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'HowlingWolves' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'HowlingWolvesAssets' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'ZERO_CHECK' in project 'HowlingWolves'
+    Target 'HowlingWolves' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'HowlingWolvesAssets' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'ZERO_CHECK' in project 'HowlingWolves'
+    Target 'HowlingWolvesAssets' in project 'HowlingWolves'
+        ➜ Explicit dependency on target 'ZERO_CHECK' in project 'HowlingWolves'
+    Target 'ZERO_CHECK' in project 'HowlingWolves' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -x c++ -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -x objective-c++ -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool -V
+
+Build description signature: de1a2fa336ab024d0bfcaba20e33ada3
+Build description path: /Users/jonfreeze/Wolf Instruments/build_v14/build/XCBuildData/de1a2fa336ab024d0bfcaba20e33ada3.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk /var/folders/nn/mv16tqd572d06qzm4gnm0zd00000gn/C/com.apple.DeveloperTools/26.2-17C52/Xcode/SDKStatCaches.noindex/macosx26.2-25C57-3885c01c3e6b6a337905948deab2002e00fa09913b459cbbc988d1f6730289ae.sdkstatcache
+    cd /Users/jonfreeze/Wolf\ Instruments/build_v14/HowlingWolves.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -o /var/folders/nn/mv16tqd572d06qzm4gnm0zd00000gn/C/com.apple.DeveloperTools/26.2-17C52/Xcode/SDKStatCaches.noindex/macosx26.2-25C57-3885c01c3e6b6a337905948deab2002e00fa09913b459cbbc988d1f6730289ae.sdkstatcache
+
+PhaseScriptExecution Generate\ CMakeFiles/ZERO_CHECK /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/ZERO_CHECK.build/Script-73E0FD46854F3C7879E3E8FD.sh (in target 'ZERO_CHECK' from project 'HowlingWolves')
+    cd /Users/jonfreeze/Wolf\ Instruments
+    /bin/sh -c /Users/jonfreeze/Wolf\\\ Instruments/build_v14/build/HowlingWolves.build/Release/ZERO_CHECK.build/Script-73E0FD46854F3C7879E3E8FD.sh
+/Applications/CMake.app/Contents/bin/cmake -P /Users/jonfreeze/Wolf\ Instruments/build_v14/CMakeFiles/VerifyGlobs.cmake
+
+CompileC /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/PianoRollComponent.o /Users/jonfreeze/Wolf\ Instruments/Source/PianoRollComponent.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'HowlingWolves' from project 'HowlingWolves')
+    cd /Users/jonfreeze/Wolf\ Instruments
+    
+    Using response file: /Users/jonfreeze/Wolf Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/nn/mv16tqd572d06qzm4gnm0zd00000gn/C/com.apple.DeveloperTools/26.2-17C52/Xcode/SDKStatCaches.noindex/macosx26.2-25C57-3885c01c3e6b6a337905948deab2002e00fa09913b459cbbc988d1f6730289ae.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body -flto -Wall -Wshadow-all -Wshorten-64-to-32 -Wstrict-aliasing -Wuninitialized -Wunused-parameter -Wconversion -Wsign-compare -Wint-conversion -Wconditional-uninitialized -Wconstant-conversion -Wsign-conversion -Wbool-conversion -Wextra-semi -Wunreachable-code -Wcast-align -Wshift-sign-overflow -Wmissing-prototypes -Wnullable-to-nonnull-conversion -Wno-ignored-qualifiers -Wswitch-enum -Wpedantic -Wdeprecated -Wfloat-equal -Wmissing-field-initializers -Wzero-as-null-pointer-constant -Wunused-private-field -Woverloaded-virtual -Wreorder -Winconsistent-missing-destructor-override @/Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/PianoRollComponent.d --serialize-diagnostics /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/PianoRollComponent.dia -c /Users/jonfreeze/Wolf\ Instruments/Source/PianoRollComponent.cpp -o /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/PianoRollComponent.o
+/Users/jonfreeze/Wolf Instruments/Source/PianoRollComponent.cpp:18:9: warning: unused variable 'noteHeight' [-Wunused-variable]
+   18 |   float noteHeight = area.getHeight() / (12.0f * 4.0f); // 4 Octaves visible?
+      |         ^~~~~~~~~~
+/Users/jonfreeze/Wolf Instruments/Source/PianoRollComponent.cpp:36:59: warning: unused parameter 'e' [-Wunused-parameter]
+   36 | void NoteGridComponent::mouseDown(const juce::MouseEvent &e) {
+      |                                                           ^
+/Users/jonfreeze/Wolf Instruments/Source/PianoRollComponent.cpp:52:25: error: no member named 'verticalKeyboard' in 'juce::MidiKeyboardComponent'; did you mean 'juce::CodeEditorComponent::decimalKeyboard'?
+   52 |                         juce::MidiKeyboardComponent::verticalKeyboard),
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                         juce::CodeEditorComponent::decimalKeyboard
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PianoRollComponent.cpp:1:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PianoRollComponent.h:3:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PluginProcessor.h:3:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/EffectsProcessor.h:3:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/TransientShaper.h:2:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/HowlingWolves_artefacts/JuceLibraryCode/JuceHeader.h:14:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client.h:63:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.h:223:
+/Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_gui_basics/keyboard/juce_TextInputTarget.h:116:9: note: 'juce::CodeEditorComponent::decimalKeyboard' declared here
+  116 |         decimalKeyboard,
+      |         ^
+/Users/jonfreeze/Wolf Instruments/Source/PianoRollComponent.cpp:51:7: error: no matching constructor for initialization of 'juce::MidiKeyboardComponent'
+   51 |       keyboardComponent(p.getKeyboardState(),
+      |       ^                 ~~~~~~~~~~~~~~~~~~~~~
+   52 |                         juce::MidiKeyboardComponent::verticalKeyboard),
+      |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PianoRollComponent.cpp:1:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PianoRollComponent.h:3:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PluginProcessor.h:3:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/EffectsProcessor.h:3:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/TransientShaper.h:2:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/HowlingWolves_artefacts/JuceLibraryCode/JuceHeader.h:23:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.h:93:
+/Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_audio_utils/gui/juce_MidiKeyboardComponent.h:69:5: note: candidate constructor not viable: no known conversion from 'juce::TextInputTarget::VirtualKeyboardType' to 'Orientation' for 2nd argument
+   69 |     MidiKeyboardComponent (MidiKeyboardState& state, Orientation orientation);
+      |     ^                                                ~~~~~~~~~~~~~~~~~~~~~~~
+/Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_audio_utils/gui/juce_MidiKeyboardComponent.h:285:51: note: candidate constructor not viable: requires 1 argument, but 2 were provided
+  285 |     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiKeyboardComponent)
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PianoRollComponent.cpp:1:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PianoRollComponent.h:3:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PluginProcessor.h:3:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/EffectsProcessor.h:3:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/TransientShaper.h:2:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/HowlingWolves_artefacts/JuceLibraryCode/JuceHeader.h:14:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client.h:63:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.h:68:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_graphics/juce_graphics.h:67:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_core/juce_core.h:215:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_core/system/juce_StandardHeader.h:94:
+/Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_core/system/juce_PlatformDefs.h:260:31: note: expanded from macro 'JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR'
+  260 |     JUCE_DECLARE_NON_COPYABLE(className) \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~
+/Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_core/system/juce_PlatformDefs.h:246:5: note: expanded from macro 'JUCE_DECLARE_NON_COPYABLE'
+  246 |     className (const className&) = delete;\
+      |     ^          ~~~~~~~~~~~~~~~~
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PianoRollComponent.cpp:1:
+/Users/jonfreeze/Wolf Instruments/Source/PianoRollComponent.h:47:32: warning: private field 'audioProcessor' is not used [-Wunused-private-field]
+   47 |   HowlingWolvesAudioProcessor &audioProcessor;
+      |                                ^
+/Users/jonfreeze/Wolf Instruments/Source/PianoRollComponent.h:55:9: warning: private field 'keyboardWidth' is not used [-Wunused-private-field]
+   55 |   float keyboardWidth = 40.0f;
+      |         ^
+4 warnings and 2 errors generated.
+
+CompileC /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/PerformTab.o /Users/jonfreeze/Wolf\ Instruments/Source/PerformTab.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'HowlingWolves' from project 'HowlingWolves')
+    cd /Users/jonfreeze/Wolf\ Instruments
+    
+    Using response file: /Users/jonfreeze/Wolf Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/nn/mv16tqd572d06qzm4gnm0zd00000gn/C/com.apple.DeveloperTools/26.2-17C52/Xcode/SDKStatCaches.noindex/macosx26.2-25C57-3885c01c3e6b6a337905948deab2002e00fa09913b459cbbc988d1f6730289ae.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body -flto -Wall -Wshadow-all -Wshorten-64-to-32 -Wstrict-aliasing -Wuninitialized -Wunused-parameter -Wconversion -Wsign-compare -Wint-conversion -Wconditional-uninitialized -Wconstant-conversion -Wsign-conversion -Wbool-conversion -Wextra-semi -Wunreachable-code -Wcast-align -Wshift-sign-overflow -Wmissing-prototypes -Wnullable-to-nonnull-conversion -Wno-ignored-qualifiers -Wswitch-enum -Wpedantic -Wdeprecated -Wfloat-equal -Wmissing-field-initializers -Wzero-as-null-pointer-constant -Wunused-private-field -Woverloaded-virtual -Wreorder -Winconsistent-missing-destructor-override @/Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/PerformTab.d --serialize-diagnostics /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/PerformTab.dia -c /Users/jonfreeze/Wolf\ Instruments/Source/PerformTab.cpp -o /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/PerformTab.o
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:1:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PerformTab.h:2:
+/Users/jonfreeze/Wolf Instruments/Source/ObsidianLookAndFeel.h:22:54: warning: unused parameter 'rotaryStartAngle' [-Wunused-parameter]
+   22 |                         float sliderPos, const float rotaryStartAngle,
+      |                                                      ^
+/Users/jonfreeze/Wolf Instruments/Source/ObsidianLookAndFeel.h:23:37: warning: unused parameter 'rotaryEndAngle' [-Wunused-parameter]
+   23 |                         const float rotaryEndAngle,
+      |                                     ^
+/Users/jonfreeze/Wolf Instruments/Source/ObsidianLookAndFeel.h:24:39: warning: unused parameter 'slider' [-Wunused-parameter]
+   24 |                         juce::Slider &slider) override {
+      |                                       ^
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:1:
+/Users/jonfreeze/Wolf Instruments/Source/PerformTab.h:18:36: warning: unused parameter 'b' [-Wunused-parameter]
+   18 |   void buttonClicked(juce::Button *b) override {}
+      |                                    ^
+/Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:46:23: warning: 'Font' is deprecated: Use the constructor that takes a FontOptions argument [-Wdeprecated-declarations]
+   46 |   spreadLabel.setFont(juce::Font(10.0f, juce::Font::bold));
+      |                       ^
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:1:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PerformTab.h:2:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/ObsidianLookAndFeel.h:2:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/HowlingWolves_artefacts/JuceLibraryCode/JuceHeader.h:14:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client.h:63:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.h:68:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_graphics/juce_graphics.h:139:
+/Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_graphics/fonts/juce_Font.h:76:7: note: 'Font' has been explicitly marked deprecated here
+   76 |     [[deprecated ("Use the constructor that takes a FontOptions argument")]]
+      |       ^
+/Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:46:23: warning: 'Font' is deprecated: Use the constructor that takes a FontOptions argument [-Wdeprecated-declarations]
+   46 |   spreadLabel.setFont(juce::Font(10.0f, juce::Font::bold));
+      |                       ^
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:1:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PerformTab.h:2:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/ObsidianLookAndFeel.h:2:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/HowlingWolves_artefacts/JuceLibraryCode/JuceHeader.h:14:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client.h:63:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.h:68:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_graphics/juce_graphics.h:139:
+/Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_graphics/fonts/juce_Font.h:76:7: note: 'Font' has been explicitly marked deprecated here
+   76 |     [[deprecated ("Use the constructor that takes a FontOptions argument")]]
+      |       ^
+/Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:50:23: warning: 'Font' is deprecated: Use the constructor that takes a FontOptions argument [-Wdeprecated-declarations]
+   50 |   octaveLabel.setFont(juce::Font(10.0f, juce::Font::bold));
+      |                       ^
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:1:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PerformTab.h:2:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/ObsidianLookAndFeel.h:2:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/HowlingWolves_artefacts/JuceLibraryCode/JuceHeader.h:14:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client.h:63:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.h:68:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_graphics/juce_graphics.h:139:
+/Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_graphics/fonts/juce_Font.h:76:7: note: 'Font' has been explicitly marked deprecated here
+   76 |     [[deprecated ("Use the constructor that takes a FontOptions argument")]]
+      |       ^
+/Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:50:23: warning: 'Font' is deprecated: Use the constructor that takes a FontOptions argument [-Wdeprecated-declarations]
+   50 |   octaveLabel.setFont(juce::Font(10.0f, juce::Font::bold));
+      |                       ^
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:1:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PerformTab.h:2:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/ObsidianLookAndFeel.h:2:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/HowlingWolves_artefacts/JuceLibraryCode/JuceHeader.h:14:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client.h:63:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.h:68:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_graphics/juce_graphics.h:139:
+/Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_graphics/fonts/juce_Font.h:76:7: note: 'Font' has been explicitly marked deprecated here
+   76 |     [[deprecated ("Use the constructor that takes a FontOptions argument")]]
+      |       ^
+/Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:227:10: warning: unused variable 'isBlackKey' [-Wunused-variable]
+  227 |     bool isBlackKey =
+      |          ^~~~~~~~~~
+/Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:338:13: warning: variable 'p' set but not used [-Wunused-but-set-variable]
+  338 |   if (auto *p = audioProcessor.getAPVTS().getParameter(paramId))
+      |             ^
+/Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:330:42: warning: unused parameter 'n' [-Wunused-parameter]
+  330 |     juce::Slider &s, const juce::String &n, const juce::String &paramId,
+      |                                          ^
+/Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:352:13: warning: variable 'p' set but not used [-Wunused-but-set-variable]
+  352 |   if (auto *p = audioProcessor.getAPVTS().getParameter(paramId))
+      |             ^
+/Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:345:42: warning: unused parameter 'n' [-Wunused-parameter]
+  345 |     juce::Slider &s, const juce::String &n, const juce::String &paramId,
+      |                                          ^
+/Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:380:13: warning: variable 'p' set but not used [-Wunused-but-set-variable]
+  380 |   if (auto *p = audioProcessor.getAPVTS().getParameter(paramId))
+      |             ^
+/Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:403:13: warning: variable 'p' set but not used [-Wunused-but-set-variable]
+  403 |   if (auto *p = audioProcessor.getAPVTS().getParameter(paramId))
+      |             ^
+/Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:414:13: warning: 'Font' is deprecated: Use the constructor that takes a FontOptions argument [-Wdeprecated-declarations]
+  414 |   l.setFont(juce::Font(12.0f, juce::Font::bold));
+      |             ^
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:1:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PerformTab.h:2:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/ObsidianLookAndFeel.h:2:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/HowlingWolves_artefacts/JuceLibraryCode/JuceHeader.h:14:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client.h:63:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.h:68:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_graphics/juce_graphics.h:139:
+/Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_graphics/fonts/juce_Font.h:76:7: note: 'Font' has been explicitly marked deprecated here
+   76 |     [[deprecated ("Use the constructor that takes a FontOptions argument")]]
+      |       ^
+/Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:414:13: warning: 'Font' is deprecated: Use the constructor that takes a FontOptions argument [-Wdeprecated-declarations]
+  414 |   l.setFont(juce::Font(12.0f, juce::Font::bold));
+      |             ^
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:1:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PerformTab.h:2:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/ObsidianLookAndFeel.h:2:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/HowlingWolves_artefacts/JuceLibraryCode/JuceHeader.h:14:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client.h:63:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.h:68:
+In file included from /Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_graphics/juce_graphics.h:139:
+/Users/jonfreeze/Wolf Instruments/build_v14/_deps/juce-src/modules/juce_graphics/fonts/juce_Font.h:76:7: note: 'Font' has been explicitly marked deprecated here
+   76 |     [[deprecated ("Use the constructor that takes a FontOptions argument")]]
+      |       ^
+In file included from /Users/jonfreeze/Wolf Instruments/Source/PerformTab.cpp:1:
+/Users/jonfreeze/Wolf Instruments/Source/PerformTab.h:66:8: warning: private field 'showChordMenu' is not used [-Wunused-private-field]
+   66 |   bool showChordMenu = false;
+      |        ^
+/Users/jonfreeze/Wolf Instruments/Source/PerformTab.h:67:8: warning: private field 'showArpMenu' is not used [-Wunused-private-field]
+   67 |   bool showArpMenu = false;
+      |        ^
+
+CompileC /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/ModernCyberLookAndFeel.o /Users/jonfreeze/Wolf\ Instruments/Source/ModernCyberLookAndFeel.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'HowlingWolves' from project 'HowlingWolves')
+    cd /Users/jonfreeze/Wolf\ Instruments
+    
+    Using response file: /Users/jonfreeze/Wolf Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/nn/mv16tqd572d06qzm4gnm0zd00000gn/C/com.apple.DeveloperTools/26.2-17C52/Xcode/SDKStatCaches.noindex/macosx26.2-25C57-3885c01c3e6b6a337905948deab2002e00fa09913b459cbbc988d1f6730289ae.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body -flto -Wall -Wshadow-all -Wshorten-64-to-32 -Wstrict-aliasing -Wuninitialized -Wunused-parameter -Wconversion -Wsign-compare -Wint-conversion -Wconditional-uninitialized -Wconstant-conversion -Wsign-conversion -Wbool-conversion -Wextra-semi -Wunreachable-code -Wcast-align -Wshift-sign-overflow -Wmissing-prototypes -Wnullable-to-nonnull-conversion -Wno-ignored-qualifiers -Wswitch-enum -Wpedantic -Wdeprecated -Wfloat-equal -Wmissing-field-initializers -Wzero-as-null-pointer-constant -Wunused-private-field -Woverloaded-virtual -Wreorder -Winconsistent-missing-destructor-override @/Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/ModernCyberLookAndFeel.d --serialize-diagnostics /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/ModernCyberLookAndFeel.dia -c /Users/jonfreeze/Wolf\ Instruments/Source/ModernCyberLookAndFeel.cpp -o /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/ModernCyberLookAndFeel.o
+/Users/jonfreeze/Wolf Instruments/Source/ModernCyberLookAndFeel.cpp:15:68: warning: unused parameter 'isMouseOver' [-Wunused-parameter]
+   15 |                                            juce::Graphics &g, bool isMouseOver,
+      |                                                                    ^
+/Users/jonfreeze/Wolf Instruments/Source/ModernCyberLookAndFeel.cpp:16:49: warning: unused parameter 'isMouseDown' [-Wunused-parameter]
+   16 |                                            bool isMouseDown) {
+      |                                                 ^
+/Users/jonfreeze/Wolf Instruments/Source/ModernCyberLookAndFeel.cpp:49:71: warning: unused parameter 'button' [-Wunused-parameter]
+   49 | int ModernCyberLookAndFeel::getTabButtonBestWidth(juce::TabBarButton &button,
+      |                                                                       ^
+/Users/jonfreeze/Wolf Instruments/Source/ModernCyberLookAndFeel.cpp:50:55: warning: unused parameter 'tabDepth' [-Wunused-parameter]
+   50 |                                                   int tabDepth) {
+      |                                                       ^
+/Users/jonfreeze/Wolf Instruments/Source/ModernCyberLookAndFeel.cpp:75:11: warning: unused parameter 'minSliderPos' [-Wunused-parameter]
+   75 |     float minSliderPos, float maxSliderPos,
+      |           ^
+/Users/jonfreeze/Wolf Instruments/Source/ModernCyberLookAndFeel.cpp:75:31: warning: unused parameter 'maxSliderPos' [-Wunused-parameter]
+   75 |     float minSliderPos, float maxSliderPos,
+      |                               ^
+/Users/jonfreeze/Wolf Instruments/Source/ModernCyberLookAndFeel.cpp:76:58: warning: unused parameter 'slider' [-Wunused-parameter]
+   76 |     const juce::Slider::SliderStyle style, juce::Slider &slider) {
+      |                                                          ^
+/Users/jonfreeze/Wolf Instruments/Source/ModernCyberLookAndFeel.cpp:217:60: warning: unused parameter 'isButtonDown' [-Wunused-parameter]
+  217 |                                           int height, bool isButtonDown, int,
+      |                                                            ^
+8 warnings generated.
+
+CompileC /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/MidiProcessor.o /Users/jonfreeze/Wolf\ Instruments/Source/MidiProcessor.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'HowlingWolves' from project 'HowlingWolves')
+    cd /Users/jonfreeze/Wolf\ Instruments
+    
+    Using response file: /Users/jonfreeze/Wolf Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/nn/mv16tqd572d06qzm4gnm0zd00000gn/C/com.apple.DeveloperTools/26.2-17C52/Xcode/SDKStatCaches.noindex/macosx26.2-25C57-3885c01c3e6b6a337905948deab2002e00fa09913b459cbbc988d1f6730289ae.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body -flto -Wall -Wshadow-all -Wshorten-64-to-32 -Wstrict-aliasing -Wuninitialized -Wunused-parameter -Wconversion -Wsign-compare -Wint-conversion -Wconditional-uninitialized -Wconstant-conversion -Wsign-conversion -Wbool-conversion -Wextra-semi -Wunreachable-code -Wcast-align -Wshift-sign-overflow -Wmissing-prototypes -Wnullable-to-nonnull-conversion -Wno-ignored-qualifiers -Wswitch-enum -Wpedantic -Wdeprecated -Wfloat-equal -Wmissing-field-initializers -Wzero-as-null-pointer-constant -Wunused-private-field -Woverloaded-virtual -Wreorder -Winconsistent-missing-destructor-override @/Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/MidiProcessor.d --serialize-diagnostics /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/MidiProcessor.dia -c /Users/jonfreeze/Wolf\ Instruments/Source/MidiProcessor.cpp -o /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/MidiProcessor.o
+/Users/jonfreeze/Wolf Instruments/Source/MidiProcessor.cpp:49:46: warning: unused parameter 'velocity' [-Wunused-parameter]
+   49 | void Arpeggiator::handleNoteOn(int note, int velocity) {
+      |                                              ^
+/Users/jonfreeze/Wolf Instruments/Source/MidiProcessor.cpp:158:28: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  158 |         return sortedNotes[actualNote] + (oct * 12);
+      |                ~~~~~~~~~~~ ^~~~~~~~~~
+/Users/jonfreeze/Wolf Instruments/Source/MidiProcessor.cpp:167:26: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  167 |       return sortedNotes[actualNote] + (oct * 12);
+      |              ~~~~~~~~~~~ ^~~~~~~~~~
+/Users/jonfreeze/Wolf Instruments/Source/MidiProcessor.cpp:171:22: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  171 |   return sortedNotes[noteIdx];
+      |          ~~~~~~~~~~~ ^~~~~~~
+/Users/jonfreeze/Wolf Instruments/Source/MidiProcessor.cpp:351:47: warning: unused parameter 'keys' [-Wunused-parameter]
+  351 | void ChordEngine::setParameters(int mode, int keys, bool hold) {
+      |                                               ^
+
+CompileC /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/LFOProcessor.o /Users/jonfreeze/Wolf\ Instruments/Source/LFOProcessor.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'HowlingWolves' from project 'HowlingWolves')
+    cd /Users/jonfreeze/Wolf\ Instruments
+    
+    Using response file: /Users/jonfreeze/Wolf Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/nn/mv16tqd572d06qzm4gnm0zd00000gn/C/com.apple.DeveloperTools/26.2-17C52/Xcode/SDKStatCaches.noindex/macosx26.2-25C57-3885c01c3e6b6a337905948deab2002e00fa09913b459cbbc988d1f6730289ae.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body -flto -Wall -Wshadow-all -Wshorten-64-to-32 -Wstrict-aliasing -Wuninitialized -Wunused-parameter -Wconversion -Wsign-compare -Wint-conversion -Wconditional-uninitialized -Wconstant-conversion -Wsign-conversion -Wbool-conversion -Wextra-semi -Wunreachable-code -Wcast-align -Wshift-sign-overflow -Wmissing-prototypes -Wnullable-to-nonnull-conversion -Wno-ignored-qualifiers -Wswitch-enum -Wpedantic -Wdeprecated -Wfloat-equal -Wmissing-field-initializers -Wzero-as-null-pointer-constant -Wunused-private-field -Woverloaded-virtual -Wreorder -Winconsistent-missing-destructor-override @/Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/LFOProcessor.d --serialize-diagnostics /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/LFOProcessor.dia -c /Users/jonfreeze/Wolf\ Instruments/Source/LFOProcessor.cpp -o /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/LFOProcessor.o
+/Users/jonfreeze/Wolf Instruments/Source/LFOProcessor.cpp:18:14: warning: implicit conversion loses floating-point precision: 'double' to 'float' [-Wimplicit-float-conversion]
+   18 |     output = std::sin(phase * juce::MathConstants<double>::twoPi);
+      |            ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/jonfreeze/Wolf Instruments/Source/LFOProcessor.cpp:27:22: warning: implicit conversion loses floating-point precision: 'double' to 'float' [-Wimplicit-float-conversion]
+   27 |       output = -1.0f + 4.0f * phase;
+      |              ~ ~~~~~~^~~~~~~~~~~~~~
+/Users/jonfreeze/Wolf Instruments/Source/LFOProcessor.cpp:29:21: warning: implicit conversion loses floating-point precision: 'double' to 'float' [-Wimplicit-float-conversion]
+   29 |       output = 3.0f - 4.0f * phase;
+      |              ~ ~~~~~^~~~~~~~~~~~~~
+
+CompileC /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/MidiCapturer.o /Users/jonfreeze/Wolf\ Instruments/Source/MidiCapturer.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'HowlingWolves' from project 'HowlingWolves')
+    cd /Users/jonfreeze/Wolf\ Instruments
+    
+    Using response file: /Users/jonfreeze/Wolf Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/nn/mv16tqd572d06qzm4gnm0zd00000gn/C/com.apple.DeveloperTools/26.2-17C52/Xcode/SDKStatCaches.noindex/macosx26.2-25C57-3885c01c3e6b6a337905948deab2002e00fa09913b459cbbc988d1f6730289ae.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body -flto -Wall -Wshadow-all -Wshorten-64-to-32 -Wstrict-aliasing -Wuninitialized -Wunused-parameter -Wconversion -Wsign-compare -Wint-conversion -Wconditional-uninitialized -Wconstant-conversion -Wsign-conversion -Wbool-conversion -Wextra-semi -Wunreachable-code -Wcast-align -Wshift-sign-overflow -Wmissing-prototypes -Wnullable-to-nonnull-conversion -Wno-ignored-qualifiers -Wswitch-enum -Wpedantic -Wdeprecated -Wfloat-equal -Wmissing-field-initializers -Wzero-as-null-pointer-constant -Wunused-private-field -Woverloaded-virtual -Wreorder -Winconsistent-missing-destructor-override @/Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/MidiCapturer.d --serialize-diagnostics /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/MidiCapturer.dia -c /Users/jonfreeze/Wolf\ Instruments/Source/MidiCapturer.cpp -o /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/MidiCapturer.o
+
+CompileC /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/ModulateTab.o /Users/jonfreeze/Wolf\ Instruments/Source/ModulateTab.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'HowlingWolves' from project 'HowlingWolves')
+    cd /Users/jonfreeze/Wolf\ Instruments
+    
+    Using response file: /Users/jonfreeze/Wolf Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/nn/mv16tqd572d06qzm4gnm0zd00000gn/C/com.apple.DeveloperTools/26.2-17C52/Xcode/SDKStatCaches.noindex/macosx26.2-25C57-3885c01c3e6b6a337905948deab2002e00fa09913b459cbbc988d1f6730289ae.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body -flto -Wall -Wshadow-all -Wshorten-64-to-32 -Wstrict-aliasing -Wuninitialized -Wunused-parameter -Wconversion -Wsign-compare -Wint-conversion -Wconditional-uninitialized -Wconstant-conversion -Wsign-conversion -Wbool-conversion -Wextra-semi -Wunreachable-code -Wcast-align -Wshift-sign-overflow -Wmissing-prototypes -Wnullable-to-nonnull-conversion -Wno-ignored-qualifiers -Wswitch-enum -Wpedantic -Wdeprecated -Wfloat-equal -Wmissing-field-initializers -Wzero-as-null-pointer-constant -Wunused-private-field -Woverloaded-virtual -Wreorder -Winconsistent-missing-destructor-override @/Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/ModulateTab.d --serialize-diagnostics /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/ModulateTab.dia -c /Users/jonfreeze/Wolf\ Instruments/Source/ModulateTab.cpp -o /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/ModulateTab.o
+In file included from /Users/jonfreeze/Wolf Instruments/Source/ModulateTab.cpp:1:
+In file included from /Users/jonfreeze/Wolf Instruments/Source/ModulateTab.h:2:
+/Users/jonfreeze/Wolf Instruments/Source/ObsidianLookAndFeel.h:22:54: warning: unused parameter 'rotaryStartAngle' [-Wunused-parameter]
+   22 |                         float sliderPos, const float rotaryStartAngle,
+      |                                                      ^
+/Users/jonfreeze/Wolf Instruments/Source/ObsidianLookAndFeel.h:23:37: warning: unused parameter 'rotaryEndAngle' [-Wunused-parameter]
+   23 |                         const float rotaryEndAngle,
+      |                                     ^
+/Users/jonfreeze/Wolf Instruments/Source/ObsidianLookAndFeel.h:24:39: warning: unused parameter 'slider' [-Wunused-parameter]
+   24 |                         juce::Slider &slider) override {
+      |                                       ^
+/Users/jonfreeze/Wolf Instruments/Source/ModulateTab.cpp:23:13: warning: variable 'a' set but not used [-Wunused-but-set-variable]
+   23 |   if (auto *a = audioProcessor.getAPVTS().getParameter("lfoWave"))
+      |             ^
+/Users/jonfreeze/Wolf Instruments/Source/ModulateTab.cpp:48:13: warning: variable 'a' set but not used [-Wunused-but-set-variable]
+   48 |   if (auto *a = audioProcessor.getAPVTS().getParameter("lfoTarget"))
+      |             ^
+/Users/jonfreeze/Wolf Instruments/Source/ModulateTab.cpp:100:42: warning: unused parameter 'name' [-Wunused-parameter]
+  100 |     juce::Slider &s, const juce::String &name, const juce::String &paramId,
+      |                                          ^
+/Users/jonfreeze/Wolf Instruments/Source/ModulateTab.cpp:114:42: warning: unused parameter 'name' [-Wunused-parameter]
+  114 |     juce::Slider &s, const juce::String &name, bool horizontal,
+      |                                          ^
+
+CompileC /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/MidiDragComponent.o /Users/jonfreeze/Wolf\ Instruments/Source/MidiDragComponent.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'HowlingWolves' from project 'HowlingWolves')
+    cd /Users/jonfreeze/Wolf\ Instruments
+    
+    Using response file: /Users/jonfreeze/Wolf Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/nn/mv16tqd572d06qzm4gnm0zd00000gn/C/com.apple.DeveloperTools/26.2-17C52/Xcode/SDKStatCaches.noindex/macosx26.2-25C57-3885c01c3e6b6a337905948deab2002e00fa09913b459cbbc988d1f6730289ae.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body -flto -Wall -Wshadow-all -Wshorten-64-to-32 -Wstrict-aliasing -Wuninitialized -Wunused-parameter -Wconversion -Wsign-compare -Wint-conversion -Wconditional-uninitialized -Wconstant-conversion -Wsign-conversion -Wbool-conversion -Wextra-semi -Wunreachable-code -Wcast-align -Wshift-sign-overflow -Wmissing-prototypes -Wnullable-to-nonnull-conversion -Wno-ignored-qualifiers -Wswitch-enum -Wpedantic -Wdeprecated -Wfloat-equal -Wmissing-field-initializers -Wzero-as-null-pointer-constant -Wunused-private-field -Woverloaded-virtual -Wreorder -Winconsistent-missing-destructor-override @/Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/MidiDragComponent.d --serialize-diagnostics /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/MidiDragComponent.dia -c /Users/jonfreeze/Wolf\ Instruments/Source/MidiDragComponent.cpp -o /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/MidiDragComponent.o
+/Users/jonfreeze/Wolf Instruments/Source/MidiDragComponent.cpp:61:59: warning: unused parameter 'e' [-Wunused-parameter]
+   61 | void MidiDragComponent::mouseDrag(const juce::MouseEvent &e) {
+      |                                                           ^
+
+CompileC /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/LEDToggleButton.o /Users/jonfreeze/Wolf\ Instruments/Source/LEDToggleButton.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'HowlingWolves' from project 'HowlingWolves')
+    cd /Users/jonfreeze/Wolf\ Instruments
+    
+    Using response file: /Users/jonfreeze/Wolf Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/nn/mv16tqd572d06qzm4gnm0zd00000gn/C/com.apple.DeveloperTools/26.2-17C52/Xcode/SDKStatCaches.noindex/macosx26.2-25C57-3885c01c3e6b6a337905948deab2002e00fa09913b459cbbc988d1f6730289ae.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body -flto -Wall -Wshadow-all -Wshorten-64-to-32 -Wstrict-aliasing -Wuninitialized -Wunused-parameter -Wconversion -Wsign-compare -Wint-conversion -Wconditional-uninitialized -Wconstant-conversion -Wsign-conversion -Wbool-conversion -Wextra-semi -Wunreachable-code -Wcast-align -Wshift-sign-overflow -Wmissing-prototypes -Wnullable-to-nonnull-conversion -Wno-ignored-qualifiers -Wswitch-enum -Wpedantic -Wdeprecated -Wfloat-equal -Wmissing-field-initializers -Wzero-as-null-pointer-constant -Wunused-private-field -Woverloaded-virtual -Wreorder -Winconsistent-missing-destructor-override @/Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/LEDToggleButton.d --serialize-diagnostics /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/LEDToggleButton.dia -c /Users/jonfreeze/Wolf\ Instruments/Source/LEDToggleButton.cpp -o /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/LEDToggleButton.o
+
+CompileC /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/HuntEngine.o /Users/jonfreeze/Wolf\ Instruments/Source/HuntEngine.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'HowlingWolves' from project 'HowlingWolves')
+    cd /Users/jonfreeze/Wolf\ Instruments
+    
+    Using response file: /Users/jonfreeze/Wolf Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/nn/mv16tqd572d06qzm4gnm0zd00000gn/C/com.apple.DeveloperTools/26.2-17C52/Xcode/SDKStatCaches.noindex/macosx26.2-25C57-3885c01c3e6b6a337905948deab2002e00fa09913b459cbbc988d1f6730289ae.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body -flto -Wall -Wshadow-all -Wshorten-64-to-32 -Wstrict-aliasing -Wuninitialized -Wunused-parameter -Wconversion -Wsign-compare -Wint-conversion -Wconditional-uninitialized -Wconstant-conversion -Wsign-conversion -Wbool-conversion -Wextra-semi -Wunreachable-code -Wcast-align -Wshift-sign-overflow -Wmissing-prototypes -Wnullable-to-nonnull-conversion -Wno-ignored-qualifiers -Wswitch-enum -Wpedantic -Wdeprecated -Wfloat-equal -Wmissing-field-initializers -Wzero-as-null-pointer-constant -Wunused-private-field -Woverloaded-virtual -Wreorder -Winconsistent-missing-destructor-override @/Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/HuntEngine.d --serialize-diagnostics /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/HuntEngine.dia -c /Users/jonfreeze/Wolf\ Instruments/Source/HuntEngine.cpp -o /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/HuntEngine.o
+
+CompileC /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/FilterProcessor.o /Users/jonfreeze/Wolf\ Instruments/Source/FilterProcessor.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'HowlingWolves' from project 'HowlingWolves')
+    cd /Users/jonfreeze/Wolf\ Instruments
+    
+    Using response file: /Users/jonfreeze/Wolf Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/nn/mv16tqd572d06qzm4gnm0zd00000gn/C/com.apple.DeveloperTools/26.2-17C52/Xcode/SDKStatCaches.noindex/macosx26.2-25C57-3885c01c3e6b6a337905948deab2002e00fa09913b459cbbc988d1f6730289ae.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body -flto -Wall -Wshadow-all -Wshorten-64-to-32 -Wstrict-aliasing -Wuninitialized -Wunused-parameter -Wconversion -Wsign-compare -Wint-conversion -Wconditional-uninitialized -Wconstant-conversion -Wsign-conversion -Wbool-conversion -Wextra-semi -Wunreachable-code -Wcast-align -Wshift-sign-overflow -Wmissing-prototypes -Wnullable-to-nonnull-conversion -Wno-ignored-qualifiers -Wswitch-enum -Wpedantic -Wdeprecated -Wfloat-equal -Wmissing-field-initializers -Wzero-as-null-pointer-constant -Wunused-private-field -Woverloaded-virtual -Wreorder -Winconsistent-missing-destructor-override @/Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/FilterProcessor.d --serialize-diagnostics /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/FilterProcessor.dia -c /Users/jonfreeze/Wolf\ Instruments/Source/FilterProcessor.cpp -o /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/FilterProcessor.o
+
+note: Run script build phase 'CMake PostBuild Rules' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'HowlingWolves_Standalone' from project 'HowlingWolves')
+note: Run script build phase 'Generate CMakeFiles/ALL_BUILD' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'ALL_BUILD' from project 'HowlingWolves')
+note: Run script build phase 'CMake PostBuild Rules' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'HowlingWolves_AU' from project 'HowlingWolves')
+note: Run script build phase 'CMake PostBuild Rules' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'HowlingWolves_VST3' from project 'HowlingWolves')
+note: Run script build phase 'Generate CMakeFiles/ZERO_CHECK' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'ZERO_CHECK' from project 'HowlingWolves')
+** BUILD FAILED **
+
+
+The following build commands failed:
+	CompileC /Users/jonfreeze/Wolf\ Instruments/build_v14/build/HowlingWolves.build/Release/Objects-normal/arm64/PianoRollComponent.o /Users/jonfreeze/Wolf\ Instruments/Source/PianoRollComponent.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'HowlingWolves' from project 'HowlingWolves')
+(1 failure)

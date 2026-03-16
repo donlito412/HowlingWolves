@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melody Packs | Wolf Pacc Audio</title>
+    <meta name="description" content="Premium melody packs and loops for producers — dark, atmospheric, and soulful. Wolf Pacc Audio.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">WOLF <span>PACC</span> AUDIO</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="beats.html">Beats</a></li>
+                <li><a href="melodies.html">Melodies</a></li>
+                <li><a href="vst.html">VST</a></li>
+                <li><a href="drumkits.html">Drum Kits</a></li>
+                <li><a href="expansions.html">Expansions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Melody Packs</h1>
+            <p>Loops and melodies for producers who need inspiration</p>
+        </div>
+    </section>
+
+    <!-- PRODUCT GRID -->
+    <section class="category-page-grid">
+        <div class="container">
+            <div class="product-grid">
+
+                <div class="product-card">
+                    <div class="card-image">
+                        <span class="card-image-placeholder">Coming Soon</span>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-badge">Melody Pack</span>
+                        <h3 class="card-title">Night Howl Melodies</h3>
+                        <p class="card-description">15 dark trap melody loops with piano, strings, and synth leads.</p>
+                        <div class="card-footer">
+                            <span class="card-price"><span class="currency">$</span>14.99</span>
+                            <a href="#" class="btn btn-card">Coming Soon</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="card-image">
+                        <span class="card-image-placeholder">Coming Soon</span>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-badge">Melody Pack</span>
+                        <h3 class="card-title">Cave Echoes Vol. 1</h3>
+                        <p class="card-description">20 atmospheric ambient loops for cinematic and lo-fi production.</p>
+                        <div class="card-footer">
+                            <span class="card-price"><span class="currency">$</span>19.99</span>
+                            <a href="#" class="btn btn-card">Coming Soon</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="card-image">
+                        <span class="card-image-placeholder">Coming Soon</span>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-badge">Melody Pack</span>
+                        <h3 class="card-title">Moonlit Keys</h3>
+                        <p class="card-description">12 soulful piano and keys melody loops for R&B and hip-hop.</p>
+                        <div class="card-footer">
+                            <span class="card-price"><span class="currency">$</span>12.99</span>
+                            <a href="#" class="btn btn-card">Coming Soon</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="brand-info">
+                    <div class="footer-brand">WOLF <span>PACC</span> AUDIO</div>
+                    <p>&copy; 2026 Wolf Pacc Audio. All rights reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="beats.html">Beats</a>
+                    <a href="vst.html">VST</a>
+                    <a href="mailto:support@wolfpaccaudio.com">Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+            const icon = navToggle.querySelector('i');
+            icon.className = navLinks.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                navToggle.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.product-card').forEach(el => { el.classList.add('fade-in'); observer.observe(el); });
+    </script>
+
+</body>
+
+</html>

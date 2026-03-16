@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wolfpaccaudio.com</title>
+    <meta name="description"
+        content="Download a free sample pack from Wolf Pacc Audio — drum sounds, melody loops, and a beat preview. No cost, just your email.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500;700;900&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">WOLF <span>PACC</span> AUDIO</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+                        Products <i class="fas fa-chevron-down nav-chevron"></i>
+                    </button>
+                    <ul class="nav-dropdown-menu" role="menu">
+                        <li>
+                            <a href="vst.html">
+                                <span class="ndm-icon"><i class="fas fa-wave-square"></i></span>
+                                <span class="ndm-text">
+                                    <span class="ndm-title">Howling Wolves VST</span>
+                                    <span class="ndm-sub">ROMpler &middot; 100+ presets</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="drumkits.html">
+                                <span class="ndm-icon"><i class="fas fa-drum"></i></span>
+                                <span class="ndm-text">
+                                    <span class="ndm-title">Drum Kits</span>
+                                    <span class="ndm-sub">Drill &middot; R&amp;B &middot; Trap</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="melodies.html">
+                                <span class="ndm-icon"><i class="fas fa-music"></i></span>
+                                <span class="ndm-text">
+                                    <span class="ndm-title">Melody Packs</span>
+                                    <span class="ndm-sub">WAV + MIDI loops</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="beats.html">
+                                <span class="ndm-icon"><i class="fas fa-headphones-alt"></i></span>
+                                <span class="ndm-text">
+                                    <span class="ndm-title">Beat Packs</span>
+                                    <span class="ndm-sub">Full instrumentals &middot; WAV</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="expansions.html">
+                                <span class="ndm-icon"><i class="fas fa-puzzle-piece"></i></span>
+                                <span class="ndm-text">
+                                    <span class="ndm-title">Expansions</span>
+                                    <span class="ndm-sub">Preset packs &middot; Add-ons</span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="bundles.html">Bundles</a></li>
+                <li><a href="free-sounds.html">Free Sounds</a></li>
+                <li><a href="index.html#latest">New Releases</a></li>
+                <li><a href="vst.html" class="nav-cta-link">Get the VST</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Free Starter Pack</h1>
+            <p>A real taste of the Wolf Pacc sound &mdash; no cost, just your email</p>
+        </div>
+    </section>
+
+    <!-- WHAT'S INSIDE -->
+    <section class="free-page-includes">
+        <div class="container">
+            <p class="fsp-intro">
+                These sounds are example files pulled directly from the Wolf Pacc Audio library — the same samples,
+                loops, and beats used in our premium packs. Download them free, use them in your projects, and
+                see what our catalog is built on.
+            </p>
+
+            <div class="fsp-items">
+
+                <!-- Drum Sounds -->
+                <div class="fsp-card fade-in">
+                    <div class="fsp-card-icon">
+                        <i class="fas fa-drum"></i>
+                    </div>
+                    <div class="fsp-card-body">
+                        <p class="fsp-card-meta">Drum Sounds &middot; WAV &middot; 5 Samples</p>
+                        <h3 class="fsp-card-title">Graveyard 808 — Drum Preview</h3>
+                        <p class="fsp-card-desc">
+                            Sample drums from our Drill Drum Kit — 808 sub bass, snare, hi-hat, kick, and clap.
+                            The same quality you get in the full pack, just a small selection to get you started.
+                        </p>
+                        <div class="wolf-player" data-src="audio/graveyard_808.wav">
+                            <div class="wp-info">
+                                <span class="wp-badge">Drum Preview</span>
+                                <span class="wp-title">Graveyard 808</span>
+                                <span class="wp-time-display">
+                                    <span class="wp-current">0:00</span>
+                                    <span> / </span>
+                                    <span class="wp-total">-:--</span>
+                                </span>
+                            </div>
+                            <div class="wp-row">
+                                <button class="wp-play-btn" aria-label="Play Graveyard 808">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <div class="wp-waveform" role="slider" aria-label="Seek">
+                                    <div class="wp-bars"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Melody Loops -->
+                <div class="fsp-card fade-in">
+                    <div class="fsp-card-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="fsp-card-body">
+                        <p class="fsp-card-meta">Melody Loops &middot; WAV + MIDI &middot; 3 Loops</p>
+                        <h3 class="fsp-card-title">Midnight Keys — Melody Preview</h3>
+                        <p class="fsp-card-desc">
+                            Sample loops from our Moonlit Keys melody pack — piano and keys loops delivered in both
+                            WAV and MIDI format. Drag them straight into your DAW and start building.
+                        </p>
+                        <div class="wolf-player" data-src="audio/midnight_keys.wav">
+                            <div class="wp-info">
+                                <span class="wp-badge">Melody Loop</span>
+                                <span class="wp-title">Midnight Keys</span>
+                                <span class="wp-time-display">
+                                    <span class="wp-current">0:00</span>
+                                    <span> / </span>
+                                    <span class="wp-total">-:--</span>
+                                </span>
+                            </div>
+                            <div class="wp-row">
+                                <button class="wp-play-btn" aria-label="Play Midnight Keys">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <div class="wp-waveform" role="slider" aria-label="Seek">
+                                    <div class="wp-bars"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Beat Preview -->
+                <div class="fsp-card fade-in">
+                    <div class="fsp-card-icon">
+                        <i class="fas fa-headphones-alt"></i>
+                    </div>
+                    <div class="fsp-card-body">
+                        <p class="fsp-card-meta">Beat Preview &middot; WAV &middot; Full Instrumental</p>
+                        <h3 class="fsp-card-title">Night Stalker — Beat Preview</h3>
+                        <p class="fsp-card-desc">
+                            A preview of the Night Stalker instrumental from our Beat Packs catalog. Dark, moody,
+                            and hard-hitting — everything artists need to record over right away.
+                        </p>
+                        <div class="wolf-player" data-src="audio/night_stalker.wav">
+                            <div class="wp-info">
+                                <span class="wp-badge">Beat Preview</span>
+                                <span class="wp-title">Night Stalker</span>
+                                <span class="wp-time-display">
+                                    <span class="wp-current">0:00</span>
+                                    <span> / </span>
+                                    <span class="wp-total">-:--</span>
+                                </span>
+                            </div>
+                            <div class="wp-row">
+                                <button class="wp-play-btn" aria-label="Play Night Stalker">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <div class="wp-waveform" role="slider" aria-label="Seek">
+                                    <div class="wp-bars"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- EMAIL CAPTURE FORM -->
+    <section class="free-form-section">
+        <div class="container">
+            <div class="fpf-inner">
+
+                <!-- Left: copy -->
+                <div class="fpf-text">
+                    <p class="fpf-eyebrow"><i class="fas fa-gift"></i> Free Download</p>
+                    <h2 class="fpf-title">Get the Pack.<br>Keep the Sounds.</h2>
+                    <p class="fpf-desc">
+                        Enter your email and we'll send you straight to the download — no account required, no
+                        waiting. The pack includes all three previews above as high-quality WAV files, plus the
+                        MIDI files for every melody loop.
+                    </p>
+                    <ul class="fpf-checklist">
+                        <li><i class="fas fa-check-circle"></i> 5 drum samples (808, kick, snare, hi-hat, clap) — WAV</li>
+                        <li><i class="fas fa-check-circle"></i> 3 melody loops — WAV + MIDI</li>
+                        <li><i class="fas fa-check-circle"></i> 1 full beat instrumental — WAV</li>
+                        <li><i class="fas fa-check-circle"></i> Free to use in any personal or commercial project</li>
+                    </ul>
+                </div>
+
+                <!-- Right: form card -->
+                <div class="fpf-form-card">
+                    <h3 class="fpf-form-title">Download the Free Pack</h3>
+                    <p class="fpf-form-sub">Enter your email below. You'll be taken straight to the download.</p>
+
+                    <!--
+                        SETUP REQUIRED:
+                        1. Sign up for a free Formspree account at https://formspree.io
+                        2. Create a new form and copy your unique Form ID
+                        3. Replace "YOUR_FORM_ID" in the action URL below with your actual Form ID
+                           Example: action="https://formspree.io/f/abcd1234"
+                        4. Update the _next URL to match your live domain
+                    -->
+                    <form
+                        class="fpf-form"
+                        action="https://formspree.io/f/mgonzlqj"
+                        method="POST"
+                    >
+                        <!-- Redirect to download page after submission -->
+                        <input type="hidden" name="_next" value="https://wolfpaccaudio.com/free-download.html">
+                        <!-- Custom email subject line -->
+                        <input type="hidden" name="_subject" value="New Free Starter Pack Download">
+
+                        <div class="form-group">
+                            <label class="form-label" for="fsp-name">First Name <span style="color:var(--text-dim);font-weight:400;">(optional)</span></label>
+                            <input
+                                class="form-input"
+                                type="text"
+                                id="fsp-name"
+                                name="name"
+                                placeholder="Your first name"
+                                autocomplete="given-name"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="fsp-email">Email Address <span style="color:#ef4444;">*</span></label>
+                            <input
+                                class="form-input"
+                                type="email"
+                                id="fsp-email"
+                                name="email"
+                                placeholder="you@example.com"
+                                required
+                                autocomplete="email"
+                            >
+                        </div>
+
+                        <button type="submit" class="btn btn-primary fpf-submit">
+                            <i class="fas fa-download" style="margin-right:8px;"></i>Get the Free Pack
+                        </button>
+
+                        <p class="fpf-privacy">
+                            No spam. We may occasionally email you about new releases.
+                            Unsubscribe any time. See our <a href="terms-of-service.html">Terms</a>.
+                        </p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand-block">
+                    <div class="footer-brand">WOLF <span>PACC</span> AUDIO</div>
+                    <p class="footer-tagline">Sounds and instruments for creators.</p>
+                </div>
+                <div class="footer-nav-cols">
+                    <div class="footer-col">
+                        <h4 class="footer-col-title">Products</h4>
+                        <a href="vst.html">Howling Wolves VST</a>
+                        <a href="drumkits.html">Drum Kits</a>
+                        <a href="melodies.html">Melody Packs</a>
+                        <a href="beats.html">Beat Packs</a>
+                        <a href="bundles.html">Bundles</a>
+                        <a href="expansions.html">Expansions</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4 class="footer-col-title">Info</h4>
+                        <a href="free-sounds.html">Free Sounds</a>
+                        <a href="terms-of-service.html">Terms of Service</a>
+                        <a href="refund-policy.html">Refund Policy</a>
+                        <a href="mailto:support@wolfpaccaudio.com">Support</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Wolf Pacc Audio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="audio-player.js"></script>
+    <script>
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+        navToggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('open');
+            navToggle.querySelector('i').className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+        });
+        document.querySelectorAll('.nav-dropdown-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const dropdown = btn.closest('.nav-dropdown');
+                const isOpen = dropdown.classList.toggle('open');
+                btn.setAttribute('aria-expanded', String(isOpen));
+            });
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                navToggle.querySelector('i').className = 'fas fa-bars';
+                document.querySelectorAll('.nav-dropdown').forEach(d => {
+                    d.classList.remove('open');
+                    d.querySelector('.nav-dropdown-toggle')?.setAttribute('aria-expanded', 'false');
+                });
+            });
+        });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.fsp-card').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+
+</html>
