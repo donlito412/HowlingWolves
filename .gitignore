@@ -23,8 +23,9 @@ cmake-build-*/
 *~
 *.log
 
-# Archives
+# Archives (but allow website downloads)
 *.zip
+!docs/downloads/*.zip
 
 # Maintainer-only: present locally to skip license gate (see CMakeLists.txt)
 .wolf_author_build
