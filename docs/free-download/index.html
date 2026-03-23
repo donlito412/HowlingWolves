@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>wolfpaccaudio.com</title>
-    <meta name="description"
-        content="Premium beats and instrumentals for artists — trap, drill, R&B and more. Wolf Pacc Audio.">
+    <meta name="description" content="Your Wolf Pacc Audio Free Starter Pack is ready to download.">
+    <!-- Prevent indexing of this thank-you page -->
+    <meta name="robots" content="noindex, nofollow">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500;700;900&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" type="image/png" href="/images/logo.png">
 </head>
 
 <body>
@@ -21,19 +22,19 @@
     <!-- NAVIGATION -->
     <nav class="nav">
         <div class="nav-content">
-            <a href="index.html" class="nav-logo">WOLF <span>PACC</span> AUDIO</a>
+            <a href="/" class="nav-logo">WOLF <span>PACC</span> AUDIO</a>
             <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
             </button>
             <ul class="nav-links" id="nav-links">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li class="nav-dropdown">
                     <button class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
                         Products <i class="fas fa-chevron-down nav-chevron"></i>
                     </button>
                     <ul class="nav-dropdown-menu" role="menu">
                         <li>
-                            <a href="vst.html">
+                            <a href="/vst/">
                                 <span class="ndm-icon"><i class="fas fa-wave-square"></i></span>
                                 <span class="ndm-text">
                                     <span class="ndm-title">Howling Wolves VST</span>
@@ -42,7 +43,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="drumkits.html">
+                            <a href="/drumkits/">
                                 <span class="ndm-icon"><i class="fas fa-drum"></i></span>
                                 <span class="ndm-text">
                                     <span class="ndm-title">Drum Kits</span>
@@ -51,7 +52,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="melodies.html">
+                            <a href="/melodies/">
                                 <span class="ndm-icon"><i class="fas fa-music"></i></span>
                                 <span class="ndm-text">
                                     <span class="ndm-title">Melody Packs</span>
@@ -60,7 +61,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="beats.html">
+                            <a href="/beats/">
                                 <span class="ndm-icon"><i class="fas fa-headphones-alt"></i></span>
                                 <span class="ndm-text">
                                     <span class="ndm-title">Beat Packs</span>
@@ -69,7 +70,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="expansions.html">
+                            <a href="/expansions/">
                                 <span class="ndm-icon"><i class="fas fa-puzzle-piece"></i></span>
                                 <span class="ndm-text">
                                     <span class="ndm-title">Expansions</span>
@@ -79,86 +80,92 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="bundles.html">Bundles</a></li>
-                <li><a href="free-sounds.html">Free Sounds</a></li>
-                <li><a href="index.html#latest">New Releases</a></li>
-                <li><a href="vst.html" class="nav-cta-link">Get the VST</a></li>
+                <li><a href="/bundles/">Bundles</a></li>
+                <li><a href="/free-sounds/">Free Sounds</a></li>
+                <li><a href="/#latest">New Releases</a></li>
+                <li><a href="/vst/" class="nav-cta-link">Get the VST</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- PAGE HEADER -->
-    <section class="page-header">
+    <!-- DOWNLOAD HERO -->
+    <section class="dl-hero">
         <div class="container">
-            <h1>Beat Packs</h1>
-            <p>Premium instrumentals for artists and creators &mdash; WAV format</p>
+            <div class="dl-check">
+                <i class="fas fa-check"></i>
+            </div>
+            <h1 class="dl-title">You're All Set.</h1>
+            <p class="dl-sub">
+                Your Wolf Pacc Audio Free Starter Pack is ready. Click below to download — it's a ZIP file containing
+                all drum samples, melody loops (WAV + MIDI), and the beat preview.
+            </p>
+            <div class="dl-btn-wrap">
+                <!--
+                    SETUP REQUIRED:
+                    Place your completed zip file at docs/downloads/WolfPacc_Free_Starter_Pack.zip
+                    The file should contain: drum samples, melody loops (WAV + MIDI), beat preview WAV
+                -->
+                <a href="/downloads/WolfPacc_Free_Starter_Pack.zip" class="btn btn-primary" download style="font-size:1rem;padding:1rem 2rem;">
+                    <i class="fas fa-download" style="margin-right:10px;"></i>Download Free Starter Pack
+                </a>
+                <p class="dl-note">ZIP file &middot; WAV + MIDI &middot; Royalty-free for personal &amp; commercial use</p>
+            </div>
         </div>
     </section>
 
-    <!-- DEMO PLAYER SECTION -->
-    <section class="demo-player-section">
+    <!-- UPSELL — WHILE YOU'RE HERE -->
+    <section class="dl-upsell">
         <div class="container">
-            <div class="dps-header">
-                <h2 class="dps-title">Beat Previews</h2>
-                <p class="dps-sub">Hear the vibe before you cop</p>
-            </div>
-            <div class="dps-tracks">
-
-                <div class="wolf-player" data-src="audio/Beat Pack Samples/11-2-22 Got It Prod by Lito copy.wav" data-preview="30">
-                    <div class="wp-info">
-                        <span class="wp-badge">Beat Preview</span>
-                        <span class="wp-title">Got It</span>
-                        <span class="wp-time-display">
-                            <span class="wp-current">0:00</span>
-                            <span> / </span>
-                            <span class="wp-total">-:--</span>
-                        </span>
-                    </div>
-                    <div class="wp-row">
-                        <button class="wp-play-btn" aria-label="Play Got It">
-                            <i class="fas fa-play"></i>
-                        </button>
-                        <div class="wp-waveform" role="slider" aria-label="Seek">
-                            <div class="wp-bars"></div>
-                        </div>
-                    </div>
+            <div class="section-header-row">
+                <div>
+                    <h2 class="section-title-left">Want More?</h2>
+                    <p class="section-subtitle" style="text-align:left;margin-top:0.25rem;">Upgrade to the full packs these sounds came from</p>
                 </div>
-
+                <a href="/drumkits/" class="view-all">Browse All Products <i class="fas fa-arrow-right"></i></a>
             </div>
-        </div>
-    </section>
-
-    <!-- PRODUCT GRID -->
-    <section class="category-page-grid">
-        <div class="container">
             <div class="product-grid">
 
-                <div class="product-card">
+                <div class="product-card fade-in">
                     <div class="card-image">
-                        <img src="images/cover_sunday_morning.jpg" alt="Sunday Morning Beat Pack" style="width:100%;height:100%;object-fit:cover;">
+                        <img src="/images/cover_drill.png" alt="Drill Drum Kit">
                     </div>
                     <div class="card-body">
-                        <span class="card-badge">Beat Pack</span>
-                        <h3 class="card-title">Sunday Morning</h3>
-                        <p class="card-description">Smooth R&amp;B vibes with warm keys, silky melodies, and clean production.</p>
+                        <span class="card-badge">Drum Kit</span>
+                        <h3 class="card-title">Drill Drums</h3>
+                        <p class="card-description">The full kit — 808s, kicks, snares, claps, and hi-hats from the Graveyard 808 preview you just heard.</p>
                         <div class="card-footer">
-                            <span class="card-price"><span class="currency">$</span>39.99</span>
-                            <a href="https://djdonlito412.gumroad.com/l/hzwia" target="_blank" class="btn btn-card">Buy Now</a>
+                            <span class="card-price"><span class="currency">$</span>9.99</span>
+                            <a href="https://djdonlito412.gumroad.com/l/jztjk" class="btn btn-card">Buy Now</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="product-card">
-                    <div class="card-image">
-                        <img src="images/cover_drillandb.png" alt="Drill&amp;B Beat Pack" style="width:100%;height:100%;object-fit:cover;">
+                <div class="product-card fade-in">
+                    <div class="card-image card-image-bg" style="background: linear-gradient(135deg, #0a0a1f 0%, #12123a 50%, #0a0a1f 100%);">
+                        <i class="fas fa-music card-icon-placeholder"></i>
                     </div>
                     <div class="card-body">
-                        <span class="card-badge">Beat Pack</span>
-                        <h3 class="card-title">Drill&amp;B</h3>
-                        <p class="card-description">Hard-hitting drill energy meets smooth R&amp;B melodies. The best of both worlds.</p>
+                        <span class="card-badge">Melody Pack</span>
+                        <h3 class="card-title">Moonlit Keys</h3>
+                        <p class="card-description">12 soulful piano and keys melody loops — the full version of the Midnight Keys loop you just heard.</p>
+                        <div class="card-footer">
+                            <span class="card-price"><span class="currency">$</span>12.99</span>
+                            <a href="/melodies/" class="btn btn-card">View Pack</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in">
+                    <div class="card-image">
+                        <img src="/images/screenshot_play.png" alt="Howling Wolves VST Plugin">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-badge">VST Plugin</span>
+                        <h3 class="card-title">Howling Wolves VST</h3>
+                        <p class="card-description">100+ cinematic presets with LFO modulation, Hunt FX, and arpeggiator. VST3 / AU / Standalone.</p>
                         <div class="card-footer">
                             <span class="card-price"><span class="currency">$</span>39.99</span>
-                            <a href="#" class="btn btn-card">Coming Soon</a>
+                            <a href="https://djdonlito412.gumroad.com/l/howlingwolvesvst" class="btn btn-card">Buy Now</a>
                         </div>
                     </div>
                 </div>
@@ -178,17 +185,18 @@
                 <div class="footer-nav-cols">
                     <div class="footer-col">
                         <h4 class="footer-col-title">Products</h4>
-                        <a href="vst.html">Howling Wolves VST</a>
-                        <a href="drumkits.html">Drum Kits</a>
-                        <a href="melodies.html">Melody Packs</a>
-                        <a href="beats.html">Beat Packs</a>
-                        <a href="bundles.html">Bundles</a>
-                        <a href="expansions.html">Expansions</a>
+                        <a href="/vst/">Howling Wolves VST</a>
+                        <a href="/drumkits/">Drum Kits</a>
+                        <a href="/melodies/">Melody Packs</a>
+                        <a href="/beats/">Beat Packs</a>
+                        <a href="/bundles/">Bundles</a>
+                        <a href="/expansions/">Expansions</a>
                     </div>
                     <div class="footer-col">
                         <h4 class="footer-col-title">Info</h4>
-                        <a href="terms-of-service.html">Terms of Service</a>
-                        <a href="refund-policy.html">Refund Policy</a>
+                        <a href="/free-sounds/">Free Sounds</a>
+                        <a href="/terms-of-service/">Terms of Service</a>
+                        <a href="/refund-policy/">Refund Policy</a>
                         <a href="mailto:support@wolfpaccaudio.com">Support</a>
                     </div>
                 </div>
@@ -199,7 +207,6 @@
         </div>
     </footer>
 
-    <script src="audio-player.js"></script>
     <script>
         const navToggle = document.getElementById('nav-toggle');
         const navLinks = document.getElementById('nav-links');
@@ -227,7 +234,7 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.product-card').forEach(el => { el.classList.add('fade-in'); observer.observe(el); });
+        document.querySelectorAll('.product-card').forEach(el => observer.observe(el));
     </script>
 
 </body>
