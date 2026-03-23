@@ -63,6 +63,10 @@ public:
   MidiCapturer &getMidiCapturer() { return midiCapturer; }
   MidiProcessor &getMidiProcessor() { return midiProcessor; }
 
+  // Preset display name (persisted so the editor can restore the button label)
+  juce::String getLastPresetName() const { return lastPresetName; }
+  void setLastPresetName(const juce::String &name) { lastPresetName = name; }
+
   // Transport Control (Internal; reserved for future host-less transport UI)
   void setTransportPlaying(bool shouldPlay) {
     transportPlaying.store(shouldPlay);
@@ -99,6 +103,8 @@ private:
   //==============================================================================
   juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
   juce::AudioProcessorValueTreeState apvts;
+
+  juce::String lastPresetName;
 
   SampleManager sampleManager;
   SynthEngine synthEngine;

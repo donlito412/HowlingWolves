@@ -485,6 +485,9 @@ void HowlingWolvesAudioProcessor::getStateInformation(
   if (samplePath.isNotEmpty())
     xml->setAttribute("currentSamplePath", samplePath);
 
+  if (lastPresetName.isNotEmpty())
+    xml->setAttribute("lastPresetName", lastPresetName);
+
   copyXmlToBinary(*xml, destData);
 }
 
@@ -504,6 +507,9 @@ void HowlingWolvesAudioProcessor::setStateInformation(const void *data,
         if (sampleFile.existsAsFile())
           sampleManager.loadSound(sampleFile, false);
       }
+
+      // Restore the preset display name shown in the browse button
+      lastPresetName = xmlState->getStringAttribute("lastPresetName");
     }
   }
 }

@@ -45,8 +45,9 @@ HowlingWolvesAudioProcessorEditor::HowlingWolvesAudioProcessorEditor(
   tabs.setCurrentTabIndex(0);
   addAndMakeVisible(tabs);
 
-  // Top bar buttons
-  browseButton.setButtonText("Select a Preset");
+  // Top bar buttons — restore saved name, or show default
+  const auto savedName = audioProcessor.getLastPresetName();
+  browseButton.setButtonText(savedName.isNotEmpty() ? savedName : "Select a Preset");
   browseButton.onClick = [this] {
     presetBrowser.setVisible(!presetBrowser.isVisible());
     presetBrowser.toFront(true);
@@ -122,6 +123,7 @@ HowlingWolvesAudioProcessorEditor::HowlingWolvesAudioProcessorEditor(
   // Handle preset selection
   presetBrowser.onPresetSelected = [this](const juce::String &presetName) {
     browseButton.setButtonText(presetName);
+    audioProcessor.setLastPresetName(presetName);
     presetBrowser.setVisible(false);
   };
 
