@@ -45,7 +45,7 @@
                 <i class="fas fa-bars"></i>
             </button>
             <ul class="nav-links" id="nav-links">
-                <li><a href="/>Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li class="nav-dropdown">
                     <button class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
                         Products <i class="fas fa-chevron-down nav-chevron"></i>
@@ -197,7 +197,7 @@
                         <span class="demo-badge">VST Preset</span>
                         <span class="demo-name">Wolf Mist</span>
                     </div>
-                    <audio controls preload="none">
+                    <audio controls preload="none" controlsList="nodownload">
                         <source src="/audio/VST Samples/Wolf Mist.wav" type="audio/wav">
                     </audio>
                     <a href="/vst/" class="demo-cta">Get the VST &rarr;</a>
@@ -208,7 +208,7 @@
                         <span class="demo-badge">Drum Kit</span>
                         <span class="demo-name">R&amp;B Kick</span>
                     </div>
-                    <audio controls preload="none">
+                    <audio controls preload="none" controlsList="nodownload">
                         <source src="/audio/Drum Kit Samples/R&amp;B Kick.wav" type="audio/wav">
                     </audio>
                     <a href="/drumkits/" class="demo-cta">Get Drum Kits &rarr;</a>
@@ -219,7 +219,7 @@
                         <span class="demo-badge">Beat Pack</span>
                         <span class="demo-name">Dreamy (Preview)</span>
                     </div>
-                    <audio controls preload="none" ontimeupdate="if(this.currentTime>30){this.pause();this.currentTime=0;}">
+                    <audio controls preload="none" controlsList="nodownload" ontimeupdate="if(this.currentTime>30){this.pause();this.currentTime=0;}">
                         <source src="/audio/Beat Pack Samples/1-4-21 Dreamy Prod By Lito bpm 130.mp3" type="audio/mpeg">
                     </audio>
                     <a href="/beats/" class="demo-cta">Get Beats &rarr;</a>
