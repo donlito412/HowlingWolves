@@ -479,6 +479,12 @@ void HowlingWolvesAudioProcessor::getStateInformation(
 
   auto state = apvts.copyState();
   std::unique_ptr<juce::XmlElement> xml(state.createXml());
+
+  // Save the currently loaded sample so the DAW can restore it on project reload
+  const auto samplePath = sampleManager.getCurrentSamplePath();
+  if (samplePath.isNotEmpty())
+    xml->setAttribute("currentSamplePath", samplePath);
+
   copyXmlToBinary(*xml, destData);
 }
 
@@ -490,6 +496,14 @@ void HowlingWolvesAudioProcessor::setStateInformation(const void *data,
   if (xmlState.get() != nullptr) {
     if (xmlState->hasTagName(apvts.state.getType())) {
       apvts.replaceState(juce::ValueTree::fromXml(*xmlState));
+
+      // Restore the previously loaded sample
+      const auto samplePath = xmlState->getStringAttribute("currentSamplePath");
+      if (samplePath.isNotEmpty()) {
+        const juce::File sampleFile(samplePath);
+        if (sampleFile.existsAsFile())
+          sampleManager.loadSound(sampleFile, false);
+      }
     }
   }
 }
