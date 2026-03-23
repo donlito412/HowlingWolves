@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wolfpaccaudio.com</title>
+    <meta name="description"
+        content="Premium beats and instrumentals for artists — trap, drill, R&B and more. Wolf Pacc Audio.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500;700;900&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">WOLF <span>PACC</span> AUDIO</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+                        Products <i class="fas fa-chevron-down nav-chevron"></i>
+                    </button>
+                    <ul class="nav-dropdown-menu" role="menu">
+                        <li>
+                            <a href="vst.html">
+                                <span class="ndm-icon"><i class="fas fa-wave-square"></i></span>
+                                <span class="ndm-text">
+                                    <span class="ndm-title">Howling Wolves VST</span>
+                                    <span class="ndm-sub">ROMpler &middot; 100+ presets</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="drumkits.html">
+                                <span class="ndm-icon"><i class="fas fa-drum"></i></span>
+                                <span class="ndm-text">
+                                    <span class="ndm-title">Drum Kits</span>
+                                    <span class="ndm-sub">Drill &middot; R&amp;B &middot; Trap</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="melodies.html">
+                                <span class="ndm-icon"><i class="fas fa-music"></i></span>
+                                <span class="ndm-text">
+                                    <span class="ndm-title">Melody Packs</span>
+                                    <span class="ndm-sub">WAV + MIDI loops</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="beats.html">
+                                <span class="ndm-icon"><i class="fas fa-headphones-alt"></i></span>
+                                <span class="ndm-text">
+                                    <span class="ndm-title">Beat Packs</span>
+                                    <span class="ndm-sub">Full instrumentals &middot; WAV</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="expansions.html">
+                                <span class="ndm-icon"><i class="fas fa-puzzle-piece"></i></span>
+                                <span class="ndm-text">
+                                    <span class="ndm-title">Expansions</span>
+                                    <span class="ndm-sub">Preset packs &middot; Add-ons</span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="bundles.html">Bundles</a></li>
+                <li><a href="free-sounds.html">Free Sounds</a></li>
+                <li><a href="index.html#latest">New Releases</a></li>
+                <li><a href="vst.html" class="nav-cta-link">Get the VST</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Beat Packs</h1>
+            <p>Premium instrumentals for artists and creators &mdash; WAV format</p>
+        </div>
+    </section>
+
+    <!-- DEMO PLAYER SECTION -->
+    <section class="demo-player-section">
+        <div class="container">
+            <div class="dps-header">
+                <h2 class="dps-title">Beat Previews</h2>
+                <p class="dps-sub">Hear the vibe before you cop</p>
+            </div>
+            <div class="dps-tracks">
+
+                <div class="wolf-player" data-src="audio/Beat Pack Samples/Got It.mp3">
+                    <div class="wp-info">
+                        <span class="wp-badge">Beat Preview</span>
+                        <span class="wp-title">Got It</span>
+                        <span class="wp-time-display">
+                            <span class="wp-current">0:00</span>
+                            <span> / </span>
+                            <span class="wp-total">-:--</span>
+                        </span>
+                    </div>
+                    <div class="wp-row">
+                        <button class="wp-play-btn" aria-label="Play Got It">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <div class="wp-waveform" role="slider" aria-label="Seek">
+                            <div class="wp-bars"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT GRID -->
+    <section class="category-page-grid">
+        <div class="container">
+            <div class="product-grid">
+
+                <div class="product-card">
+                    <div class="card-image">
+                        <img src="images/Sunday morning.png" alt="Sunday Morning Beat Pack" style="width:100%;height:100%;object-fit:cover;">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-badge">Beat Pack</span>
+                        <h3 class="card-title">Sunday Morning</h3>
+                        <p class="card-description">Smooth R&amp;B vibes with warm keys, silky melodies, and clean production.</p>
+                        <div class="card-footer">
+                            <span class="card-price"><span class="currency">$</span>39.99</span>
+                            <a href="https://djdonlito412.gumroad.com/l/hzwia" target="_blank" class="btn btn-card">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="card-image">
+                        <img src="images/Drill&amp;B.png" alt="Drill&amp;B Beat Pack" style="width:100%;height:100%;object-fit:cover;">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-badge">Beat Pack</span>
+                        <h3 class="card-title">Drill&amp;B</h3>
+                        <p class="card-description">Hard-hitting drill energy meets smooth R&amp;B melodies. The best of both worlds.</p>
+                        <div class="card-footer">
+                            <span class="card-price"><span class="currency">$</span>39.99</span>
+                            <a href="#" class="btn btn-card">Coming Soon</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand-block">
+                    <div class="footer-brand">WOLF <span>PACC</span> AUDIO</div>
+                    <p class="footer-tagline">Sounds and instruments for creators.</p>
+                </div>
+                <div class="footer-nav-cols">
+                    <div class="footer-col">
+                        <h4 class="footer-col-title">Products</h4>
+                        <a href="vst.html">Howling Wolves VST</a>
+                        <a href="drumkits.html">Drum Kits</a>
+                        <a href="melodies.html">Melody Packs</a>
+                        <a href="beats.html">Beat Packs</a>
+                        <a href="bundles.html">Bundles</a>
+                        <a href="expansions.html">Expansions</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4 class="footer-col-title">Info</h4>
+                        <a href="terms-of-service.html">Terms of Service</a>
+                        <a href="refund-policy.html">Refund Policy</a>
+                        <a href="mailto:support@wolfpaccaudio.com">Support</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Wolf Pacc Audio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="audio-player.js"></script>
+    <script>
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+        navToggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('open');
+            navToggle.querySelector('i').className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+        });
+        document.querySelectorAll('.nav-dropdown-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const dropdown = btn.closest('.nav-dropdown');
+                const isOpen = dropdown.classList.toggle('open');
+                btn.setAttribute('aria-expanded', String(isOpen));
+            });
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                navToggle.querySelector('i').className = 'fas fa-bars';
+                document.querySelectorAll('.nav-dropdown').forEach(d => {
+                    d.classList.remove('open');
+                    d.querySelector('.nav-dropdown-toggle')?.setAttribute('aria-expanded', 'false');
+                });
+            });
+        });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.product-card').forEach(el => { el.classList.add('fade-in'); observer.observe(el); });
+    </script>
+
+</body>
+
+</html>

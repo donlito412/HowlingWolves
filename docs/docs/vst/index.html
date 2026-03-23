@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wolfpaccaudio.com</title>
+    <meta name="description"
+        content="Premium VST plugins for music producers — Howling Wolves atmospheric synthesizer and more. Wolf Pacc Audio.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500;700;900&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="/" class="nav-logo">WOLF <span>PACC</span> AUDIO</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/beats/">Beats</a></li>
+                <li><a href="/melodies/">Melodies</a></li>
+                <li><a href="/vst/">VST</a></li>
+                <li><a href="/drumkits/">Drum Kits</a></li>
+                <li><a href="/expansions/">Expansions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Howling Wolves</h1>
+            <p>Cinematic Atmospheric Synthesizer</p>
+        </div>
+    </section>
+
+    <!-- VST PRODUCT SHOWCASE -->
+    <section class="category-page-grid">
+        <div class="container">
+
+            <!-- Hero Product Card -->
+            <div
+                style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 4rem; align-items: start;">
+                <!-- Screenshot Gallery -->
+                <div>
+                    <img id="main-screenshot" src="/images/screenshot_play.png" alt="Howling Wolves VST Plugin"
+                        style="width:100%; border-radius:var(--radius-lg); border:1px solid var(--border-gold); margin-bottom:1rem;">
+                    <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:0.5rem;">
+                        <img src="/images/screenshot_play.png" alt="Play Mode"
+                            onclick="document.getElementById('main-screenshot').src=this.src"
+                            style="width:100%; border-radius:8px; cursor:pointer; border:1px solid var(--border-subtle); opacity:0.7; transition: opacity 0.3s;"
+                            onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
+                        <img src="/images/screenshot_modulate.png" alt="Modulate Mode"
+                            onclick="document.getElementById('main-screenshot').src=this.src"
+                            style="width:100%; border-radius:8px; cursor:pointer; border:1px solid var(--border-subtle); opacity:0.7; transition: opacity 0.3s;"
+                            onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
+                        <img src="/images/screenshot_perform.png" alt="Perform Mode"
+                            onclick="document.getElementById('main-screenshot').src=this.src"
+                            style="width:100%; border-radius:8px; cursor:pointer; border:1px solid var(--border-subtle); opacity:0.7; transition: opacity 0.3s;"
+                            onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
+                        <img src="/images/screenshot_effects.png" alt="Effects"
+                            onclick="document.getElementById('main-screenshot').src=this.src"
+                            style="width:100%; border-radius:8px; cursor:pointer; border:1px solid var(--border-subtle); opacity:0.7; transition: opacity 0.3s;"
+                            onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
+                        <img src="/images/screenshot_presets.png" alt="Presets"
+                            onclick="document.getElementById('main-screenshot').src=this.src"
+                            style="width:100%; border-radius:8px; cursor:pointer; border:1px solid var(--border-subtle); opacity:0.7; transition: opacity 0.3s;"
+                            onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div>
+                    <span class="card-badge" style="margin-bottom:1rem;">VST Plugin</span>
+                    <h2 style="font-family:var(--font-head); font-size:2.2rem; font-weight:900; text-transform:uppercase; letter-spacing:2px; margin-bottom:0.5rem;
+                        background: linear-gradient(135deg, var(--text-white) 30%, var(--accent-gold) 100%);
+                        -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">
+                        Howling Wolves</h2>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height:1.8; margin-bottom:2rem;">
+                        A cinematic atmospheric synthesizer built for modern production. Featuring 100+ handcrafted
+                        presets,
+                        dual oscillators, LFO modulation, the signature Hunt FX engine, and a built-in arpeggiator.
+                        Available as VST3, AU, and Standalone for macOS &amp; Windows.
+                    </p>
+
+                    <!-- Features -->
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:2rem;">
+                        <div style="display:flex; align-items:center; gap:0.75rem;">
+                            <i class="fas fa-sliders-h" style="color:var(--accent-gold); font-size:1rem;"></i>
+                            <span style="color:var(--text-muted); font-size:0.9rem;">100+ Presets</span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:0.75rem;">
+                            <i class="fas fa-wave-square" style="color:var(--accent-gold); font-size:1rem;"></i>
+                            <span style="color:var(--text-muted); font-size:0.9rem;">Dual Oscillators</span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:0.75rem;">
+                            <i class="fas fa-sync-alt" style="color:var(--accent-gold); font-size:1rem;"></i>
+                            <span style="color:var(--text-muted); font-size:0.9rem;">LFO Modulation</span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:0.75rem;">
+                            <i class="fas fa-magic" style="color:var(--accent-gold); font-size:1rem;"></i>
+                            <span style="color:var(--text-muted); font-size:0.9rem;">Hunt FX Engine</span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:0.75rem;">
+                            <i class="fas fa-music" style="color:var(--accent-gold); font-size:1rem;"></i>
+                            <span style="color:var(--text-muted); font-size:0.9rem;">Arpeggiator</span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:0.75rem;">
+                            <i class="fas fa-desktop" style="color:var(--accent-gold); font-size:1rem;"></i>
+                            <span style="color:var(--text-muted); font-size:0.9rem;">macOS &amp; Windows</span>
+                        </div>
+                    </div>
+
+                    <!-- Price & Buy -->
+                    <div style="display:flex; align-items:center; gap:2rem; margin-bottom:1.5rem;">
+                        <span
+                            style="font-family:var(--font-head); font-size:2.5rem; font-weight:900; color:var(--text-white);">
+                            <span
+                                style="font-size:1rem; font-weight:400; color:var(--text-muted); vertical-align:top; position:relative; top:5px;">$</span>39.99
+                        </span>
+                        <a href="https://djdonlito412.gumroad.com/l/howlingwolvesvst" class="btn btn-primary"
+                            style="min-width:220px;">
+                            <i class="fas fa-shopping-cart" style="margin-right:8px;"></i> Buy Now
+                        </a>
+                    </div>
+                    <p style="color:var(--text-dim); font-size:0.8rem;">
+                        <i class="fas fa-lock" style="margin-right:5px;"></i> Secure checkout via Stripe &bull; Instant
+                        download after purchase
+                    </p>
+                </div>
+            </div>
+
+            <!-- Audio Demos Section -->
+            <div style="margin-bottom:4rem;">
+                <h3 style="font-family:var(--font-head); font-size:1.4rem; font-weight:700; text-transform:uppercase; letter-spacing:2px; margin-bottom:2rem; text-align:center;
+                    background: linear-gradient(135deg, var(--text-white) 40%, var(--accent-gold) 100%);
+                    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">
+                    <i class="fas fa-headphones"
+                        style="-webkit-text-fill-color:var(--accent-gold); margin-right:10px;"></i>
+                    Audio Demos
+                </h3>
+                <div style="max-width:700px; margin:0 auto; display:flex; flex-direction:column; gap:1rem;">
+
+                    <div
+                        style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius); padding:1rem 1.25rem; display:flex; align-items:center; gap:1rem;">
+                        <span
+                            style="font-family:var(--font-head); font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--accent-gold); min-width:130px;">Wolf
+                            Cry</span>
+                        <audio controls preload="none" style="flex:1; height:36px;">
+                            <source src="/audio/wolf_cry.wav" type="audio/wav">
+                        </audio>
+                    </div>
+
+                    <div
+                        style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius); padding:1rem 1.25rem; display:flex; align-items:center; gap:1rem;">
+                        <span
+                            style="font-family:var(--font-head); font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--accent-gold); min-width:130px;">Wolf
+                            Mist</span>
+                        <audio controls preload="none" style="flex:1; height:36px;">
+                            <source src="/audio/wolf_mist.wav" type="audio/wav">
+                        </audio>
+                    </div>
+
+                    <div
+                        style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius); padding:1rem 1.25rem; display:flex; align-items:center; gap:1rem;">
+                        <span
+                            style="font-family:var(--font-head); font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--accent-gold); min-width:130px;">Midnight
+                            Keys</span>
+                        <audio controls preload="none" style="flex:1; height:36px;">
+                            <source src="/audio/midnight_keys.wav" type="audio/wav">
+                        </audio>
+                    </div>
+
+                    <div
+                        style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius); padding:1rem 1.25rem; display:flex; align-items:center; gap:1rem;">
+                        <span
+                            style="font-family:var(--font-head); font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--accent-gold); min-width:130px;">Night
+                            Stalker</span>
+                        <audio controls preload="none" style="flex:1; height:36px;">
+                            <source src="/audio/night_stalker.wav" type="audio/wav">
+                        </audio>
+                    </div>
+
+                    <div
+                        style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius); padding:1rem 1.25rem; display:flex; align-items:center; gap:1rem;">
+                        <span
+                            style="font-family:var(--font-head); font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--accent-gold); min-width:130px;">Graveyard
+                            808</span>
+                        <audio controls preload="none" style="flex:1; height:36px;">
+                            <source src="/audio/graveyard_808.wav" type="audio/wav">
+                        </audio>
+                    </div>
+
+                    <div
+                        style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius); padding:1rem 1.25rem; display:flex; align-items:center; gap:1rem;">
+                        <span
+                            style="font-family:var(--font-head); font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--accent-gold); min-width:130px;">Acoustic
+                            Piano</span>
+                        <audio controls preload="none" style="flex:1; height:36px;">
+                            <source src="/audio/acoustic_piano.wav" type="audio/wav">
+                        </audio>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="brand-info">
+                    <div class="footer-brand">WOLF <span>PACC</span> AUDIO</div>
+                    <p>&copy; 2026 Wolf Pacc Audio. All rights reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="/beats/">Beats</a>
+                    <a href="/vst/">VST</a>
+                    <a href="/terms-of-service.html">Terms of Service</a>
+                    <a href="/refund-policy.html">Refund Policy</a>
+                    <a href="/terms-of-service/">Terms</a>
+                    <a href="/refund-policy/">Refunds</a>
+                    <a href="mailto:support@wolfpaccaudio.com">Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+            const icon = navToggle.querySelector('i');
+            icon.className = navLinks.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                navToggle.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.product-card').forEach(el => { el.classList.add('fade-in'); observer.observe(el); });
+    </script>
+
+</body>
+
+</html>
