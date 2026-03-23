@@ -86,9 +86,17 @@
             if (totalEl) totalEl.textContent = formatTime(audio.duration);
         });
 
+        var previewDuration = container.dataset.preview ? parseFloat(container.dataset.preview) : 0;
+
         audio.addEventListener('timeupdate', function () {
             if (currentEl) currentEl.textContent = formatTime(audio.currentTime);
             if (audio.duration) setProgress(bars, audio.currentTime / audio.duration);
+            if (previewDuration > 0 && audio.currentTime >= previewDuration) {
+                pausePlayer();
+                audio.currentTime = 0;
+                setProgress(bars, 0);
+                if (currentEl) currentEl.textContent = '0:00';
+            }
         });
 
         audio.addEventListener('ended', function () {
