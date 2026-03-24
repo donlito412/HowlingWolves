@@ -230,7 +230,7 @@
         </div>
     </section>
 
-    <!-- EMAIL CAPTURE FORM -->
+    <!-- FREE DOWNLOAD CTA -->
     <section class="free-form-section">
         <div class="container">
             <div class="fpf-inner">
@@ -240,8 +240,8 @@
                     <p class="fpf-eyebrow"><i class="fas fa-gift"></i> Free Download</p>
                     <h2 class="fpf-title">Get the Pack.<br>Keep the Sounds.</h2>
                     <p class="fpf-desc">
-                        Enter your email and you'll be taken straight to the download — no account required, no
-                        waiting. The full pack has everything you just heard plus more.
+                        Click below to grab the full pack — enter your email once on the next screen and the
+                        download link is sent to you instantly. No account required.
                     </p>
                     <ul class="fpf-checklist">
                         <li><i class="fas fa-check-circle"></i> 5 exclusive melody loops — WAV</li>
@@ -251,53 +251,24 @@
                     </ul>
                 </div>
 
-                <!-- Right: form card -->
-                <div class="fpf-form-card">
-                    <h3 class="fpf-form-title">Download the Free Pack</h3>
-                    <p class="fpf-form-sub">Enter your email below. You'll be taken straight to the download.</p>
-
-                    <form
-                        class="fpf-form"
-                        action="https://formspree.io/f/mgonzlqj"
-                        method="POST"
+                <!-- Right: CTA card -->
+                <div class="fpf-form-card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.25rem;">
+                    <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-hover));display:flex;align-items:center;justify-content:center;font-size:1.75rem;">
+                        <i class="fas fa-download" style="color:#000;"></i>
+                    </div>
+                    <h3 class="fpf-form-title" style="margin:0;">Free Teaser Pack</h3>
+                    <p class="fpf-form-sub" style="margin:0;">5 Melody Loops &middot; 16 Drum Sounds &middot; WAV &middot; 100% Free</p>
+                    <a
+                        href="https://djdonlito412.gumroad.com/l/voqnms?wanted=true"
+                        data-gumroad-overlay-checkout="true"
+                        class="btn btn-primary fpf-submit"
+                        style="width:100%;justify-content:center;"
                     >
-                        <input type="hidden" name="_next" value="https://wolfpaccaudio.com/free-download/">
-                        <input type="hidden" name="_subject" value="New Free Teaser Pack Download">
-
-                        <div class="form-group">
-                            <label class="form-label" for="fsp-name">First Name <span style="color:var(--text-dim);font-weight:400;">(optional)</span></label>
-                            <input
-                                class="form-input"
-                                type="text"
-                                id="fsp-name"
-                                name="name"
-                                placeholder="Your first name"
-                                autocomplete="given-name"
-                            >
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="fsp-email">Email Address <span style="color:#ef4444;">*</span></label>
-                            <input
-                                class="form-input"
-                                type="email"
-                                id="fsp-email"
-                                name="email"
-                                placeholder="you@example.com"
-                                required
-                                autocomplete="email"
-                            >
-                        </div>
-
-                        <button type="submit" class="btn btn-primary fpf-submit">
-                            <i class="fas fa-download" style="margin-right:8px;"></i>Get the Free Pack
-                        </button>
-
-                        <p class="fpf-privacy">
-                            No spam. We may occasionally email you about new releases.
-                            Unsubscribe any time. See our <a href="/terms-of-service/">Terms</a>.
-                        </p>
-                    </form>
+                        <i class="fas fa-download" style="margin-right:8px;"></i>Get the Free Pack
+                    </a>
+                    <p class="fpf-privacy">
+                        You'll enter your email on the next screen — one step, instant delivery.
+                    </p>
                 </div>
 
             </div>
@@ -337,6 +308,7 @@
         </div>
     </footer>
 
+    <script src="https://gumroad.com/js/gumroad.js"></script>
     <script src="/audio-player.js"></script>
     <script>
         const navToggle = document.getElementById('nav-toggle');
