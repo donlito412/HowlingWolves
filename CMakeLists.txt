@@ -2,8 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 
 project(HowlingWolves VERSION 1.0.20)
 
-# Initialize JUCE 
-# We'll use a recent stable version of JUCE 7
+# Initialize JUCE (8.x)
 include(FetchContent)
 FetchContent_Declare(
     JUCE
@@ -31,8 +30,8 @@ juce_add_plugin(HowlingWolves
 juce_generate_juce_header(HowlingWolves)
 
 # Local maintainer bypass: create an empty ".wolf_author_build" in the repo root
-# (gitignored) so your own builds skip the Gumroad screen. CI and clones without
-# that file still require a license. Do not commit the marker file.
+# (gitignored) so your own builds skip the license screen. CI and clones without
+# that file still require activation. Do not commit the marker file.
 if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.wolf_author_build")
   target_compile_definitions(HowlingWolves PRIVATE WOLF_AUTHOR_BUILD=1)
 endif()
@@ -94,6 +93,7 @@ target_sources(HowlingWolves
         Source/ModernCyberLookAndFeel.h
         Source/HuntEngine.cpp
         Source/HuntEngine.h
+        Source/LicenseConfig.h
         Source/LicenseManager.cpp
         Source/LicenseManager.h
         Source/LicenseActivationOverlay.cpp

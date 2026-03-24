@@ -5,22 +5,26 @@
 
 class LicenseManager {
 public:
-    LicenseManager();
-    ~LicenseManager();
+  LicenseManager();
+  ~LicenseManager();
 
-    // Check if there is already a saved valid key in the Application Data folder
-    bool loadSavedLicense();
+  // True when license.key contains a prior Lemon Squeezy activation (JSON with
+  // license_key + instance_id).
+  bool loadSavedLicense();
 
-    // Make the HTTP request to Gumroad to verify the user-entered key
-    // Returns true if verification succeeded, false otherwise.
-    void verifyLicense(const juce::String& licenseKey, std::function<void(bool success, const juce::String& message)> callback);
+  // Lemon Squeezy License API: validate existing instance and/or activate, then
+  // save key + instance_id. Callback always runs on the message thread.
+  void verifyLicense(
+      const juce::String &licenseKey,
+      std::function<void(bool success, const juce::String &message)> callback);
 
-    // Save the key if valid
-    void saveLicense(const juce::String& licenseKey);
+  void saveLicense(const juce::String &licenseKey,
+                   const juce::String &instanceId);
 
-    juce::String getSavedKey() const { return savedKey; }
+  juce::String getSavedKey() const { return savedKey; }
+  juce::String getSavedInstanceId() const { return savedInstanceId; }
 
 private:
-    juce::String savedKey;
-    juce::String productPermalink = "howlingwolvesvst"; // Hardcoded
+  juce::String savedKey;
+  juce::String savedInstanceId;
 };

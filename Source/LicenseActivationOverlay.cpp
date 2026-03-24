@@ -16,7 +16,7 @@ LicenseActivationOverlay::LicenseActivationOverlay(
 
   // Description Label
   descLabel.setText(
-      "Please enter your Gumroad License Key to activate this plugin.",
+      "Enter your Lemon Squeezy license key (from your order email) to activate.",
       juce::dontSendNotification);
   descLabel.setFont(juce::Font(16.0f));
   descLabel.setColour(juce::Label::textColourId, juce::Colours::lightgrey);
@@ -96,19 +96,16 @@ void LicenseActivationOverlay::activateClicked() {
   }
 
   statusLabel.setColour(juce::Label::textColourId, juce::Colours::cyan);
-  statusLabel.setText("Verifying with Gumroad...", juce::dontSendNotification);
+  statusLabel.setText("Contacting Lemon Squeezy...", juce::dontSendNotification);
   activateBtn.setEnabled(false);
   keyInput.setEnabled(false);
 
-  licenseManager.verifyLicense(key, [this, key](bool success,
-                                                const juce::String &message) {
+  licenseManager.verifyLicense(key, [this](bool success,
+                                           const juce::String &message) {
     // Must be called on message thread!
     if (success) {
       statusLabel.setColour(juce::Label::textColourId, juce::Colours::green);
       statusLabel.setText(message, juce::dontSendNotification);
-
-      // Save it
-      licenseManager.saveLicense(key);
 
       // Trigger the success callback (which will hide the overlay)
       if (onSuccessCallback != nullptr)

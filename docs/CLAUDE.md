@@ -1,3 +1,8 @@
+---
+description: 
+alwaysApply: true
+---
+
 # Wolf Instruments - Claude Code Configuration
 
 This file provides context for Claude Code when working in the Wolf Instruments project alongside Antigravity.

@@ -5,8 +5,7 @@
 
 //==============================================================================
 /*
-    A full-screen overlay component that asks the user for their Gumroad License
-   Key. Blocks the underlying UI until successfully activated.
+    Full-screen overlay: Lemon Squeezy license key entry until activation succeeds.
 */
 class LicenseActivationOverlay : public juce::Component {
 public:
