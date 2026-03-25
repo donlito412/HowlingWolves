@@ -36,3 +36,13 @@ Music/
 
 # Installer
 Installer/
+
+# Large audio files - keep on disk, not in git
+docs/audio/Beat Pack Samples/
+docs/audio/Melody Samples/
+docs/audio/*.wav
+docs/downloads/*.zip
+.git_backup/
+.claude/
+.cursor/
+hw-temp/
