@@ -2740,6 +2740,11 @@ h2 {
     line-height: 1.5;
 }
 
+/* Free-sounds card: hide anything MailerLite injects after the embed (extra lines under the form) */
+.fpf-ml-slot .ml-embedded ~ * {
+    display: none !important;
+}
+
 .form-group {
     display: flex;
     flex-direction: column;
