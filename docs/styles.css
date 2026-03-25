@@ -3424,6 +3424,10 @@ h2 {
     gap: 1.25rem;
 }
 
+.category-value-block--two .container {
+    grid-template-columns: repeat(2, 1fr);
+}
+
 .cv-card {
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
