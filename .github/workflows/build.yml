@@ -65,14 +65,16 @@ jobs:
         mkdir -p artifacts
         if [ -d "build/HowlingWolves_artefacts/Release/VST3" ]; then
           cp -r "build/HowlingWolves_artefacts/Release/VST3/"* artifacts/ 2>/dev/null || true
-          cp -r "build/HowlingWolves_artefacts/Release/Standalone/"* artifacts/ 2>/dev/null || true
+          # Copy only the .exe from Standalone (skip .lib, .exp build artifacts)
+          cp "build/HowlingWolves_artefacts/Release/Standalone/"*.exe artifacts/ 2>/dev/null || true
         elif [ -d "build/HowlingWolves_artefacts/VST3" ]; then
           cp -r "build/HowlingWolves_artefacts/VST3/"* artifacts/ 2>/dev/null || true
-          cp -r "build/HowlingWolves_artefacts/Standalone/"* artifacts/ 2>/dev/null || true
+          cp "build/HowlingWolves_artefacts/Standalone/"*.exe artifacts/ 2>/dev/null || true
         fi
         if [ -d "DistributionContent" ]; then
           cp -R DistributionContent artifacts/DistributionContent
         fi
+        cp INSTALL.txt artifacts/ 2>/dev/null || true
         7z a HowlingWolves_Windows.zip ./artifacts/*
 
     - name: Package (macOS)
@@ -91,22 +93,23 @@ jobs:
         if [ -d "DistributionContent" ]; then
           cp -R DistributionContent artifacts/DistributionContent
         fi
-        zip -r HowlingWolves_MacOS.zip artifacts
+        cp INSTALL.txt artifacts/ 2>/dev/null || true
+        cd artifacts && zip -r ../HowlingWolves_MacOS.zip . && cd ..
 
-    - name: Upload Windows zip
+    - name: Upload Windows artifact
       if: runner.os == 'Windows'
       uses: actions/upload-artifact@v4
       with:
         name: HowlingWolves-windows-latest
-        path: HowlingWolves_Windows.zip
+        path: artifacts/*
         if-no-files-found: error
 
-    - name: Upload macOS zip
+    - name: Upload macOS artifact
       if: runner.os == 'macOS'
       uses: actions/upload-artifact@v4
       with:
         name: HowlingWolves-macos-latest
-        path: HowlingWolves_MacOS.zip
+        path: artifacts/*
         if-no-files-found: error
 
   release:
@@ -119,11 +122,18 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: HowlingWolves-windows-latest
+          path: windows-files
 
       - name: Download Artifacts (macOS)
         uses: actions/download-artifact@v4
         with:
           name: HowlingWolves-macos-latest
+          path: macos-files
+
+      - name: Create release ZIPs
+        run: |
+          cd windows-files && zip -r ../HowlingWolves_Windows.zip . && cd ..
+          cd macos-files && zip -r ../HowlingWolves_MacOS.zip . && cd ..
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
