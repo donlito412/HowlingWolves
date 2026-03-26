@@ -1,0 +1,60 @@
+============================================
+  Howling Wolves - Installation Guide
+  by WolfInstruments
+============================================
+
+WINDOWS
+-------
+1. Extract this ZIP to a folder on your desktop.
+
+2. VST3 Plugin:
+   Copy the "Howling Wolves.vst3" folder to:
+   C:\Program Files\Common Files\VST3\
+
+3. Standalone App:
+   Run "Howling Wolves.exe" directly - no install needed.
+
+4. Sample Content:
+   Copy the "DistributionContent" folder to:
+   C:\ProgramData\WolfInstruments\HowlingWolves\
+
+5. Open your DAW and rescan plugins. Howling Wolves should appear
+   under Instruments / Synths.
+
+NOTE: Windows SmartScreen may show a warning the first time you run
+the plugin or standalone app. Click "More info" then "Run anyway".
+This is normal for independent software.
+
+
+macOS
+-----
+1. Extract this ZIP.
+
+2. VST3 Plugin:
+   Copy "Howling Wolves.vst3" to:
+   /Library/Audio/Plug-Ins/VST3/
+   (or ~/Library/Audio/Plug-Ins/VST3/ for your user only)
+
+3. AU Plugin (Audio Unit):
+   Copy "Howling Wolves.component" to:
+   /Library/Audio/Plug-Ins/Components/
+   (or ~/Library/Audio/Plug-Ins/Components/ for your user only)
+
+4. Standalone App:
+   Move "Howling Wolves.app" to your Applications folder.
+
+5. Sample Content:
+   The factory samples are already embedded inside the plugin bundles.
+   The "DistributionContent" folder is included as a backup copy.
+
+6. Open your DAW and rescan plugins.
+
+NOTE: macOS Gatekeeper may block the plugin the first time.
+Right-click (or Control-click) the app/plugin and choose "Open".
+You can also go to System Settings > Privacy & Security and click
+"Open Anyway" if prompted.
+
+
+SUPPORT
+-------
+Questions? Contact WolfInstruments.
