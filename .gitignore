@@ -36,6 +36,8 @@ Music/
 
 # Installer
 Installer/
+_sign_installer/
+installer.iss
 
 # Large audio files - keep on disk, not in git
 docs/audio/Beat Pack Samples/

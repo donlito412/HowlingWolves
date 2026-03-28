@@ -43,9 +43,27 @@ jobs:
           -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64" \
           -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0
 
+    # JUCE VST3 on Windows must be 64-bit; default CMake on GHA can pick Win32.
     - name: Configure CMake (Windows)
       if: runner.os == 'Windows'
-      run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+      shell: pwsh
+      run: |
+        if (Test-Path build) { Remove-Item -Recurse -Force build }
+        $generators = @(
+          'Visual Studio 17 2022',
+          'Visual Studio 18 2025'
+        )
+        $configured = $false
+        foreach ($g in $generators) {
+          Write-Host "Trying CMake generator: $g"
+          cmake -B build -G $g -A x64
+          if ($LASTEXITCODE -eq 0) { $configured = $true; break }
+          Remove-Item -Recurse -Force build -ErrorAction SilentlyContinue
+        }
+        if (-not $configured) {
+          Write-Error "CMake configure failed for all Visual Studio generators."
+          exit 1
+        }
 
     - name: Build
       run: cmake --build build --config Release --parallel 4
@@ -56,23 +74,26 @@ jobs:
         echo "=== Build output structure ==="
         find build/HowlingWolves_artefacts -type f \( -name "*.vst3" -o -name "*.component" -o -name "*.app" -o -name "*.exe" -o -name "*.dll" \) 2>/dev/null || echo "No artefacts directory found"
 
-    # --- WINDOWS SIGNING & INSTALLER STEPS ---
-    
+    # Same-repo PRs get secrets; fork PRs do not — skip Azure to avoid hard failures.
     - name: Azure Login
-      if: runner.os == 'Windows'
+      if: runner.os == 'Windows' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
       uses: azure/login@v2
       with:
         creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
+        enable-AzPSSession: true
 
-    - name: Sign Binaries (VST3/DLL)
-      if: runner.os == 'Windows'
+    - name: Sign Binaries (VST3 / Standalone)
+      if: runner.os == 'Windows' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
       uses: azure/trusted-signing-action@v0
       with:
+        azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         endpoint: https://prodeastus.codesigning.azure.net
         certificate-profile-name: WolfPaccAudioSignature
         trusted-signing-account-name: WolfPaccSigning
-        files-folder: build/HowlingWolves_artefacts
-        files-folder-filter: dll,exe
+        files-folder: ${{ github.workspace }}/build/HowlingWolves_artefacts
+        files-folder-filter: dll,exe,vst3
         files-folder-recurse: true
 
     - name: Install Inno Setup
@@ -87,36 +108,62 @@ jobs:
       shell: pwsh
       run: ./build_installer_win.ps1
 
+    - name: Stage installer for signing
+      if: runner.os == 'Windows' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Force _sign_installer | Out-Null
+        Copy-Item -Force "HowlingWolves_Win_Installer.exe" "_sign_installer/"
+
     - name: Sign Installer (EXE)
-      if: runner.os == 'Windows'
+      if: runner.os == 'Windows' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
       uses: azure/trusted-signing-action@v0
       with:
+        azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         endpoint: https://prodeastus.codesigning.azure.net
         certificate-profile-name: WolfPaccAudioSignature
         trusted-signing-account-name: WolfPaccSigning
-        files-folder: .
+        files-folder: ${{ github.workspace }}/_sign_installer
         files-folder-filter: exe
         files-folder-recurse: false
 
-    # --- PACKAGING ---
+    - name: Copy signed installer to repo root
+      if: runner.os == 'Windows' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+      shell: pwsh
+      run: Copy-Item -Force "_sign_installer/HowlingWolves_Win_Installer.exe" "${{ github.workspace }}/"
 
     - name: Package (Windows)
       if: runner.os == 'Windows'
-      shell: bash
+      shell: pwsh
       run: |
-        mkdir -p artifacts
-        if [ -d "build/HowlingWolves_artefacts/Release/VST3" ]; then
-          cp -r "build/HowlingWolves_artefacts/Release/VST3/"* artifacts/ 2>/dev/null || true
-          cp "build/HowlingWolves_artefacts/Release/Standalone/"*.exe artifacts/ 2>/dev/null || true
-        elif [ -d "build/HowlingWolves_artefacts/VST3" ]; then
-          cp -r "build/HowlingWolves_artefacts/VST3/"* artifacts/ 2>/dev/null || true
-          cp "build/HowlingWolves_artefacts/Standalone/"*.exe artifacts/ 2>/dev/null || true
-        fi
-        if [ -d "DistributionContent" ]; then
-          cp -R DistributionContent artifacts/DistributionContent
-        fi
-        cp INSTALL.txt artifacts/ 2>/dev/null || true
-        7z a HowlingWolves_Windows.zip ./artifacts/*
+        if (Test-Path artifacts) { Remove-Item -Recurse -Force artifacts }
+        New-Item -ItemType Directory -Force -Path artifacts | Out-Null
+        $art = "build/HowlingWolves_artefacts"
+        if (Test-Path "$art/Release/VST3") {
+          Copy-Item -Path "$art/Release/VST3/*" -Destination "artifacts" -Recurse -Force
+          Get-ChildItem "$art/Release/Standalone" -Filter "*.exe" -ErrorAction SilentlyContinue | Copy-Item -Destination "artifacts" -Force
+        } elseif (Test-Path "$art/VST3") {
+          Copy-Item -Path "$art/VST3/*" -Destination "artifacts" -Recurse -Force
+          Get-ChildItem "$art/Standalone" -Filter "*.exe" -ErrorAction SilentlyContinue | Copy-Item -Destination "artifacts" -Force
+        }
+        if (Test-Path "DistributionContent") {
+          Copy-Item -Path "DistributionContent" -Destination "artifacts/DistributionContent" -Recurse -Force
+        }
+        if (Test-Path "INSTALL.txt") { Copy-Item "INSTALL.txt" "artifacts/" -Force }
+        $items = Get-ChildItem artifacts -ErrorAction SilentlyContinue
+        if (-not $items) {
+          Write-Error "artifacts folder is empty — Windows build output path may have changed."
+          exit 1
+        }
+        Remove-Item -Force HowlingWolves_Windows.zip -ErrorAction SilentlyContinue
+        $seven = "${env:ProgramFiles}\7-Zip\7z.exe"
+        if (Test-Path $seven) {
+          & $seven a -tzip -r "HowlingWolves_Windows.zip" ".\artifacts\*"
+        } else {
+          Compress-Archive -Path "artifacts\*" -DestinationPath "HowlingWolves_Windows.zip" -Force
+        }
 
     - name: Package (macOS)
       if: runner.os == 'macOS'
@@ -137,14 +184,20 @@ jobs:
         cp INSTALL.txt artifacts/ 2>/dev/null || true
         cd artifacts && zip -r ../HowlingWolves_MacOS.zip . && cd ..
 
-    # --- UPLOAD ARTIFACTS ---
-
     - name: Upload Windows artifact
       if: runner.os == 'Windows'
       uses: actions/upload-artifact@v4
       with:
         name: HowlingWolves-windows-latest
-        path: artifacts/*
+        path: artifacts
+        if-no-files-found: error
+
+    - name: Upload Windows zip (release bundle)
+      if: runner.os == 'Windows'
+      uses: actions/upload-artifact@v4
+      with:
+        name: HowlingWolves-windows-zip
+        path: HowlingWolves_Windows.zip
         if-no-files-found: error
 
     - name: Upload Windows Installer
@@ -160,7 +213,15 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: HowlingWolves-macos-latest
-        path: artifacts/*
+        path: artifacts
+        if-no-files-found: error
+
+    - name: Upload macOS zip (release bundle)
+      if: runner.os == 'macOS'
+      uses: actions/upload-artifact@v4
+      with:
+        name: HowlingWolves-macos-zip
+        path: HowlingWolves_MacOS.zip
         if-no-files-found: error
 
   release:
@@ -169,11 +230,17 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
-      - name: Download Artifacts (Windows)
+      - name: Download Artifacts (Windows folder)
         uses: actions/download-artifact@v4
         with:
           name: HowlingWolves-windows-latest
           path: windows-files
+
+      - name: Download Artifacts (Windows zip)
+        uses: actions/download-artifact@v4
+        with:
+          name: HowlingWolves-windows-zip
+          path: windows-zip-dir
 
       - name: Download Artifacts (Installer)
         uses: actions/download-artifact@v4
@@ -181,17 +248,23 @@ jobs:
           name: HowlingWolves-Installer-Win
           path: installer-files
 
-      - name: Download Artifacts (macOS)
+      - name: Download Artifacts (macOS folder)
         uses: actions/download-artifact@v4
         with:
           name: HowlingWolves-macos-latest
           path: macos-files
 
-      - name: Create release ZIPs
+      - name: Download Artifacts (macOS zip)
+        uses: actions/download-artifact@v4
+        with:
+          name: HowlingWolves-macos-zip
+          path: macos-zip-dir
+
+      - name: Stage release files
         run: |
-          cd windows-files && zip -r ../HowlingWolves_Windows.zip . && cd ..
-          cd macos-files && zip -r ../HowlingWolves_MacOS.zip . && cd ..
-          cp installer-files/HowlingWolves_Win_Installer.exe .
+          cp "windows-zip-dir/HowlingWolves_Windows.zip" .
+          cp "macos-zip-dir/HowlingWolves_MacOS.zip" .
+          cp "installer-files/HowlingWolves_Win_Installer.exe" .
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2

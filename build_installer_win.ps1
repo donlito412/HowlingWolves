@@ -21,7 +21,7 @@ if (Test-Path "$BuildRoot\Release\VST3") {
 $IssContent = @"
 [Setup]
 AppName=Howling Wolves
-AppVersion=1.0.19
+AppVersion=1.0.20
 DefaultDirName={cf}\VST3
 DefaultGroupName=Howling Wolves
 OutputBaseFilename=HowlingWolves_Win_Installer
@@ -37,8 +37,9 @@ Source: "Installer\staging_win\VST3\*"; DestDir: "{app}"; Flags: ignoreversion r
 
 Set-Content -Path "installer.iss" -Value $IssContent
 Write-Host "Compiling Inno Setup Script..."
-# Use iscc directly as it's typically in the PATH on GitHub runners
-iscc installer.iss
+$iscc = Join-Path ${env:ProgramFiles(x86)} "Inno Setup 6\ISCC.exe"
+if (-not (Test-Path $iscc)) { $iscc = "iscc" }
+& $iscc (Resolve-Path "installer.iss").Path
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Inno Setup Compiler failed with exit code $LASTEXITCODE"
     exit $LASTEXITCODE
