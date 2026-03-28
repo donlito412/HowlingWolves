@@ -37,7 +37,6 @@ Music/
 # Installer
 Installer/
 _sign_installer/
-_sign_binary_catalog.txt
 installer.iss
 
 # Large audio files - keep on disk, not in git
