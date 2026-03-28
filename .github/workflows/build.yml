@@ -91,7 +91,7 @@ jobs:
         azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         endpoint: https://prodeastus.codesigning.azure.net
         certificate-profile-name: WolfPaccAudioSignature
-        signing-account-name: WolfPaccSigning
+        trusted-signing-account-name: WolfPaccSigning
         files-folder: ${{ github.workspace }}/build/HowlingWolves_artefacts
         files-folder-filter: dll,exe,vst3
         files-folder-recurse: true
@@ -128,7 +128,7 @@ jobs:
         azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         endpoint: https://prodeastus.codesigning.azure.net
         certificate-profile-name: WolfPaccAudioSignature
-        signing-account-name: WolfPaccSigning
+        trusted-signing-account-name: WolfPaccSigning
         files-folder: ${{ github.workspace }}/_sign_installer
         files-folder-filter: exe
         files-folder-recurse: false
