@@ -19,7 +19,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, windows-latest]
+        # windows-2022: stable VS2022 + Ninja; avoids windows-latest image churn.
+        os: [macos-latest, windows-2022]
 
     steps:
     - name: Checkout code
@@ -27,7 +28,9 @@ jobs:
       with:
         submodules: recursive
 
+    # Latest CMake on macOS only. Windows uses the runner CMake (pairs correctly with VS).
     - name: Setup CMake
+      if: runner.os == 'macOS'
       uses: lukka/get-cmake@latest
 
     - name: Install macOS Dependencies
@@ -43,30 +46,28 @@ jobs:
           -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64" \
           -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0
 
-    # JUCE VST3 on Windows must be 64-bit; default CMake on GHA can pick Win32.
+    - name: Enable MSVC (Windows)
+      if: runner.os == 'Windows'
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x64
+
     - name: Configure CMake (Windows)
       if: runner.os == 'Windows'
       shell: pwsh
       run: |
         if (Test-Path build) { Remove-Item -Recurse -Force build }
-        $generators = @(
-          'Visual Studio 17 2022',
-          'Visual Studio 18 2025'
-        )
-        $configured = $false
-        foreach ($g in $generators) {
-          Write-Host "Trying CMake generator: $g"
-          cmake -B build -G $g -A x64
-          if ($LASTEXITCODE -eq 0) { $configured = $true; break }
-          Remove-Item -Recurse -Force build -ErrorAction SilentlyContinue
-        }
-        if (-not $configured) {
-          Write-Error "CMake configure failed for all Visual Studio generators."
-          exit 1
-        }
+        cmake --version
+        cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+        if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-    - name: Build
+    - name: Build (macOS)
+      if: runner.os == 'macOS'
       run: cmake --build build --config Release --parallel 4
+
+    - name: Build (Windows)
+      if: runner.os == 'Windows'
+      run: cmake --build build --parallel 4
 
     - name: List build artifacts
       shell: bash
@@ -74,13 +75,12 @@ jobs:
         echo "=== Build output structure ==="
         find build/HowlingWolves_artefacts -type f \( -name "*.vst3" -o -name "*.component" -o -name "*.app" -o -name "*.exe" -o -name "*.dll" \) 2>/dev/null || echo "No artefacts directory found"
 
-    # Same-repo PRs get secrets; fork PRs do not — skip Azure to avoid hard failures.
+    # Same-repo PRs get secrets; fork PRs do not.
     - name: Azure Login
       if: runner.os == 'Windows' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
       uses: azure/login@v2
       with:
         creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
-        enable-AzPSSession: true
 
     - name: Sign Binaries (VST3 / Standalone)
       if: runner.os == 'Windows' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
@@ -91,7 +91,7 @@ jobs:
         azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         endpoint: https://prodeastus.codesigning.azure.net
         certificate-profile-name: WolfPaccAudioSignature
-        trusted-signing-account-name: WolfPaccSigning
+        signing-account-name: WolfPaccSigning
         files-folder: ${{ github.workspace }}/build/HowlingWolves_artefacts
         files-folder-filter: dll,exe,vst3
         files-folder-recurse: true
@@ -100,7 +100,7 @@ jobs:
       if: runner.os == 'Windows'
       shell: pwsh
       run: |
-        choco install innosetup -y --no-progress
+        choco install innosetup -y --no-progress --ignore-checksums
         echo "C:\Program Files (x86)\Inno Setup 6" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
     - name: Build Installer (Windows)
@@ -112,6 +112,10 @@ jobs:
       if: runner.os == 'Windows' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
       shell: pwsh
       run: |
+        if (-not (Test-Path "HowlingWolves_Win_Installer.exe")) {
+          Write-Error "HowlingWolves_Win_Installer.exe missing after Inno build."
+          exit 1
+        }
         New-Item -ItemType Directory -Force _sign_installer | Out-Null
         Copy-Item -Force "HowlingWolves_Win_Installer.exe" "_sign_installer/"
 
@@ -124,7 +128,7 @@ jobs:
         azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         endpoint: https://prodeastus.codesigning.azure.net
         certificate-profile-name: WolfPaccAudioSignature
-        trusted-signing-account-name: WolfPaccSigning
+        signing-account-name: WolfPaccSigning
         files-folder: ${{ github.workspace }}/_sign_installer
         files-folder-filter: exe
         files-folder-recurse: false
