@@ -72,6 +72,7 @@ jobs:
         certificate-profile-name: WolfPaccAudioSignature
         trusted-signing-account-name: WolfPaccSigning
         files-folder: build/HowlingWolves_artefacts
+        files-folder-filter: dll,exe
         files-folder-recurse: true
 
     - name: Install Inno Setup
