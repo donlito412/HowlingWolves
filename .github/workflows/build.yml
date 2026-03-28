@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   build:
@@ -50,13 +51,56 @@ jobs:
     - name: Build
       run: cmake --build build --config Release --parallel 4
 
-    - name: List build artifacts (Debug)
+    - name: List build artifacts
       shell: bash
       run: |
         echo "=== Build output structure ==="
         find build/HowlingWolves_artefacts -type f \( -name "*.vst3" -o -name "*.component" -o -name "*.app" -o -name "*.exe" -o -name "*.dll" \) 2>/dev/null || echo "No artefacts directory found"
-        echo "=== Full artefacts tree ==="
-        ls -R build/HowlingWolves_artefacts/ 2>/dev/null || echo "Directory not found"
+
+    # --- WINDOWS SIGNING & INSTALLER STEPS ---
+    
+    - name: Azure Login
+      if: runner.os == 'Windows'
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Sign Binaries (VST3/DLL)
+      if: runner.os == 'Windows'
+      uses: azure/trusted-signing-action@v0
+      with:
+        endpoint: https://prodeastus.codesigning.azure.net
+        certificate-profile-name: WolfPaccAudioSignature
+        trusted-signing-account-name: WolfPaccSigning
+        files-folder: build/HowlingWolves_artefacts
+        files-folder-recurse: true
+
+    - name: Install Inno Setup
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: |
+        choco install innosetup -y --no-progress
+        echo "C:\Program Files (x86)\Inno Setup 6" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+    - name: Build Installer (Windows)
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: ./build_installer_win.ps1
+
+    - name: Sign Installer (EXE)
+      if: runner.os == 'Windows'
+      uses: azure/trusted-signing-action@v0
+      with:
+        endpoint: https://prodeastus.codesigning.azure.net
+        certificate-profile-name: WolfPaccAudioSignature
+        trusted-signing-account-name: WolfPaccSigning
+        files-folder: .
+        files-folder-filter: exe
+        files-folder-recurse: false
+
+    # --- PACKAGING ---
 
     - name: Package (Windows)
       if: runner.os == 'Windows'
@@ -65,7 +109,6 @@ jobs:
         mkdir -p artifacts
         if [ -d "build/HowlingWolves_artefacts/Release/VST3" ]; then
           cp -r "build/HowlingWolves_artefacts/Release/VST3/"* artifacts/ 2>/dev/null || true
-          # Copy only the .exe from Standalone (skip .lib, .exp build artifacts)
           cp "build/HowlingWolves_artefacts/Release/Standalone/"*.exe artifacts/ 2>/dev/null || true
         elif [ -d "build/HowlingWolves_artefacts/VST3" ]; then
           cp -r "build/HowlingWolves_artefacts/VST3/"* artifacts/ 2>/dev/null || true
@@ -96,12 +139,22 @@ jobs:
         cp INSTALL.txt artifacts/ 2>/dev/null || true
         cd artifacts && zip -r ../HowlingWolves_MacOS.zip . && cd ..
 
+    # --- UPLOAD ARTIFACTS ---
+
     - name: Upload Windows artifact
       if: runner.os == 'Windows'
       uses: actions/upload-artifact@v4
       with:
         name: HowlingWolves-windows-latest
         path: artifacts/*
+        if-no-files-found: error
+
+    - name: Upload Windows Installer
+      if: runner.os == 'Windows'
+      uses: actions/upload-artifact@v4
+      with:
+        name: HowlingWolves-Installer-Win
+        path: HowlingWolves_Win_Installer.exe
         if-no-files-found: error
 
     - name: Upload macOS artifact
@@ -124,6 +177,12 @@ jobs:
           name: HowlingWolves-windows-latest
           path: windows-files
 
+      - name: Download Artifacts (Installer)
+        uses: actions/download-artifact@v4
+        with:
+          name: HowlingWolves-Installer-Win
+          path: installer-files
+
       - name: Download Artifacts (macOS)
         uses: actions/download-artifact@v4
         with:
@@ -134,6 +193,7 @@ jobs:
         run: |
           cd windows-files && zip -r ../HowlingWolves_Windows.zip . && cd ..
           cd macos-files && zip -r ../HowlingWolves_MacOS.zip . && cd ..
+          cp installer-files/HowlingWolves_Win_Installer.exe .
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -141,5 +201,6 @@ jobs:
           files: |
             HowlingWolves_Windows.zip
             HowlingWolves_MacOS.zip
+            HowlingWolves_Win_Installer.exe
           fail_on_unmatched_files: true
           generate_release_notes: true

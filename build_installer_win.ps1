@@ -37,7 +37,8 @@ Source: "Installer\staging_win\VST3\*"; DestDir: "{app}"; Flags: ignoreversion r
 
 Set-Content -Path "installer.iss" -Value $IssContent
 Write-Host "Compiling Inno Setup Script..."
-& "C:\Program Files (x86)\Inno Setup 6\iscc.exe" installer.iss
+# Use iscc directly as it's typically in the PATH on GitHub runners
+iscc installer.iss
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Inno Setup Compiler failed with exit code $LASTEXITCODE"
     exit $LASTEXITCODE
