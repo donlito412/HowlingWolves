@@ -82,6 +82,29 @@ jobs:
       with:
         creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
 
+    # files-folder enumeration fails on paths with spaces (e.g. "Howling Wolves.vst3"). Catalog paths are line-based.
+    - name: Write binary signing catalog
+      if: runner.os == 'Windows' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+      shell: pwsh
+      run: |
+        $ws = "${{ github.workspace }}"
+        $root = Join-Path $ws "build/HowlingWolves_artefacts"
+        if (-not (Test-Path -LiteralPath $root)) {
+          Write-Error "Missing: $root"
+          exit 1
+        }
+        $extOk = @('.dll', '.exe', '.vst3')
+        $files = @(Get-ChildItem -LiteralPath $root -Recurse -File | Where-Object { $extOk -contains $_.Extension.ToLowerInvariant() })
+        if ($files.Count -eq 0) {
+          Write-Host "No PE files under $root — listing tree:"
+          Get-ChildItem -LiteralPath $root -Recurse -ErrorAction SilentlyContinue | ForEach-Object { $_.FullName }
+          exit 1
+        }
+        $catalog = Join-Path $ws "_sign_binary_catalog.txt"
+        $files | ForEach-Object { [System.IO.Path]::GetRelativePath($ws, $_.FullName) } | Set-Content -Path $catalog -Encoding utf8
+        Write-Host "Signing $($files.Count) files (catalog: $catalog)"
+        Get-Content $catalog
+
     - name: Sign Binaries (VST3 / Standalone)
       if: runner.os == 'Windows' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
       uses: azure/artifact-signing-action@v1.2.0
@@ -92,10 +115,9 @@ jobs:
         endpoint: https://prodeastus.codesigning.azure.net
         certificate-profile-name: WolfPaccAudioSignature
         signing-account-name: WolfPaccSigning
-        files-folder: ${{ github.workspace }}/build/HowlingWolves_artefacts
-        files-folder-filter: dll,exe,vst3
-        files-folder-recurse: true
+        files-catalog: ${{ github.workspace }}/_sign_binary_catalog.txt
         cache-dependencies: 'false'
+        trace: 'true'
 
     - name: Install Inno Setup
       if: runner.os == 'Windows'
