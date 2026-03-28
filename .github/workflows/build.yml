@@ -122,7 +122,7 @@ jobs:
         azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         endpoint: https://eus.codesigning.azure.net/
         trusted-signing-account-name: WolfPaccSigning
-        certificate-profile-name: WolfPaccCodeSigning
+        certificate-profile-name: WolfPaccAudioSignature
         files: ${{ steps.win_sign_files.outputs.signing_files }}
         file-digest: SHA256
         timestamp-rfc3161: 'http://timestamp.acs.microsoft.com'
@@ -161,7 +161,7 @@ jobs:
         azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         endpoint: https://eus.codesigning.azure.net/
         trusted-signing-account-name: WolfPaccSigning
-        certificate-profile-name: WolfPaccCodeSigning
+        certificate-profile-name: WolfPaccAudioSignature
         files: ${{ github.workspace }}/_sign_installer/HowlingWolves_Win_Installer.exe
         file-digest: SHA256
         timestamp-rfc3161: 'http://timestamp.acs.microsoft.com'
