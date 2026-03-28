@@ -120,7 +120,7 @@ jobs:
         azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
         azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
-        endpoint: https://prodeastus.codesigning.azure.net
+        endpoint: https://eus.codesigning.azure.net/
         certificate-profile-name: WolfPaccAudioSignature
         signing-account-name: WolfPaccSigning
         files: ${{ steps.win_sign_files.outputs.signing_files }}
@@ -159,7 +159,7 @@ jobs:
         azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
         azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
-        endpoint: https://prodeastus.codesigning.azure.net
+        endpoint: https://eus.codesigning.azure.net/
         certificate-profile-name: WolfPaccAudioSignature
         signing-account-name: WolfPaccSigning
         files: ${{ github.workspace }}/_sign_installer/HowlingWolves_Win_Installer.exe
