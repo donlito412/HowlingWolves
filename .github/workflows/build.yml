@@ -204,6 +204,62 @@ jobs:
           Compress-Archive -Path "artifacts\*" -DestinationPath "HowlingWolves_Windows.zip" -Force
         }
 
+    - name: Sign and Notarize (macOS)
+      if: runner.os == 'macOS' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+      env:
+        APPLE_CERTIFICATE_BASE64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
+        APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+        APPLE_ID: ${{ secrets.APPLE_ID }}
+        APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+        APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        APPLE_CODESIGN_IDENTITY: ${{ secrets.APPLE_CODESIGN_IDENTITY }}
+      run: |
+        # Import certificate into temporary keychain
+        KEYCHAIN_PATH=$RUNNER_TEMP/signing.keychain-db
+        KEYCHAIN_PASS=$(openssl rand -hex 16)
+        echo "$APPLE_CERTIFICATE_BASE64" | base64 --decode > $RUNNER_TEMP/cert.p12
+        security create-keychain -p "$KEYCHAIN_PASS" "$KEYCHAIN_PATH"
+        security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+        security unlock-keychain -p "$KEYCHAIN_PASS" "$KEYCHAIN_PATH"
+        security import "$RUNNER_TEMP/cert.p12" -P "$APPLE_CERTIFICATE_PASSWORD" \
+          -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+        security list-keychain -d user -s "$KEYCHAIN_PATH"
+        security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASS" "$KEYCHAIN_PATH"
+
+        # Must match Keychain identity exactly (set APPLE_CODESIGN_IDENTITY secret, or default below).
+        if [ -n "$APPLE_CODESIGN_IDENTITY" ]; then
+          SIGN_ID="$APPLE_CODESIGN_IDENTITY"
+        else
+          SIGN_ID="Developer ID Application: Jonathan Freeman ($APPLE_TEAM_ID)"
+        fi
+
+        # Sign VST3
+        find build/HowlingWolves_artefacts -name "*.vst3" | while read bundle; do
+          codesign --deep --force --verify --verbose \
+            --sign "$SIGN_ID" \
+            --options runtime \
+            --timestamp \
+            "$bundle"
+        done
+
+        # Sign AU component
+        find build/HowlingWolves_artefacts -name "*.component" | while read bundle; do
+          codesign --deep --force --verify --verbose \
+            --sign "$SIGN_ID" \
+            --options runtime \
+            --timestamp \
+            "$bundle"
+        done
+
+        # Sign Standalone app
+        find build/HowlingWolves_artefacts -name "*.app" | while read bundle; do
+          codesign --deep --force --verify --verbose \
+            --sign "$SIGN_ID" \
+            --options runtime \
+            --timestamp \
+            "$bundle"
+        done
+
     - name: Package (macOS)
       if: runner.os == 'macOS'
       run: |
@@ -222,6 +278,19 @@ jobs:
         fi
         cp INSTALL.txt artifacts/ 2>/dev/null || true
         cd artifacts && zip -r ../HowlingWolves_MacOS.zip . && cd ..
+
+    - name: Notarize (macOS)
+      if: runner.os == 'macOS' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+      env:
+        APPLE_ID: ${{ secrets.APPLE_ID }}
+        APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+        APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      run: |
+        xcrun notarytool submit HowlingWolves_MacOS.zip \
+          --apple-id "$APPLE_ID" \
+          --password "$APPLE_APP_SPECIFIC_PASSWORD" \
+          --team-id "$APPLE_TEAM_ID" \
+          --wait
 
     - name: Upload Windows artifact
       if: runner.os == 'Windows'
