@@ -19,8 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # windows-2022: stable VS2022 + Ninja; avoids windows-latest image churn.
-        os: [macos-latest, windows-2022]
+        os: [macos-latest, windows-latest]
 
     steps:
     - name: Checkout code
@@ -28,9 +27,7 @@ jobs:
       with:
         submodules: recursive
 
-    # Latest CMake on macOS only. Windows uses the runner CMake (pairs correctly with VS).
     - name: Setup CMake
-      if: runner.os == 'macOS'
       uses: lukka/get-cmake@latest
 
     - name: Install macOS Dependencies
@@ -46,186 +43,214 @@ jobs:
           -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64" \
           -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0
 
-    - name: Enable MSVC (Windows)
-      if: runner.os == 'Windows'
-      uses: ilammy/msvc-dev-cmd@v1
-      with:
-        arch: x64
-
     - name: Configure CMake (Windows)
       if: runner.os == 'Windows'
-      shell: pwsh
-      run: |
-        if (Test-Path build) { Remove-Item -Recurse -Force build }
-        cmake --version
-        cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
-        if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      run: cmake -B build -DCMAKE_BUILD_TYPE=Release
 
-    - name: Build (macOS)
-      if: runner.os == 'macOS'
+    - name: Build
       run: cmake --build build --config Release --parallel 4
 
-    - name: Build (Windows)
-      if: runner.os == 'Windows'
-      run: cmake --build build --parallel 4
-
-    - name: List build artifacts
+    - name: List build artifacts (Debug)
       shell: bash
       run: |
         echo "=== Build output structure ==="
         find build/HowlingWolves_artefacts -type f \( -name "*.vst3" -o -name "*.component" -o -name "*.app" -o -name "*.exe" -o -name "*.dll" \) 2>/dev/null || echo "No artefacts directory found"
+        echo "=== Full artefacts tree ==="
+        ls -R build/HowlingWolves_artefacts/ 2>/dev/null || echo "Directory not found"
 
-    # Same-repo PRs get secrets; fork PRs do not.
-    - name: Azure Login
-      if: runner.os == 'Windows' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
-      uses: azure/login@v2
-      with:
-        creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
-
-    - name: Sign Binaries (VST3 / Standalone)
-      if: runner.os == 'Windows' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
-      uses: azure/artifact-signing-action@v1.2.0
-      with:
-        azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
-        endpoint: https://prodeastus.codesigning.azure.net
-        certificate-profile-name: WolfPaccAudioSignature
-        signing-account-name: WolfPaccSigning
-        files-folder: ${{ github.workspace }}/build/HowlingWolves_artefacts
-        files-folder-filter: dll,exe,vst3
-        files-folder-recurse: true
-        cache-dependencies: 'false'
-
-    - name: Install Inno Setup
-      if: runner.os == 'Windows'
-      shell: pwsh
-      run: |
-        choco install innosetup -y --no-progress --ignore-checksums
-        echo "C:\Program Files (x86)\Inno Setup 6" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-
-    - name: Build Installer (Windows)
-      if: runner.os == 'Windows'
-      shell: pwsh
-      run: ./build_installer_win.ps1
-
-    - name: Stage installer for signing
-      if: runner.os == 'Windows' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
-      shell: pwsh
-      run: |
-        if (-not (Test-Path "HowlingWolves_Win_Installer.exe")) {
-          Write-Error "HowlingWolves_Win_Installer.exe missing after Inno build."
-          exit 1
-        }
-        New-Item -ItemType Directory -Force _sign_installer | Out-Null
-        Copy-Item -Force "HowlingWolves_Win_Installer.exe" "_sign_installer/"
-
-    - name: Sign Installer (EXE)
-      if: runner.os == 'Windows' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
-      uses: azure/artifact-signing-action@v1.2.0
-      with:
-        azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
-        endpoint: https://prodeastus.codesigning.azure.net
-        certificate-profile-name: WolfPaccAudioSignature
-        signing-account-name: WolfPaccSigning
-        files-folder: ${{ github.workspace }}/_sign_installer
-        files-folder-filter: exe
-        files-folder-recurse: false
-        cache-dependencies: 'false'
-
-    - name: Copy signed installer to repo root
-      if: runner.os == 'Windows' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
-      shell: pwsh
-      run: Copy-Item -Force "_sign_installer/HowlingWolves_Win_Installer.exe" "${{ github.workspace }}/"
-
-    - name: Package (Windows)
-      if: runner.os == 'Windows'
-      shell: pwsh
-      run: |
-        if (Test-Path artifacts) { Remove-Item -Recurse -Force artifacts }
-        New-Item -ItemType Directory -Force -Path artifacts | Out-Null
-        $art = "build/HowlingWolves_artefacts"
-        if (Test-Path "$art/Release/VST3") {
-          Copy-Item -Path "$art/Release/VST3/*" -Destination "artifacts" -Recurse -Force
-          Get-ChildItem "$art/Release/Standalone" -Filter "*.exe" -ErrorAction SilentlyContinue | Copy-Item -Destination "artifacts" -Force
-        } elseif (Test-Path "$art/VST3") {
-          Copy-Item -Path "$art/VST3/*" -Destination "artifacts" -Recurse -Force
-          Get-ChildItem "$art/Standalone" -Filter "*.exe" -ErrorAction SilentlyContinue | Copy-Item -Destination "artifacts" -Force
-        }
-        if (Test-Path "DistributionContent") {
-          Copy-Item -Path "DistributionContent" -Destination "artifacts/DistributionContent" -Recurse -Force
-        }
-        if (Test-Path "INSTALL.txt") { Copy-Item "INSTALL.txt" "artifacts/" -Force }
-        $items = Get-ChildItem artifacts -ErrorAction SilentlyContinue
-        if (-not $items) {
-          Write-Error "artifacts folder is empty — Windows build output path may have changed."
-          exit 1
-        }
-        Remove-Item -Force HowlingWolves_Windows.zip -ErrorAction SilentlyContinue
-        $seven = "${env:ProgramFiles}\7-Zip\7z.exe"
-        if (Test-Path $seven) {
-          & $seven a -tzip -r "HowlingWolves_Windows.zip" ".\artifacts\*"
-        } else {
-          Compress-Archive -Path "artifacts\*" -DestinationPath "HowlingWolves_Windows.zip" -Force
-        }
-
-    - name: Sign and Notarize (macOS)
-      if: runner.os == 'macOS' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    # ---------------------------------------------------------------
+    # macOS: Import certificates and sign all bundles
+    # ---------------------------------------------------------------
+    - name: Import certificates (macOS)
+      if: runner.os == 'macOS'
       env:
-        APPLE_CERTIFICATE_BASE64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
-        APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+        MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
+        MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
+        MACOS_INSTALLER_CERTIFICATE: ${{ secrets.MACOS_INSTALLER_CERTIFICATE }}
+        MACOS_INSTALLER_CERTIFICATE_PWD: ${{ secrets.MACOS_INSTALLER_CERTIFICATE_PWD }}
+      run: |
+        KEYCHAIN_PASSWORD=$(openssl rand -base64 32)
+        security create-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+        security default-keychain -s build.keychain
+        security unlock-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+        security set-keychain-settings -t 3600 -u build.keychain
+
+        echo "$MACOS_CERTIFICATE" | base64 --decode > app_cert.p12
+        security import app_cert.p12 -k build.keychain \
+          -P "$MACOS_CERTIFICATE_PWD" -T /usr/bin/codesign
+        rm app_cert.p12
+
+        echo "$MACOS_INSTALLER_CERTIFICATE" | base64 --decode > installer_cert.p12
+        security import installer_cert.p12 -k build.keychain \
+          -P "$MACOS_INSTALLER_CERTIFICATE_PWD" \
+          -T /usr/bin/pkgbuild -T /usr/bin/productbuild
+        rm installer_cert.p12
+
+        security set-key-partition-list \
+          -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" build.keychain
+
+    - name: Sign macOS bundles
+      if: runner.os == 'macOS'
+      env:
+        APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+      run: |
+        cat > entitlements.plist << 'EOF'
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+            <key>com.apple.security.cs.allow-jit</key>
+            <true/>
+            <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+            <true/>
+            <key>com.apple.security.cs.disable-library-validation</key>
+            <true/>
+            <key>com.apple.security.device.audio-input</key>
+            <true/>
+        </dict>
+        </plist>
+        EOF
+
+        sign_bundle() {
+          local bundle="$1"
+          echo "Signing: $bundle"
+          codesign --force --deep --options runtime \
+            --entitlements entitlements.plist \
+            --sign "$APPLE_SIGNING_IDENTITY" \
+            "$bundle"
+        }
+
+        find build/HowlingWolves_artefacts -name "*.vst3"      -maxdepth 5 -type d | while read b; do sign_bundle "$b"; done
+        find build/HowlingWolves_artefacts -name "*.component" -maxdepth 5 -type d | while read b; do sign_bundle "$b"; done
+        find build/HowlingWolves_artefacts -name "*.app"       -maxdepth 5 -type d | while read b; do sign_bundle "$b"; done
+
+    # ---------------------------------------------------------------
+    # macOS: Build and sign .pkg installer
+    # ---------------------------------------------------------------
+    - name: Create macOS installer pkg
+      if: runner.os == 'macOS'
+      env:
+        APPLE_INSTALLER_IDENTITY: ${{ secrets.APPLE_INSTALLER_IDENTITY }}
+      run: |
+        VERSION="1.0.20"
+
+        mkdir -p pkg_stage/VST3/Library/Audio/Plug-Ins/VST3
+        mkdir -p pkg_stage/AU/Library/Audio/Plug-Ins/Components
+        mkdir -p pkg_stage/App/Applications
+        mkdir -p "pkg_stage/Content/Library/Application Support/WolfInstruments/HowlingWolves"
+
+        find build/HowlingWolves_artefacts -name "*.vst3" -maxdepth 5 -type d \
+          -exec cp -R {} pkg_stage/VST3/Library/Audio/Plug-Ins/VST3/ \;
+        find build/HowlingWolves_artefacts -name "*.component" -maxdepth 5 -type d \
+          -exec cp -R {} pkg_stage/AU/Library/Audio/Plug-Ins/Components/ \;
+        find build/HowlingWolves_artefacts -name "*.app" -maxdepth 5 -type d \
+          -exec cp -R {} pkg_stage/App/Applications/ \;
+        cp -R DistributionContent \
+          "pkg_stage/Content/Library/Application Support/WolfInstruments/HowlingWolves/"
+
+        pkgbuild --root pkg_stage/VST3 \
+          --identifier com.wolfinstruments.howlingwolves.vst3 \
+          --version "$VERSION" --install-location / pkg_vst3.pkg
+
+        pkgbuild --root pkg_stage/AU \
+          --identifier com.wolfinstruments.howlingwolves.au \
+          --version "$VERSION" --install-location / pkg_au.pkg
+
+        pkgbuild --root pkg_stage/App \
+          --identifier com.wolfinstruments.howlingwolves.app \
+          --version "$VERSION" --install-location / pkg_app.pkg
+
+        pkgbuild --root pkg_stage/Content \
+          --identifier com.wolfinstruments.howlingwolves.content \
+          --version "$VERSION" --install-location / pkg_content.pkg
+
+        cat > distribution.xml << DISTEOF
+        <?xml version="1.0" encoding="utf-8"?>
+        <installer-gui-script minSpecVersion="1">
+            <title>Howling Wolves</title>
+            <organization>com.wolfinstruments</organization>
+            <domains enable_localSystem="true"/>
+            <options customize="never" require-scripts="false" rootVolumeOnly="true"/>
+            <pkg-ref id="com.wolfinstruments.howlingwolves.vst3"/>
+            <pkg-ref id="com.wolfinstruments.howlingwolves.au"/>
+            <pkg-ref id="com.wolfinstruments.howlingwolves.app"/>
+            <pkg-ref id="com.wolfinstruments.howlingwolves.content"/>
+            <choices-outline>
+                <line choice="default">
+                    <line choice="com.wolfinstruments.howlingwolves.vst3"/>
+                    <line choice="com.wolfinstruments.howlingwolves.au"/>
+                    <line choice="com.wolfinstruments.howlingwolves.app"/>
+                    <line choice="com.wolfinstruments.howlingwolves.content"/>
+                </line>
+            </choices-outline>
+            <choice id="default"/>
+            <choice id="com.wolfinstruments.howlingwolves.vst3" visible="false">
+                <pkg-ref id="com.wolfinstruments.howlingwolves.vst3"/>
+            </choice>
+            <choice id="com.wolfinstruments.howlingwolves.au" visible="false">
+                <pkg-ref id="com.wolfinstruments.howlingwolves.au"/>
+            </choice>
+            <choice id="com.wolfinstruments.howlingwolves.app" visible="false">
+                <pkg-ref id="com.wolfinstruments.howlingwolves.app"/>
+            </choice>
+            <choice id="com.wolfinstruments.howlingwolves.content" visible="false">
+                <pkg-ref id="com.wolfinstruments.howlingwolves.content"/>
+            </choice>
+            <pkg-ref id="com.wolfinstruments.howlingwolves.vst3" version="$VERSION" onConclusion="none">pkg_vst3.pkg</pkg-ref>
+            <pkg-ref id="com.wolfinstruments.howlingwolves.au" version="$VERSION" onConclusion="none">pkg_au.pkg</pkg-ref>
+            <pkg-ref id="com.wolfinstruments.howlingwolves.app" version="$VERSION" onConclusion="none">pkg_app.pkg</pkg-ref>
+            <pkg-ref id="com.wolfinstruments.howlingwolves.content" version="$VERSION" onConclusion="none">pkg_content.pkg</pkg-ref>
+        </installer-gui-script>
+        DISTEOF
+
+        productbuild \
+          --distribution distribution.xml \
+          --package-path . \
+          --sign "$APPLE_INSTALLER_IDENTITY" \
+          "HowlingWolves_Installer.pkg"
+
+    # ---------------------------------------------------------------
+    # macOS: Notarize and staple
+    # ---------------------------------------------------------------
+    - name: Notarize and staple (macOS)
+      if: runner.os == 'macOS'
+      env:
         APPLE_ID: ${{ secrets.APPLE_ID }}
         APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
         APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-        APPLE_CODESIGN_IDENTITY: ${{ secrets.APPLE_CODESIGN_IDENTITY }}
       run: |
-        # Import certificate into temporary keychain
-        KEYCHAIN_PATH=$RUNNER_TEMP/signing.keychain-db
-        KEYCHAIN_PASS=$(openssl rand -hex 16)
-        echo "$APPLE_CERTIFICATE_BASE64" | base64 --decode > $RUNNER_TEMP/cert.p12
-        security create-keychain -p "$KEYCHAIN_PASS" "$KEYCHAIN_PATH"
-        security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
-        security unlock-keychain -p "$KEYCHAIN_PASS" "$KEYCHAIN_PATH"
-        security import "$RUNNER_TEMP/cert.p12" -P "$APPLE_CERTIFICATE_PASSWORD" \
-          -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
-        security list-keychain -d user -s "$KEYCHAIN_PATH"
-        security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASS" "$KEYCHAIN_PATH"
+        xcrun notarytool submit "HowlingWolves_Installer.pkg" \
+          --apple-id "$APPLE_ID" \
+          --password "$APPLE_APP_SPECIFIC_PASSWORD" \
+          --team-id "$APPLE_TEAM_ID" \
+          --wait
 
-        # Must match Keychain identity exactly (set APPLE_CODESIGN_IDENTITY secret, or default below).
-        if [ -n "$APPLE_CODESIGN_IDENTITY" ]; then
-          SIGN_ID="$APPLE_CODESIGN_IDENTITY"
-        else
-          SIGN_ID="Developer ID Application: Jonathan Freeman ($APPLE_TEAM_ID)"
+        xcrun stapler staple "HowlingWolves_Installer.pkg"
+
+        find build/HowlingWolves_artefacts -name "*.app"       -maxdepth 5 -type d -exec xcrun stapler staple {} \;
+        find build/HowlingWolves_artefacts -name "*.vst3"      -maxdepth 5 -type d -exec xcrun stapler staple {} \;
+        find build/HowlingWolves_artefacts -name "*.component" -maxdepth 5 -type d -exec xcrun stapler staple {} \;
+
+    # ---------------------------------------------------------------
+    # Package
+    # ---------------------------------------------------------------
+    - name: Package (Windows)
+      if: runner.os == 'Windows'
+      shell: bash
+      run: |
+        mkdir -p artifacts
+        if [ -d "build/HowlingWolves_artefacts/Release/VST3" ]; then
+          cp -r "build/HowlingWolves_artefacts/Release/VST3/"* artifacts/ 2>/dev/null || true
+          cp "build/HowlingWolves_artefacts/Release/Standalone/"*.exe artifacts/ 2>/dev/null || true
+        elif [ -d "build/HowlingWolves_artefacts/VST3" ]; then
+          cp -r "build/HowlingWolves_artefacts/VST3/"* artifacts/ 2>/dev/null || true
+          cp "build/HowlingWolves_artefacts/Standalone/"*.exe artifacts/ 2>/dev/null || true
         fi
-
-        # Sign VST3
-        find build/HowlingWolves_artefacts -name "*.vst3" | while read bundle; do
-          codesign --deep --force --verify --verbose \
-            --sign "$SIGN_ID" \
-            --options runtime \
-            --timestamp \
-            "$bundle"
-        done
-
-        # Sign AU component
-        find build/HowlingWolves_artefacts -name "*.component" | while read bundle; do
-          codesign --deep --force --verify --verbose \
-            --sign "$SIGN_ID" \
-            --options runtime \
-            --timestamp \
-            "$bundle"
-        done
-
-        # Sign Standalone app
-        find build/HowlingWolves_artefacts -name "*.app" | while read bundle; do
-          codesign --deep --force --verify --verbose \
-            --sign "$SIGN_ID" \
-            --options runtime \
-            --timestamp \
-            "$bundle"
-        done
+        if [ -d "DistributionContent" ]; then
+          cp -R DistributionContent artifacts/DistributionContent
+        fi
+        cp INSTALL.txt artifacts/ 2>/dev/null || true
+        7z a HowlingWolves_Windows.zip ./artifacts/*
 
     - name: Package (macOS)
       if: runner.os == 'macOS'
@@ -243,44 +268,16 @@ jobs:
         if [ -d "DistributionContent" ]; then
           cp -R DistributionContent artifacts/DistributionContent
         fi
+        cp HowlingWolves_Installer.pkg artifacts/ 2>/dev/null || true
         cp INSTALL.txt artifacts/ 2>/dev/null || true
         cd artifacts && zip -r ../HowlingWolves_MacOS.zip . && cd ..
-
-    - name: Notarize (macOS)
-      if: runner.os == 'macOS' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
-      env:
-        APPLE_ID: ${{ secrets.APPLE_ID }}
-        APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
-        APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      run: |
-        xcrun notarytool submit HowlingWolves_MacOS.zip \
-          --apple-id "$APPLE_ID" \
-          --password "$APPLE_APP_SPECIFIC_PASSWORD" \
-          --team-id "$APPLE_TEAM_ID" \
-          --wait
 
     - name: Upload Windows artifact
       if: runner.os == 'Windows'
       uses: actions/upload-artifact@v4
       with:
         name: HowlingWolves-windows-latest
-        path: artifacts
-        if-no-files-found: error
-
-    - name: Upload Windows zip (release bundle)
-      if: runner.os == 'Windows'
-      uses: actions/upload-artifact@v4
-      with:
-        name: HowlingWolves-windows-zip
-        path: HowlingWolves_Windows.zip
-        if-no-files-found: error
-
-    - name: Upload Windows Installer
-      if: runner.os == 'Windows'
-      uses: actions/upload-artifact@v4
-      with:
-        name: HowlingWolves-Installer-Win
-        path: HowlingWolves_Win_Installer.exe
+        path: artifacts/*
         if-no-files-found: error
 
     - name: Upload macOS artifact
@@ -288,15 +285,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: HowlingWolves-macos-latest
-        path: artifacts
-        if-no-files-found: error
-
-    - name: Upload macOS zip (release bundle)
-      if: runner.os == 'macOS'
-      uses: actions/upload-artifact@v4
-      with:
-        name: HowlingWolves-macos-zip
-        path: HowlingWolves_MacOS.zip
+        path: artifacts/*
         if-no-files-found: error
 
   release:
@@ -305,41 +294,22 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
-      - name: Download Artifacts (Windows folder)
+      - name: Download Artifacts (Windows)
         uses: actions/download-artifact@v4
         with:
           name: HowlingWolves-windows-latest
           path: windows-files
 
-      - name: Download Artifacts (Windows zip)
-        uses: actions/download-artifact@v4
-        with:
-          name: HowlingWolves-windows-zip
-          path: windows-zip-dir
-
-      - name: Download Artifacts (Installer)
-        uses: actions/download-artifact@v4
-        with:
-          name: HowlingWolves-Installer-Win
-          path: installer-files
-
-      - name: Download Artifacts (macOS folder)
+      - name: Download Artifacts (macOS)
         uses: actions/download-artifact@v4
         with:
           name: HowlingWolves-macos-latest
           path: macos-files
 
-      - name: Download Artifacts (macOS zip)
-        uses: actions/download-artifact@v4
-        with:
-          name: HowlingWolves-macos-zip
-          path: macos-zip-dir
-
-      - name: Stage release files
+      - name: Create release ZIPs
         run: |
-          cp "windows-zip-dir/HowlingWolves_Windows.zip" .
-          cp "macos-zip-dir/HowlingWolves_MacOS.zip" .
-          cp "installer-files/HowlingWolves_Win_Installer.exe" .
+          cd windows-files && zip -r ../HowlingWolves_Windows.zip . && cd ..
+          cd macos-files && zip -r ../HowlingWolves_MacOS.zip . && cd ..
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -347,6 +317,5 @@ jobs:
           files: |
             HowlingWolves_Windows.zip
             HowlingWolves_MacOS.zip
-            HowlingWolves_Win_Installer.exe
           fail_on_unmatched_files: true
           generate_release_notes: true
