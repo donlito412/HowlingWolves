@@ -4,17 +4,15 @@ The build and signing process is now fully integrated into your GitHub Actions w
 
 ## Azure resources (must match the workflow)
 
-The Windows job uses **`azure/trusted-signing-action@v0.5.0`** with:
+The Windows job uses **`azure/artifact-signing-action@v1.2.0`** with:
 
 | Setting | Value in `build.yml` |
 | :--- | :--- |
-| **Endpoint (East US)** | `https://eus.codesigning.azure.net/` |
-| **Trusted Signing account** | `WolfPaccSigning` |
-| **Certificate profile** | `WolfPaccCodeSigning` |
+| **Endpoint** | `https://prodeastus.codesigning.azure.net` |
+| **Signing account** (`signing-account-name`) | `WolfPaccSigning` |
+| **Certificate profile** | `WolfPaccAudioSignature` |
 
-Create the **certificate profile** in the Azure portal if it does not exist yet: open your **Trusted Signing** (Artifact Signing) account **`WolfPaccSigning`** in region **East US**, add a certificate profile named exactly **`WolfPaccCodeSigning`**, and complete identity validation if prompted. Step-by-step: [Quickstart: Set up Artifact Signing](https://learn.microsoft.com/en-us/azure/trusted-signing/quickstart) (use the **East US** endpoint above for that region).
-
-If you use a different profile name in Azure, change `certificate-profile-name` in `.github/workflows/build.yml` to match **exactly**.
+If Azure names or region change, update `endpoint`, `signing-account-name`, and `certificate-profile-name` in `.github/workflows/build.yml` (and `build-promo.yml` if you use it) to match the portal **exactly**. Setup reference: [Quickstart: Set up Artifact Signing](https://learn.microsoft.com/en-us/azure/trusted-signing/quickstart).
 
 ## Apple Developer (macOS sign + notarize)
 

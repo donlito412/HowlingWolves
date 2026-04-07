@@ -70,36 +70,20 @@ jobs:
       with:
         creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
 
-    - name: Collect binary paths for signing
-      id: win_sign_files
-      if: runner.os == 'Windows'
-      shell: pwsh
-      run: |
-        $ws = "${{ github.workspace }}"
-        $root = Join-Path $ws "build/HowlingWolves_artefacts"
-        $extOk = @('.dll', '.exe', '.vst3')
-        $hits = @(Get-ChildItem -LiteralPath $root -Recurse -File | Where-Object { $extOk -contains $_.Extension.ToLowerInvariant() })
-        $paths = @($hits | ForEach-Object { $_.FullName })
-        $sb = New-Object System.Text.StringBuilder
-        [void]$sb.AppendLine("signing_files<<EOF")
-        foreach ($p in $paths) { [void]$sb.AppendLine($p) }
-        [void]$sb.AppendLine("EOF")
-        [System.IO.File]::AppendAllText($env:GITHUB_OUTPUT, $sb.ToString(), [System.Text.UTF8Encoding]::new($false))
-
     - name: Sign Binaries (VST3 / Standalone)
       if: runner.os == 'Windows'
-      uses: azure/trusted-signing-action@v0.5.0
+      uses: azure/artifact-signing-action@v1.2.0
       with:
         azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
         azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
-        endpoint: https://eus.codesigning.azure.net/
-        trusted-signing-account-name: WolfPaccSigning
+        endpoint: https://prodeastus.codesigning.azure.net
         certificate-profile-name: WolfPaccAudioSignature
-        files: ${{ steps.win_sign_files.outputs.signing_files }}
-        file-digest: SHA256
-        timestamp-rfc3161: 'http://timestamp.acs.microsoft.com'
-        timestamp-digest: SHA256
+        signing-account-name: WolfPaccSigning
+        files-folder: ${{ github.workspace }}/build/HowlingWolves_artefacts
+        files-folder-filter: dll,exe,vst3
+        files-folder-recurse: true
+        cache-dependencies: 'false'
 
     - name: Install Inno Setup
       if: runner.os == 'Windows'
@@ -122,18 +106,18 @@ jobs:
 
     - name: Sign Installer (EXE)
       if: runner.os == 'Windows'
-      uses: azure/trusted-signing-action@v0.5.0
+      uses: azure/artifact-signing-action@v1.2.0
       with:
         azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
         azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
-        endpoint: https://eus.codesigning.azure.net/
-        trusted-signing-account-name: WolfPaccSigning
+        endpoint: https://prodeastus.codesigning.azure.net
         certificate-profile-name: WolfPaccAudioSignature
-        files: ${{ github.workspace }}/_sign_installer/HowlingWolves_Win_Installer.exe
-        file-digest: SHA256
-        timestamp-rfc3161: 'http://timestamp.acs.microsoft.com'
-        timestamp-digest: SHA256
+        signing-account-name: WolfPaccSigning
+        files-folder: ${{ github.workspace }}/_sign_installer
+        files-folder-filter: exe
+        files-folder-recurse: false
+        cache-dependencies: 'false'
 
     - name: Copy signed installer
       if: runner.os == 'Windows'
