@@ -111,7 +111,7 @@ rm -f "$UNSIGNED_PKG"
 pkgutil --check-signature "$SIGNED_PKG"
 
 echo "=== Submitting for notarization ==="
-ccrun notarytool submit "$SIGNED_PKG" --apple-id "$APPLE_ID" --password "$APPLE_APP_SPECIFIC_PASSWORD" --team-id "$APPLE_TEAM_ID" --wait
+xcrun notarytool submit "$SIGNED_PKG" --apple-id "$APPLE_ID" --password "$APPLE_APP_SPECIFIC_PASSWORD" --team-id "$APPLE_TEAM_ID" --wait
 
 xcrun stapler staple "$SIGNED_PKG"
 xcrun stapler validate "$SIGNED_PKG"
