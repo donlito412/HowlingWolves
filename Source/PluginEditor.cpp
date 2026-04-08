@@ -143,11 +143,11 @@ HowlingWolvesAudioProcessorEditor::HowlingWolvesAudioProcessorEditor(
       audioProcessor.setLastPresetName(name);
     }
     savePresetOverlay.setVisible(false);
-    resized();
+    repaint();
   };
   savePresetOverlay.cancelButton.onClick = [this] {
     savePresetOverlay.setVisible(false);
-    resized();
+    repaint();
   };
 
   saveButton.onClick = [this] {
@@ -243,11 +243,8 @@ void HowlingWolvesAudioProcessorEditor::resized() {
   // Settings overlay: always keep bounds in sync so first open has non-zero size
   settingsTab.setBounds(getLocalBounds().reduced(40));
 
-  // Save preset overlay (full editor bounds when visible)
-  if (savePresetOverlay.isVisible())
-    savePresetOverlay.setBounds(getLocalBounds());
-  else
-    savePresetOverlay.setBounds(0, 0, 0, 0);
+  // Save preset overlay — always full bounds; visibility alone controls rendering
+  savePresetOverlay.setBounds(getLocalBounds());
 
   // Browser Overlay Position
   if (presetBrowser.isVisible()) {
