@@ -81,6 +81,13 @@ SettingsTab::SettingsTab(HowlingWolvesAudioProcessor &p) : audioProcessor(p) {
 SettingsTab::~SettingsTab() {}
 
 void SettingsTab::paint(juce::Graphics &g) {
+  // Solid overlay background — without this the cave bg shows through and it
+  // looks like the Settings panel never opened.
+  g.setColour(juce::Colour(0xf0101018));
+  g.fillRoundedRectangle(getLocalBounds().toFloat(), 10.0f);
+  g.setColour(WolfColors::BORDER_SUBTLE);
+  g.drawRoundedRectangle(getLocalBounds().reduced(1).toFloat(), 10.0f, 1.5f);
+
   auto area = getLocalBounds().reduced(20);
 
   auto topArea = area.removeFromTop(area.getHeight() / 2).reduced(10);
