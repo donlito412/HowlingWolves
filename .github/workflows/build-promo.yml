@@ -64,6 +64,57 @@ jobs:
       if: runner.os == 'Windows'
       run: cmake --build build --parallel 4
 
+    - name: Import macOS Signing Certificate
+      if: runner.os == 'macOS'
+      env:
+        APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
+        APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+        APPLE_INSTALLER_CERTIFICATE: ${{ secrets.APPLE_INSTALLER_CERTIFICATE_BASE64 }}
+        APPLE_INSTALLER_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_INSTALLER_CERTIFICATE_PASSWORD }}
+      run: |
+        security create-keychain -p "build_keychain_pw" build.keychain
+        security default-keychain -s build.keychain
+        security unlock-keychain -p "build_keychain_pw" build.keychain
+        security set-keychain-settings -t 3600 -u build.keychain
+
+        # Import Developer ID Application cert
+        echo "$APPLE_CERTIFICATE" | base64 --decode > certificate.p12
+        security import certificate.p12 \
+          -k build.keychain \
+          -P "${APPLE_CERTIFICATE_PASSWORD}" \
+          -T /usr/bin/codesign \
+          -T /usr/bin/productsign
+        rm -f certificate.p12
+
+        # Import Developer ID Installer cert (separate secret)
+        if [ -n "$APPLE_INSTALLER_CERTIFICATE" ]; then
+          echo "$APPLE_INSTALLER_CERTIFICATE" | base64 --decode > installer_certificate.p12
+          security import installer_certificate.p12 \
+            -k build.keychain \
+            -P "${APPLE_INSTALLER_CERTIFICATE_PASSWORD}" \
+            -T /usr/bin/productsign
+          rm -f installer_certificate.p12
+          echo "Installer certificate imported."
+        else
+          echo "WARNING: APPLE_INSTALLER_CERTIFICATE_BASE64 not set - productsign will fail."
+        fi
+
+        security set-key-partition-list \
+          -S apple-tool:,apple: \
+          -s -k "build_keychain_pw" \
+          build.keychain
+        echo "Certificate(s) imported."
+
+    - name: Sign, Package, Notarize & Staple (macOS)
+      if: runner.os == 'macOS'
+      env:
+        APPLE_ID: ${{ secrets.APPLE_ID }}
+        APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+        APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      run: |
+        chmod +x build_installer_mac_signed.sh
+        ./build_installer_mac_signed.sh
+
     - name: Azure Login
       if: runner.os == 'Windows'
       uses: azure/login@v2
@@ -144,45 +195,10 @@ jobs:
         if (Test-Path "INSTALL.txt") { Copy-Item "INSTALL.txt" "artifacts/" -Force }
         Compress-Archive -Path "artifacts\*" -DestinationPath "HowlingWolves_Promo_Windows.zip" -Force
 
-    - name: Package (macOS)
-      if: runner.os == 'macOS'
-      run: |
-        mkdir -p artifacts
-        if [ -d "build/HowlingWolves_artefacts/Release/VST3" ]; then
-          cp -R "build/HowlingWolves_artefacts/Release/VST3/"* artifacts/ 2>/dev/null || true
-          cp -R "build/HowlingWolves_artefacts/Release/Standalone/"* artifacts/ 2>/dev/null || true
-          cp -R "build/HowlingWolves_artefacts/Release/AU/"* artifacts/ 2>/dev/null || true
-        elif [ -d "build/HowlingWolves_artefacts/VST3" ]; then
-          cp -R "build/HowlingWolves_artefacts/VST3/"* artifacts/ 2>/dev/null || true
-          cp -R "build/HowlingWolves_artefacts/Standalone/"* artifacts/ 2>/dev/null || true
-          cp -R "build/HowlingWolves_artefacts/AU/"* artifacts/ 2>/dev/null || true
-        fi
-        if [ -d "DistributionContent" ]; then
-          cp -R DistributionContent artifacts/DistributionContent
-        fi
-        cp INSTALL.txt artifacts/ 2>/dev/null || true
-        cd artifacts && zip -r ../HowlingWolves_Promo_MacOS.zip . && cd ..
-
-    - name: Upload Promo Installer (Windows)
-      if: runner.os == 'Windows'
-      uses: actions/upload-artifact@v4
-      with:
-        name: HowlingWolves-Promo-Installer-Win
-        path: HowlingWolves_Win_Installer.exe
-        if-no-files-found: error
-
-    - name: Upload Promo zip (Windows)
-      if: runner.os == 'Windows'
-      uses: actions/upload-artifact@v4
-      with:
-        name: HowlingWolves-Promo-Windows-zip
-        path: HowlingWolves_Promo_Windows.zip
-        if-no-files-found: error
-
-    - name: Upload Promo zip (macOS)
+    - name: Upload Promo Installer (macOS)
       if: runner.os == 'macOS'
       uses: actions/upload-artifact@v4
       with:
-        name: HowlingWolves-Promo-MacOS-zip
-        path: HowlingWolves_Promo_MacOS.zip
+        name: HowlingWolves-Promo-MacOS-pkg
+        path: "Installer/output_signed/Howling Wolves Installer.pkg"
         if-no-files-found: error
