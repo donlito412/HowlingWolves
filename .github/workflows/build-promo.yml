@@ -1,6 +1,8 @@
 name: Build Promo (No License)
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -20,9 +22,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        # Always build from main so Mac/Win use the same build_installer_* scripts as the main workflow
-        # (manual runs otherwise use whichever branch is selected in the UI and can miss fixes).
-        ref: main
+        # Push to main: exact commit that triggered the run (same as Build and Release).
+        # Manual run: always main so UI branch choice cannot use stale scripts.
+        ref: ${{ github.event_name == 'workflow_dispatch' && 'main' || github.sha }}
         submodules: recursive
 
     - name: Enable promo (no-license) build
