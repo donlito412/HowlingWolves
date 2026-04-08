@@ -60,6 +60,18 @@ private:
   SettingsTab settingsTab; // Reusing the SettingsTab as a component
   bool showSettings = false;
 
+  // In-editor save preset UI (avoids modal AlertWindow — broken in plugin/standalone)
+  struct SavePresetOverlay : public juce::Component {
+    SavePresetOverlay();
+    void resized() override;
+    void paint(juce::Graphics &g) override;
+    juce::Label title;
+    juce::TextEditor nameEditor;
+    juce::TextButton commitButton;
+    juce::TextButton cancelButton;
+  };
+  SavePresetOverlay savePresetOverlay;
+
   // Preset browser overlay
   PresetBrowser presetBrowser;
 
