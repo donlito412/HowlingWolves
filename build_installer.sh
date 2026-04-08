@@ -106,8 +106,29 @@ productbuild --synthesize \
              --package "$STAGING_DIR/content.pkg" \
              "$STAGING_DIR/distribution.xml"
 
-# (Logic to manually edit distribution.xml would go here to set titles/descriptions)
-# For now, we use the synthesized one.
+# Patch distribution.xml — remove OS version cap so installer works on macOS 10.13+ including Sequoia 15.x
+python3 - "$STAGING_DIR/distribution.xml" <<'PATCH_DIST_PY'
+import re, sys
+
+path = sys.argv[1]
+with open(path, "r", encoding="utf-8") as f:
+    content = f.read()
+
+replacement = '<allowed-os-versions><os-version min="10.13"/></allowed-os-versions>'
+new_content, n = re.subn(
+    r"<allowed-os-versions[^>]*>.*?</allowed-os-versions>",
+    replacement,
+    content,
+    flags=re.DOTALL,
+)
+if n == 0:
+    new_content = re.sub(r'\s+max="[^"]*"', "", content)
+
+with open(path, "w", encoding="utf-8") as f:
+    f.write(new_content)
+
+print("distribution.xml patched — OS version cap removed (min 10.13, no upper cap)")
+PATCH_DIST_PY
 
 echo "Building Final Installer..."
 productbuild --distribution "$STAGING_DIR/distribution.xml" \
