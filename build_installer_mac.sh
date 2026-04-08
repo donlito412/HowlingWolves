@@ -45,28 +45,28 @@ pkgbuild --root "$STAGING_DIR/content_payload" --identifier "$IDENTIFIER.content
 
 productbuild --synthesize --package "$STAGING_DIR/vst3.pkg" --package "$STAGING_DIR/au.pkg" --package "$STAGING_DIR/content.pkg" "$STAGING_DIR/distribution.xml"
 
-# Same as build_installer_mac_signed.sh: allow macOS 15+ by removing synthesized OS upper bound.
+# Same as build_installer_mac_signed.sh: allow macOS 15+ (replace allowed-os-versions block; no ElementTree rewrite).
 python3 - "$STAGING_DIR/distribution.xml" <<'PATCH_DIST_PY'
+import re
 import sys
-import xml.etree.ElementTree as ET
 
 path = sys.argv[1]
-tree = ET.parse(path)
-root = tree.getroot()
+with open(path, "r", encoding="utf-8") as f:
+    content = f.read()
 
-def local_name(tag):
-    return tag.split("}", 1)[-1] if tag.startswith("{") else tag
+replacement = "<allowed-os-versions><os-version min=\"10.13\"/></allowed-os-versions>"
+new_content, n = re.subn(
+    r"<allowed-os-versions[^>]*>.*?</allowed-os-versions>",
+    replacement,
+    content,
+    flags=re.DOTALL,
+)
+if n == 0:
+    new_content = re.sub(r'\s+before="[^"]*"', "", content)
+    new_content = re.sub(r'\s+max="[^"]*"', "", new_content)
 
-for elem in root.iter():
-    if local_name(elem.tag) != "os-version":
-        continue
-    elem.set("min", "10.13")
-    for attr in list(elem.attrib):
-        ln = local_name(attr) if "}" in attr else attr
-        if ln in ("before", "max"):
-            del elem.attrib[attr]
-
-tree.write(path, encoding="utf-8", xml_declaration=True)
+with open(path, "w", encoding="utf-8") as f:
+    f.write(new_content)
 PATCH_DIST_PY
 
 productbuild --distribution "$STAGING_DIR/distribution.xml" --package-path "$STAGING_DIR" "$OUTPUT_DIR/HowlingWolves_Mac_Installer.pkg"

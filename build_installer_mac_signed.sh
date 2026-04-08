@@ -99,30 +99,32 @@ pkgbuild --root "$STAGING_DIR/content_payload" --identifier "$IDENTIFIER.content
 echo "=== Synthesizing distribution and building installer ==="
 productbuild --synthesize --package "$STAGING_DIR/vst3.pkg" --package "$STAGING_DIR/au.pkg" --package "$STAGING_DIR/content.pkg" "$STAGING_DIR/distribution.xml"
 
-# Remove OS upper bound from synthesized distribution.xml (macOS 15+ / Sequoia installs).
+# Remove OS upper bound from synthesized distribution.xml (macOS 15+ / Sequoia).
+# Replace whole <allowed-os-versions>…</> so we do not re-serialize XML (ElementTree can break productbuild).
 python3 - "$STAGING_DIR/distribution.xml" <<'PATCH_DIST_PY'
+import re
 import sys
-import xml.etree.ElementTree as ET
 
 path = sys.argv[1]
-tree = ET.parse(path)
-root = tree.getroot()
+with open(path, "r", encoding="utf-8") as f:
+    content = f.read()
 
-def local_name(tag):
-    return tag.split("}", 1)[-1] if tag.startswith("{") else tag
+replacement = "<allowed-os-versions><os-version min=\"10.13\"/></allowed-os-versions>"
+new_content, n = re.subn(
+    r"<allowed-os-versions[^>]*>.*?</allowed-os-versions>",
+    replacement,
+    content,
+    flags=re.DOTALL,
+)
+if n == 0:
+    # No block (unusual): strip Apple upper-bound attrs without rewriting whole file
+    new_content = re.sub(r'\s+before="[^"]*"', "", content)
+    new_content = re.sub(r'\s+max="[^"]*"', "", new_content)
 
-for elem in root.iter():
-    if local_name(elem.tag) != "os-version":
-        continue
-    elem.set("min", "10.13")
-    for attr in list(elem.attrib):
-        ln = local_name(attr) if "}" in attr else attr
-        if ln in ("before", "max"):
-            del elem.attrib[attr]
-
-tree.write(path, encoding="utf-8", xml_declaration=True)
+with open(path, "w", encoding="utf-8") as f:
+    f.write(new_content)
 PATCH_DIST_PY
-echo "=== Patched distribution.xml (min 10.13, no upper OS cap) ==="
+echo "=== Patched distribution.xml (allowed-os-versions: min 10.13, no upper cap) ==="
 
 UNSIGNED_PKG="$OUTPUT_DIR/${PLUGIN_NAME}_unsigned.pkg"
 SIGNED_PKG="$OUTPUT_DIR/${PLUGIN_NAME} Installer.pkg"
