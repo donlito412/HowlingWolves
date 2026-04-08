@@ -4,6 +4,51 @@
 #include "PerformTab.h"
 
 //==============================================================================
+HowlingWolvesAudioProcessorEditor::SavePresetOverlay::SavePresetOverlay() {
+  title.setText("Enter a name for your preset:", juce::dontSendNotification);
+  title.setJustificationType(juce::Justification::centredLeft);
+  title.setColour(juce::Label::textColourId, WolfColors::TEXT_PRIMARY);
+  addAndMakeVisible(title);
+
+  nameEditor.setMultiLine(false);
+  nameEditor.setReturnKeyStartsNewLine(false);
+  nameEditor.setText("My Preset");
+  nameEditor.setColour(juce::TextEditor::backgroundColourId,
+                       WolfColors::PANEL_DARK);
+  nameEditor.setColour(juce::TextEditor::textColourId, WolfColors::TEXT_PRIMARY);
+  nameEditor.setColour(juce::TextEditor::outlineColourId,
+                       WolfColors::BORDER_SUBTLE);
+  addAndMakeVisible(nameEditor);
+
+  commitButton.setButtonText("Save");
+  cancelButton.setButtonText("Cancel");
+  addAndMakeVisible(commitButton);
+  addAndMakeVisible(cancelButton);
+}
+
+void HowlingWolvesAudioProcessorEditor::SavePresetOverlay::paint(
+    juce::Graphics &g) {
+  g.fillAll(juce::Colours::black.withAlpha(0.55f));
+  auto box = getLocalBounds().withSizeKeepingCentre(360, 150).toFloat();
+  g.setColour(WolfColors::PANEL_DARK);
+  g.fillRoundedRectangle(box, 8.0f);
+  g.setColour(WolfColors::BORDER_SUBTLE);
+  g.drawRoundedRectangle(box, 8.0f, 1.0f);
+}
+
+void HowlingWolvesAudioProcessorEditor::SavePresetOverlay::resized() {
+  auto box = getLocalBounds().withSizeKeepingCentre(360, 150).reduced(16);
+  title.setBounds(box.removeFromTop(22));
+  box.removeFromTop(8);
+  nameEditor.setBounds(box.removeFromTop(28));
+  box.removeFromTop(12);
+  auto btnRow = box.removeFromTop(30);
+  commitButton.setBounds(btnRow.removeFromLeft(100).reduced(0, 2));
+  btnRow.removeFromLeft(10);
+  cancelButton.setBounds(btnRow.removeFromLeft(100).reduced(0, 2));
+}
+
+//==============================================================================
 HowlingWolvesAudioProcessorEditor::HowlingWolvesAudioProcessorEditor(
     HowlingWolvesAudioProcessor &p)
     : AudioProcessorEditor(&p), audioProcessor(p),
@@ -81,33 +126,35 @@ HowlingWolvesAudioProcessorEditor::HowlingWolvesAudioProcessorEditor(
     settingsTab.setVisible(showSettings);
     if (showSettings) {
       settingsTab.toFront(true);
-      presetBrowser.setVisible(false); // Hide browser if open
+      presetBrowser.setVisible(false);
+      savePresetOverlay.setVisible(false);
     }
+    resized();
   };
 
-  // Save Button Logic
+  // Save: in-editor overlay (modal AlertWindow stays open in plugin/standalone)
+  addChildComponent(savePresetOverlay);
+  savePresetOverlay.setVisible(false);
+  savePresetOverlay.commitButton.onClick = [this] {
+    auto name = savePresetOverlay.nameEditor.getText().trim();
+    if (name.isNotEmpty()) {
+      audioProcessor.getPresetManager().savePreset(name);
+      browseButton.setButtonText(name);
+      audioProcessor.setLastPresetName(name);
+    }
+    savePresetOverlay.setVisible(false);
+    resized();
+  };
+  savePresetOverlay.cancelButton.onClick = [this] {
+    savePresetOverlay.setVisible(false);
+    resized();
+  };
+
   saveButton.onClick = [this] {
-    auto alert = std::make_unique<juce::AlertWindow>(
-        "Save Preset",
-        "Enter a name for your preset:", juce::AlertWindow::QuestionIcon);
-
-    alert->addTextEditor("presetName", "My Preset");
-    alert->addButton("Save", 1);
-    alert->addButton("Cancel", 0);
-
-    alert->enterModalState(
-        true,
-        juce::ModalCallbackFunction::create([this, a = alert.get()](int r) {
-          if (r == 1) {
-            auto name = a->getTextEditorContents("presetName");
-            audioProcessor.getPresetManager().savePreset(name);
-          }
-        }));
-    // AlertWindow is self-deleting by default when modal finishes if running
-    // via enterModalState? No, we used unique_ptr, wait. Actually,
-    // enterModalState with true takes ownership? Let's check docs or be safe.
-    // Actually, enterModalState(true) deletes it. So we release.
-    alert.release();
+    savePresetOverlay.nameEditor.setText("My Preset");
+    savePresetOverlay.setVisible(true);
+    savePresetOverlay.toFront(true);
+    resized();
   };
 
   // Keyboard
@@ -155,6 +202,8 @@ HowlingWolvesAudioProcessorEditor::~HowlingWolvesAudioProcessorEditor() {
   saveButton.onClick = nullptr;
   settingsButton.onClick = nullptr;
   tipsButton.onClick = nullptr;
+  savePresetOverlay.commitButton.onClick = nullptr;
+  savePresetOverlay.cancelButton.onClick = nullptr;
 
   // Clean up look and feel
   stopTimer();
@@ -191,10 +240,14 @@ void HowlingWolvesAudioProcessorEditor::resized() {
       buttonArea.removeFromLeft(90).reduced(2));                  // Settings
   tipsButton.setBounds(buttonArea.removeFromLeft(50).reduced(2)); // Tips
 
-  // Settings Overlay Position
-  if (settingsTab.isVisible()) {
-    settingsTab.setBounds(getLocalBounds().reduced(40));
-  }
+  // Settings overlay: always keep bounds in sync so first open has non-zero size
+  settingsTab.setBounds(getLocalBounds().reduced(40));
+
+  // Save preset overlay (full editor bounds when visible)
+  if (savePresetOverlay.isVisible())
+    savePresetOverlay.setBounds(getLocalBounds());
+  else
+    savePresetOverlay.setBounds(0, 0, 0, 0);
 
   // Browser Overlay Position
   if (presetBrowser.isVisible()) {
