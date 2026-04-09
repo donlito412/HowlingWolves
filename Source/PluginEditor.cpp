@@ -4,7 +4,8 @@
 #include "PerformTab.h"
 
 //==============================================================================
-HowlingWolvesAudioProcessorEditor::SavePresetOverlay::SavePresetOverlay() {
+HowlingWolvesAudioProcessorEditor::SavePresetOverlay::SavePresetOverlay()
+{
   title.setText("Enter a name for your preset:", juce::dontSendNotification);
   title.setJustificationType(juce::Justification::centredLeft);
   title.setColour(juce::Label::textColourId, WolfColors::TEXT_PRIMARY);
@@ -24,7 +25,8 @@ HowlingWolvesAudioProcessorEditor::SavePresetOverlay::SavePresetOverlay() {
   addAndMakeVisible(cancelButton);
 }
 
-void HowlingWolvesAudioProcessorEditor::SavePresetOverlay::paint(juce::Graphics &g) {
+void HowlingWolvesAudioProcessorEditor::SavePresetOverlay::paint(juce::Graphics &g)
+{
   g.fillAll(juce::Colours::black.withAlpha(0.55f));
   auto box = getLocalBounds().withSizeKeepingCentre(360, 150).toFloat();
   g.setColour(WolfColors::PANEL_DARK);
@@ -33,7 +35,8 @@ void HowlingWolvesAudioProcessorEditor::SavePresetOverlay::paint(juce::Graphics 
   g.drawRoundedRectangle(box, 8.0f, 1.0f);
 }
 
-void HowlingWolvesAudioProcessorEditor::SavePresetOverlay::resized() {
+void HowlingWolvesAudioProcessorEditor::SavePresetOverlay::resized()
+{
   auto box = getLocalBounds().withSizeKeepingCentre(360, 150).reduced(16);
   title.setBounds(box.removeFromTop(22));
   box.removeFromTop(8);
@@ -52,7 +55,9 @@ HowlingWolvesAudioProcessorEditor::HowlingWolvesAudioProcessorEditor(
       tabs(juce::TabbedButtonBar::Orientation::TabsAtTop),
       keyboardComponent(audioProcessor.getKeyboardState(),
                         juce::MidiKeyboardComponent::horizontalKeyboard),
-      settingsTab(p), presetBrowser(audioProcessor.getPresetManager()) {
+      settingsTab(p),
+      presetBrowser(audioProcessor.getPresetManager())
+{
   setLookAndFeel(&obsidianLookAndFeel);
   tabs.setLookAndFeel(&obsidianLookAndFeel);
 
@@ -60,7 +65,7 @@ HowlingWolvesAudioProcessorEditor::HowlingWolvesAudioProcessorEditor(
       BinaryData::howling_wolves_cave_bg_1768783846310_png,
       BinaryData::howling_wolves_cave_bg_1768783846310_pngSize);
   logoImage = juce::ImageCache::getFromMemory(BinaryData::logo_full_png,
-                                              BinaryData::logo_full_pngSize);
+                                               BinaryData::logo_full_pngSize);
 
   setResizable(false, false);
   setSize(800, 545);
@@ -86,11 +91,12 @@ HowlingWolvesAudioProcessorEditor::HowlingWolvesAudioProcessorEditor(
   addAndMakeVisible(keyboardComponent);
   keyboardComponent.setAvailableRange(0, 127);
 
-  // Settings + save overlays — always added and visible to JUCE.
-  // We show/hide them by moving them on-screen or off-screen.
-  // This is the only approach guaranteed to work in all AU/VST plugin hosts.
+  // Overlays: added as children, immediately hidden.
+  // Both setVisible AND off-screen bounds used together for host compatibility.
   addAndMakeVisible(settingsTab);
   addAndMakeVisible(savePresetOverlay);
+  settingsTab.setVisible(false);
+  savePresetOverlay.setVisible(false);
 
   tipsButton.setClickingTogglesState(true);
   tipsButton.setToggleState(true, juce::dontSendNotification);
@@ -105,11 +111,16 @@ HowlingWolvesAudioProcessorEditor::HowlingWolvesAudioProcessorEditor(
   settingsButton.onClick = [this] {
     showSettings = !showSettings;
     if (showSettings) {
-      settingsTab.toFront(true);
+      settingsTab.setVisible(true);
+      settingsTab.toFront(false);
       presetBrowser.setVisible(false);
       showSaveOverlay = false;
+      savePresetOverlay.setVisible(false);
+    } else {
+      settingsTab.setVisible(false);
     }
     resized();
+    repaint();
   };
 
   savePresetOverlay.commitButton.onClick = [this] {
@@ -120,19 +131,25 @@ HowlingWolvesAudioProcessorEditor::HowlingWolvesAudioProcessorEditor(
       audioProcessor.setLastPresetName(name);
     }
     showSaveOverlay = false;
+    savePresetOverlay.setVisible(false);
     resized();
+    repaint();
   };
 
   savePresetOverlay.cancelButton.onClick = [this] {
     showSaveOverlay = false;
+    savePresetOverlay.setVisible(false);
     resized();
+    repaint();
   };
 
   saveButton.onClick = [this] {
     savePresetOverlay.nameEditor.setText("My Preset");
     showSaveOverlay = true;
-    savePresetOverlay.toFront(true);
+    savePresetOverlay.setVisible(true);
+    savePresetOverlay.toFront(false);
     resized();
+    repaint();
   };
 
   addChildComponent(presetBrowser);
@@ -160,7 +177,8 @@ HowlingWolvesAudioProcessorEditor::HowlingWolvesAudioProcessorEditor(
   startTimerHz(30);
 }
 
-HowlingWolvesAudioProcessorEditor::~HowlingWolvesAudioProcessorEditor() {
+HowlingWolvesAudioProcessorEditor::~HowlingWolvesAudioProcessorEditor()
+{
   browseButton.onClick = nullptr;
   saveButton.onClick = nullptr;
   settingsButton.onClick = nullptr;
@@ -173,16 +191,16 @@ HowlingWolvesAudioProcessorEditor::~HowlingWolvesAudioProcessorEditor() {
 }
 
 //==============================================================================
-void HowlingWolvesAudioProcessorEditor::paint(juce::Graphics &g) {
+void HowlingWolvesAudioProcessorEditor::paint(juce::Graphics &g)
+{
   g.drawImage(backgroundImage, getLocalBounds().toFloat(),
               juce::RectanglePlacement::fillDestination);
 }
 
-void HowlingWolvesAudioProcessorEditor::timerCallback() {
-  repaint();
-}
+void HowlingWolvesAudioProcessorEditor::timerCallback() { repaint(); }
 
-void HowlingWolvesAudioProcessorEditor::resized() {
+void HowlingWolvesAudioProcessorEditor::resized()
+{
   auto area = getLocalBounds();
   const int w = getWidth();
   const int h = getHeight();
@@ -195,14 +213,13 @@ void HowlingWolvesAudioProcessorEditor::resized() {
   settingsButton.setBounds(buttonArea.removeFromLeft(90).reduced(2));
   tipsButton.setBounds(buttonArea.removeFromLeft(50).reduced(2));
 
-  // Settings overlay: on-screen when showSettings, off-screen (left) otherwise.
-  // Off-screen positioning is the only 100% reliable hide in all plugin hosts.
+  // Settings overlay: on-screen when showSettings, off-screen otherwise.
   if (showSettings)
     settingsTab.setBounds(getLocalBounds().reduced(40));
   else
     settingsTab.setBounds(-w, 0, w, h);
 
-  // Save overlay: same approach
+  // Save overlay: same approach.
   if (showSaveOverlay)
     savePresetOverlay.setBounds(getLocalBounds());
   else
@@ -210,7 +227,8 @@ void HowlingWolvesAudioProcessorEditor::resized() {
 
   // Browser overlay
   if (presetBrowser.isVisible())
-    presetBrowser.setBounds(browseButton.getX(), browseButton.getBottom() + 5, 220, 350);
+    presetBrowser.setBounds(browseButton.getX(), browseButton.getBottom() + 5,
+                            220, 350);
 
   // Keyboard
   auto keyboardArea = area.removeFromBottom(80);
