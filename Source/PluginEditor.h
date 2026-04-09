@@ -1,5 +1,4 @@
 #pragma once
-
 // #include "DrumTab.h" // Added - DISABLED
 #include "EffectsTab.h"
 #include "LicenseActivationOverlay.h"
@@ -13,8 +12,6 @@
 #include <JuceHeader.h>
 
 //==============================================================================
-// Placeholder tab components (will be implemented in later phases)
-//==============================================================================
 // PlayTab class definition removed (now in PlayTab.h)
 // ModulateTab class definition removed (now in ModulateTab.h)
 // EffectsTab class definition removed (now in EffectsTab.h)
@@ -27,7 +24,6 @@ class HowlingWolvesAudioProcessorEditor : public juce::AudioProcessorEditor,
 public:
   HowlingWolvesAudioProcessorEditor(HowlingWolvesAudioProcessor &);
   ~HowlingWolvesAudioProcessorEditor() override;
-
   void paint(juce::Graphics &) override;
   void resized() override;
   void timerCallback() override;
@@ -53,14 +49,15 @@ private:
   // Top bar buttons
   juce::TextButton browseButton{"BROWSE"};
   juce::TextButton saveButton{"SAVE"};
-  juce::TextButton settingsButton{"SETTINGS"}; // Now says SETTINGS
-  juce::TextButton tipsButton{"TIPS"};         // New Tips Toggle
+  juce::TextButton settingsButton{"SETTINGS"};
+  juce::TextButton tipsButton{"TIPS"};
 
   // Settings Overlay
-  SettingsTab settingsTab; // Reusing the SettingsTab as a component
+  SettingsTab settingsTab;
   bool showSettings = false;
+  bool showSaveOverlay = false;
 
-  // In-editor save preset UI (avoids modal AlertWindow — broken in plugin/standalone)
+  // In-editor save preset UI (avoids modal AlertWindow)
   struct SavePresetOverlay : public juce::Component {
     SavePresetOverlay();
     void resized() override;
@@ -75,11 +72,7 @@ private:
   // Preset browser overlay
   PresetBrowser presetBrowser;
 
-  // Drum Tab (New)
-  // Drum Tab (New)
-  // Drum Tab (New)
   // DrumTab drumTab;
-
   std::unique_ptr<LicenseActivationOverlay> licenseOverlay;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(
