@@ -128,18 +128,20 @@ jobs:
 
     - name: Sign Binaries (VST3 / Standalone)
       if: runner.os == 'Windows'
-      uses: azure/artifact-signing-action@v1.2.0
+      uses: azure/trusted-signing-action@v0.5.0
       with:
         azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
         azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
-        endpoint: https://prodeastus.codesigning.azure.net
+        endpoint: https://eus.codesigning.azure.net/
+        trusted-signing-account-name: WolfPaccSigning
         certificate-profile-name: WolfPaccAudioSignature
-        signing-account-name: WolfPaccSigning
         files-folder: ${{ github.workspace }}/build/HowlingWolves_artefacts
         files-folder-filter: dll,exe,vst3
         files-folder-recurse: true
-        cache-dependencies: 'false'
+        file-digest: SHA256
+        timestamp-rfc3161: http://timestamp.acs.microsoft.com
+        timestamp-digest: SHA256
 
     - name: Install Inno Setup
       if: runner.os == 'Windows'
@@ -162,18 +164,20 @@ jobs:
 
     - name: Sign Installer (EXE)
       if: runner.os == 'Windows'
-      uses: azure/artifact-signing-action@v1.2.0
+      uses: azure/trusted-signing-action@v0.5.0
       with:
         azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
         azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
-        endpoint: https://prodeastus.codesigning.azure.net
+        endpoint: https://eus.codesigning.azure.net/
+        trusted-signing-account-name: WolfPaccSigning
         certificate-profile-name: WolfPaccAudioSignature
-        signing-account-name: WolfPaccSigning
         files-folder: ${{ github.workspace }}/_sign_installer
         files-folder-filter: exe
         files-folder-recurse: false
-        cache-dependencies: 'false'
+        file-digest: SHA256
+        timestamp-rfc3161: http://timestamp.acs.microsoft.com
+        timestamp-digest: SHA256
 
     - name: Copy signed installer
       if: runner.os == 'Windows'
